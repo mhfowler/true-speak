@@ -23,7 +23,7 @@ da flow
 2. CREATE & UPLOAD MY PUBLIC KEY (initiated in background of chrome extension after successfull registration)
 	create private and pub key pair using javascript encryption library
 	store private_key to localstorage
-	POST pub_key to /upload_pubkey/
+	POST pub_key to /upload_pubkey/    # POST['pub_key'] = "asdfasdfsf"
 		if user.authenticated:
 			store pub_key with user_profile
 		else:
