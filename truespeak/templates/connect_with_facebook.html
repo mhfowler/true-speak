@@ -51,6 +51,8 @@
                             // quirk the first time you authenticate
                             document.location.reload(true);
                         }
+
+                        $('#connect-result').html("Loading...");
                            
                         var url = "/facebook_callback/?token="+token;
                         $.get(url, function(data) {

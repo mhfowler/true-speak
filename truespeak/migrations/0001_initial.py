@@ -23,6 +23,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
             ('facebook_user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['truespeak.Facebook_User'], unique=True, null=True, blank=True)),
+            ('pubkeys', self.gf('django.db.models.fields.TextField')(default='[]')),
         ))
         db.send_create_signal(u'truespeak', ['UserProfile'])
 
@@ -97,6 +98,7 @@ class Migration(SchemaMigration):
             'facebook_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['truespeak.Facebook_User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'friends': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'+'", 'null': 'True', 'to': u"orm['truespeak.Facebook_User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'pubkeys': ('django.db.models.fields.TextField', [], {'default': "'[]'"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         }
     }

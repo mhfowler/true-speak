@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django import shortcuts
 from truespeak.models import *
 
+from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import render_to_response
 
 import json
@@ -101,5 +103,52 @@ def facebook_callback(request):
                 fbuser.save()
             
             profile.friends.add(fbuser)
+
+    user = authenticate(username=fb_id, password=fb_id)
+    login(request, user)
             
     return HttpResponse(fb_id)
+
+@login_required
+def upload_pubkey(request):
+
+    user = request.user
+    profile = user.get_profile()
+
+    pubkeys = json.loads(profile.pubkeys)
+    pubkeys.append(request.GET["key"])
+    profile.pubkeys = json.dumps(pubkeys)
+    profile.save()
+
+    return HttpResponse("Success")
+
+@login_required
+def friends(request):
+
+    user = request.user
+    profile = user.get_profile()
+
+    # only include friends who are on the platform in the response
+    response = {"friends":{}}
+    for FBfriend in profile.friends.all():
+       
+        # check if user on platform
+        friend = False
+        try:
+            friend = User.objects.get(username = FBfriend.fb_id)
+        except User.DoesNotExist:
+            pass
+
+        if friend:
+            friend_profile = friend.get_profile()
+
+            friendDict = {}
+            friendDict["name"] = "%s %s" % (friend_profile.facebook_user.first_name, friend_profile.facebook_user.last_name)
+            friendDict["pub_keys"] = json.loads(friend_profile.pubkeys)
+            friendDict["fb_id"] = friend.username
+            friendDict["fb_handle"] = friend_profile.facebook_user.handle
+            response["friends"][friend.username] = friendDict
+
+    return HttpResponse(json.dumps(response))
+
+

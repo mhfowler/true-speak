@@ -37,7 +37,7 @@ da flow
                     { usernameA:
                         {
                          'name':''
-                         'pub_key':[],
+                         'pub_keys':[],
                          'fb_id':'',
                          'fb_handle':'',
                         },

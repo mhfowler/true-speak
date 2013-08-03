@@ -39,6 +39,7 @@ class UserProfile(XModel):
     user = models.ForeignKey(User, unique=True)
     facebook_user = models.ForeignKey(Facebook_User, unique=True, null = True, blank = True)
     friends = models.ManyToManyField(Facebook_User,null=True, related_name='+')
+    pubkeys = models.TextField(default = "[]")
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

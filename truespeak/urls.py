@@ -12,8 +12,10 @@ urlpatterns = patterns('',
 
 	(r'^connect_with_facebook/$', connect_with_facebook),
    	(r'^facebook_callback/$', facebook_callback),
+
+   	(r'^upload_pubkey/$', upload_pubkey),
+
+   	(r'^friends/$', friends),
+
    	
-
-   	#(r'.*$',  redirect, {'page':"/home/"}),
-
 )
