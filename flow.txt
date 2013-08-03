@@ -1,0 +1,70 @@
+da flow
+=======
+
+1. ON EXTENSION INSTALL
+    popup a window explaining extension, with link to connect with facebook
+	GET /register/
+		redirect to /connect_with_facebook/
+
+    CONNECT WITH FACEBOOK BY CLICKING ON LINK ON EXTENSION, or AUTOMATIC REDIRECT AFTER INSTALL
+        GET /connect_with_facebook/
+            redirect to facebook to get permission, with callback /facebook_callback/
+
+        GET /facebook_callback/
+            if user with facebook_id already exists:
+                log in their session
+            else:
+                create a user & user profile object
+                associate facebook_id with session user object
+                redirect back to whatever page the user as at before
+        automatically start step 2
+        automatically start step 3
+
+2. CREATE & UPLOAD MY PUBLIC KEY (initiated in background of chrome extension after successfull registration)
+	create private and pub key pair using javascript encryption library
+	store private_key to localstorage
+	POST pub_key to /upload_pubkey/
+		if user.authenticated:
+			store pub_key with user_profile
+		else:
+			ask to reconnect with facebook
+
+3. GET or REFRESH MY CONTACTS FROM SERVER
+    GET /friends/
+        if user.authenticated:
+            return json
+                {'friends':
+                    { usernameA:
+                        {
+                         'name':''
+                         'pub_key':[],
+                         'fb_id':'',
+                         'fb_handle':'',
+                        },
+                       usernameB:{},
+                       ...
+                     }
+                }
+        else:
+            ask to reconnect with facebook
+    store result of /friends/ in localstorage
+
+
+~
+periodically (every chrome start), refresh my contacts, also have a button to refresh my contacts
+
+
+--------------------------------------------------
+Now the client has everything it needs to ball out
+--------------------------------------------------
+WRITE-SIDE
+Store and display current mode in toolbar (unencrypted, encrypted for a specific person)
+Frontend & backend to select a contact from contacts list.
+Facebook handler to guess what mode you should be in (if you haven't specifically manually selected a mode already)
+Based on current mode, intercept key strokes, and output them to DOM appropriately
+Frontend to make your output look sexier than cipher_text.
+
+READ-SIDE
+Find truespeak tags in the DOM with your username.
+Try to decrypt truespeak tags for you using your private key.
+
