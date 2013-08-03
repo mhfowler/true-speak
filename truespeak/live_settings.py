@@ -1,0 +1,1 @@
+from truespeak.settings import *
