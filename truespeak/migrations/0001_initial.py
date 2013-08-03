@@ -8,17 +8,43 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'Facebook_User'
+        db.create_table(u'truespeak_facebook_user', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('fb_id', self.gf('django.db.models.fields.CharField')(max_length=400)),
+            ('handle', self.gf('django.db.models.fields.CharField')(max_length=400)),
+            ('first_name', self.gf('django.db.models.fields.CharField')(max_length=400, null=True)),
+            ('last_name', self.gf('django.db.models.fields.CharField')(max_length=400, null=True)),
+        ))
+        db.send_create_signal(u'truespeak', ['Facebook_User'])
+
         # Adding model 'UserProfile'
         db.create_table(u'truespeak_userprofile', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
+            ('facebook_user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['truespeak.Facebook_User'], unique=True, null=True, blank=True)),
         ))
         db.send_create_signal(u'truespeak', ['UserProfile'])
 
+        # Adding M2M table for field friends on 'UserProfile'
+        m2m_table_name = db.shorten_name(u'truespeak_userprofile_friends')
+        db.create_table(m2m_table_name, (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('userprofile', models.ForeignKey(orm[u'truespeak.userprofile'], null=False)),
+            ('facebook_user', models.ForeignKey(orm[u'truespeak.facebook_user'], null=False))
+        ))
+        db.create_unique(m2m_table_name, ['userprofile_id', 'facebook_user_id'])
+
 
     def backwards(self, orm):
+        # Deleting model 'Facebook_User'
+        db.delete_table(u'truespeak_facebook_user')
+
         # Deleting model 'UserProfile'
         db.delete_table(u'truespeak_userprofile')
+
+        # Removing M2M table for field friends on 'UserProfile'
+        db.delete_table(db.shorten_name(u'truespeak_userprofile_friends'))
 
 
     models = {
@@ -58,8 +84,18 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        u'truespeak.facebook_user': {
+            'Meta': {'object_name': 'Facebook_User'},
+            'fb_id': ('django.db.models.fields.CharField', [], {'max_length': '400'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '400', 'null': 'True'}),
+            'handle': ('django.db.models.fields.CharField', [], {'max_length': '400'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '400', 'null': 'True'})
+        },
         u'truespeak.userprofile': {
             'Meta': {'object_name': 'UserProfile'},
+            'facebook_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['truespeak.Facebook_User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
+            'friends': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'+'", 'null': 'True', 'to': u"orm['truespeak.Facebook_User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         }

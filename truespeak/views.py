@@ -3,35 +3,20 @@ from django.http import HttpResponse
 from django import shortcuts
 from truespeak.models import *
 
+from django.shortcuts import render_to_response
+
+import json
+
+import settings
+
+from helpers.facebook import *
+
+# ==========================================================
+# BOILERPLATE
+# ==========================================================
 
 def redirect(request, page='/home'):
     return shortcuts.redirect(page)
-
-
-def login_page(request):
-    username = request.GET.get('username')
-    password = request.GET.get('password')
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return HttpResponse("logged in")
-    else:
-        return HttpResponse("invalid")
-
-
-def register(request):
-    username = request.GET.get('username')
-    password = request.GET.get('password')
-    if username and password:
-        if User.objects.filter(username=username):
-            return HttpResponse("already registered")
-        user = User.objects.create_user(username=username, email=username, password=password)
-        user.save()
-        user_profile = UserProfile()
-        user_profile.user = user
-        user_profile.save()
-        return HttpResponse("registered")
-
 
 def viewWrapper(view):
     def new_view(request, *args, **kwargs):
@@ -44,3 +29,77 @@ def viewWrapper(view):
 
 def home(request):
     return HttpResponse("hello world")
+
+
+# ==========================================================
+# FACEBOOK LOGIN
+# ==========================================================
+
+def channel(request):
+    return render_to_response('channel.html',locals())
+
+def connect_with_facebook(request):
+    
+    MEDIA_URL = settings.MEDIA_URL
+    PAGE_TITLE = "Connect TrueSpeak with Facebook"
+    
+    return render_to_response('connect_with_facebook.html',locals())
+
+def facebook_callback(request):
+    """
+        If token is for user in existing account, log them in.
+        Otherwise, create the user and log them in.
+    """ 
+
+    oauth_access_token = request.GET["token"]
+    
+    graph = GraphAPI(oauth_access_token)
+    results = graph.request("me")
+
+    fb_id = results["id"]
+
+    try:
+        user = User.objects.get(username = fb_id)
+        profile = user.get_profile()
+    except User.DoesNotExist:
+        
+        # ensure there's a facebook_user for this
+        try:
+            facebook_user = Facebook_User.objects.get(fb_id = fb_id)
+        except Facebook_User.DoesNotExist:
+            facebook_user = Facebook_User()
+            facebook_user.fb_id = fb_id
+            facebook_user.handle = results["username"]
+            facebook_user.first_name = results["first_name"]
+            facebook_user.last_name = results["last_name"]
+            facebook_user.save()
+
+        user = User.objects.create_user(fb_id, "blank@facebook.com", fb_id)
+        user.save()
+
+        profile = user.get_profile()
+        profile.facebook_user = facebook_user
+        profile.save()
+
+        # import the user's friends
+        results = graph.request("%s/friends" % user.username, args = {'fields' : 'first_name,last_name,username'})
+
+        for result in results['data']:
+            
+            # ensure this friend exists in Facebook_User
+            try:
+                fbuser = Facebook_User.objects.get(fb_id = result["id"])
+            except Facebook_User.DoesNotExist:
+                fbuser = Facebook_User()
+                fbuser.fb_id = result["id"]
+                try:
+                    fbuser.handle = result["username"]
+                except:
+                    fbuser.handle = ""
+                fbuser.first_name = result["first_name"]
+                fbuser.last_name = result["last_name"]
+                fbuser.save()
+            
+            profile.friends.add(fbuser)
+            
+    return HttpResponse(fb_id)

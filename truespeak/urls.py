@@ -1,11 +1,19 @@
 from django.conf.urls import patterns, include, url
-from truespeak.views import viewWrapper, login_page, home, redirect, register
+from truespeak.views import *
+
+import settings
 
 urlpatterns = patterns('',
 
-   (r'^login/$', login_page),
-   (r'^register/$', register),
-   (r'^home/$', viewWrapper(home)),
-   (r'.*$',  redirect, {'page':"/home/"}),
+
+	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+
+	('^channel/$', channel),
+
+	(r'^connect_with_facebook/$', connect_with_facebook),
+   	(r'^facebook_callback/$', facebook_callback),
+   	
+
+   	#(r'.*$',  redirect, {'page':"/home/"}),
 
 )

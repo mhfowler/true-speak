@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.db.models.signals import post_save
+
 #-----------------------------------------------------------------------------------------------------------------------
 # Useful manager for all models.
 #-----------------------------------------------------------------------------------------------------------------------
@@ -23,10 +25,24 @@ class XModel(models.Model):
     class Meta:
         abstract = True
 
+class Facebook_User(XModel):
+    
+    fb_id = models.CharField(max_length=400)
+    handle = models.CharField(max_length=400)
+    first_name = models.CharField(max_length=400,null=True)
+    last_name = models.CharField(max_length=400,null=True)
 
 #-----------------------------------------------------------------------------------------------------------------------
 # UserProfile
 #-----------------------------------------------------------------------------------------------------------------------
 class UserProfile(XModel):
     user = models.ForeignKey(User, unique=True)
+    facebook_user = models.ForeignKey(Facebook_User, unique=True, null = True, blank = True)
+    friends = models.ManyToManyField(Facebook_User,null=True, related_name='+')
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
 
