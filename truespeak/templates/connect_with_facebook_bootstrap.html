@@ -3,8 +3,8 @@
 <html lang="en">
 <head>
 
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-{#    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">#}
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    {#    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">#}
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
@@ -31,6 +31,14 @@
             margin: 30px 0;
         }
 
+        .ps-explanation p {
+            font-size: 22px;
+            line-height: 31px;
+            width: 100%;
+            margin-bottom: 39px;
+            text-align: left;
+        }
+
             /* Main marketing message and sign up button */
         .jumbotron {
             margin: 0px 0;
@@ -47,7 +55,7 @@
 
             /* Supporting marketing content */
         .marketing {
-            margin: 60px 0;
+            margin: 0px 0;
         }
         .marketing p + h4 {
             margin-top: 28px;
@@ -67,71 +75,71 @@
     <hr>
 
     <div id="fb-root"></div>
-<script>
-    // Additional JS functions here
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : '365137646922410', // App ID
-            channelUrl : '/channel', // Channel File
-            status     : true, // check login status
-            cookie     : true, // enable cookies to allow the server to access the session
-            xfbml      : true  // parse XFBML
-        });
-
-        FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-                postUserAuth(response.authResponse.accessToken);
-            } else if (response.status === 'not_authorized') {
-                // not_authorized
-                //login();
-            } else {
-                // not_logged_in
-                // login();
-            }
-        });
-
-        FB.Event.subscribe('auth.login', function () {
-            // what happens after they click the facebook button
-            postUserAuth();
-        });
-
-    };
-
-    function postUserAuth(token) {
-
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
-
-            if (token == null){
-                // quirk the first time you authenticate
-                document.location.reload(true);
-            }
-
-            $('#connect-result').html("Loading...");
-
-            var url = "/facebook_callback/?token="+token;
-            $.get(url, function(data) {
-                $('#connect-result').html(data);
-                window.location = "http://127.0.0.1:8000/done_token/";
+    <script>
+        // Additional JS functions here
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '365137646922410', // App ID
+                channelUrl : '/channel', // Channel File
+                status     : true, // check login status
+                cookie     : true, // enable cookies to allow the server to access the session
+                xfbml      : true  // parse XFBML
             });
 
-            console.log('Good to see you, ' + response.id + '.');
-        });
-    }
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    postUserAuth(response.authResponse.accessToken);
+                } else if (response.status === 'not_authorized') {
+                    // not_authorized
+                    //login();
+                } else {
+                    // not_logged_in
+                    // login();
+                }
+            });
+
+            FB.Event.subscribe('auth.login', function () {
+                // what happens after they click the facebook button
+                postUserAuth();
+            });
+
+        };
+
+        function postUserAuth(token) {
+
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+
+                if (token == null){
+                    // quirk the first time you authenticate
+                    document.location.reload(true);
+                }
+
+                $('#connect-result').html("Loading...");
+
+                var url = "/facebook_callback/?token="+token;
+                $.get(url, function(data) {
+                    $('#connect-result').html(data);
+                    window.location = "http://127.0.0.1:8000/done_token/";
+                });
+
+                console.log('Good to see you, ' + response.id + '.');
+            });
+        }
 
 
-    // Load the SDK Asynchronously
-    (function(d){
-        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "//connect.facebook.net/en_US/all.js";
-        ref.parentNode.insertBefore(js, ref);
-    }(document));
-</script>
+        // Load the SDK Asynchronously
+        (function(d){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
+    </script>
 
-<div ></div>
-<span style="display:none;" id="connect-result"></span>
+    <div ></div>
+    <span style="display:none;" id="connect-result"></span>
 
     <div class="jumbotron">
         <h1 style="float:left;">ParselTongue</h1>
@@ -150,28 +158,19 @@ font-size: 25px;" >Client-side encrypted communication across the web.</p>
     <hr>
 
     <div class="row-fluid marketing">
-        <div class="span6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
 
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <div class="ps-explanation">
+            <h3>Secure</h3>
+            <p>Speak freely and sleep easy knowing that only the intended recipients of your messages can read them. The government,
+                targeted advertisers, Google, Facebook and your Mom can all have fun trying to read your messages which can only be
+                decrypted with a key your message recipient has.</p>
+            <h3>Seamless</h3>
+            <p>Once you've installed the ParselTongue chrome extension and connected with Facebook, that's it. ParselTonge
+                will keep your communications secure and you'll forget it's even there.</p>
+            <h3>Snakes</h3>
+            <p> Snakes are elongated, legless, carnivorous reptiles of the suborder Serpentes that can be distinguished from legless lizards by their lack of eyelids and external ears.</p>
         </div>
-
-        <div class="span6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-            <h4>Subheading</h4>
-            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
 
 
     </div>
