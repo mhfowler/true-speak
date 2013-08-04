@@ -45,7 +45,7 @@ def connect_with_facebook(request):
     MEDIA_URL = settings.MEDIA_URL
     PAGE_TITLE = "Connect TrueSpeak with Facebook"
     
-    return render_to_response('connect_with_facebook.html',locals())
+    return render_to_response('connect_with_facebook_bootstrap.html',locals())
 
 def facebook_callback(request):
     """
@@ -169,6 +169,14 @@ def friends(request):
             friendDict["fb_id"] = friend.username
             friendDict["fb_handle"] = friend_profile.facebook_user.handle
             response["friends"][friend.username] = friendDict
+
+    # per Josh's request, add yourself as one of the friends
+    friendDict = {}
+    friendDict["name"] = "%s %s" % (profile.facebook_user.first_name, profile.facebook_user.last_name)
+    friendDict["pub_keys"] = json.loads(profile.pubkeys)
+    friendDict["fb_id"] = user.username
+    friendDict["fb_handle"] = profile.facebook_user.handle
+    response["friends"][user.username] = friendDict
 
     return HttpResponse(json.dumps(response), content_type="application/json")
 
