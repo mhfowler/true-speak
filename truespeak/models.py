@@ -41,6 +41,7 @@ class UserProfile(XModel):
     friends = models.ManyToManyField(Facebook_User,null=True, related_name='+')
     pubkeys = models.TextField(default = "[]")
     plugin_token = models.CharField(max_length=400)
+    will_encrypt = models.BooleanField(default = True)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
