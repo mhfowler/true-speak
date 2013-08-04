@@ -141,8 +141,12 @@ def upload_pubkey(request):
 
 def friends(request):
 
-    user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
-    profile = user.get_profile()
+    try:
+        user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
+        profile = user.get_profile()
+    except:
+        response = {"Error":"Not authenticated"}
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
     # only include friends who are on the platform in the response
     response = {"friends":{}}
