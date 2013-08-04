@@ -165,6 +165,6 @@ def friends(request):
             friendDict["fb_handle"] = friend_profile.facebook_user.handle
             response["friends"][friend.username] = friendDict
 
-    return HttpResponse(json.dumps(response))
+    return HttpResponse(json.dumps(response), content_type="application/json")
 
 
