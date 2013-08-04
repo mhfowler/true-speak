@@ -121,6 +121,8 @@ def facebook_callback(request):
 def done_token(request):
 
     user = request.user
+    if user.is_anonymous():
+        return redirect("/connect_with_facebook")
     profile = user.get_profile()
 
     plugin_token = profile.plugin_token
