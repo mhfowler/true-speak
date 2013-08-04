@@ -10,7 +10,7 @@
 
 
     <meta charset="utf-8">
-    <title>Template &middot; Bootstrap</title>
+    <title>ParselTongue</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -115,7 +115,21 @@
                     document.location.reload(true);
                 }
 
-                $('#connect-result').html("Loading...");
+                $(".snake_image").animate(
+                        {
+                            opacity: 0.0
+                        },
+                        {
+                            duration:5000,
+                            queue:false
+                        },
+                        function() {
+                        });
+                $(".snake_loading").animate({
+                    opacity: 1.0
+                }, 5000, function() {
+                });
+
 
                 var url = "/facebook_callback/?token="+token;
                 $.get(url, function(data) {
@@ -145,7 +159,7 @@
         <h1 style="float:left;">ParselTongue</h1>
         <a class="btn btn-large btn-success" style="display:none;float:right;margin-top:25px;"
            href="#"  scope="" data-show-faces="false" data-width="400" data-max-rows="1">Sign up today</a>
-            <div class="fb-login-button" style="float:right;margin-top:25px;width:100px;float: right;
+        <div class="fb-login-button" style="float:right;margin-top:25px;width:100px;float: right;
 position: relative;
 left: -65px;
 top: 7px;" scope="" data-size="xlarge" data-show-faces="false" data-width="400" data-max-rows="1"></div>
@@ -155,7 +169,9 @@ width: 100%;
 float: left;
 font-size: 25px;" >Client-side encrypted communication across the web.</p>
 
-        <img style="margin-top:30px;width:100%;" src="http://fc06.deviantart.net/fs70/i/2012/329/3/f/black_and_white_snake_by_evilpurplechicken-d5m6g7f.jpg"/>
+        <img class="snake_image" style="margin-top:30px;width:100%;" src="http://fc06.deviantart.net/fs70/i/2012/329/3/f/black_and_white_snake_by_evilpurplechicken-d5m6g7f.jpg"/>
+        <img class="snake_loading" style="margin-top:30px;width:100%;position: relative;opacity:0.0;
+top: -450px;" src="http://31.media.tumblr.com/0577006eea5f1e35ee93e8f0443bedca/tumblr_mov47jrB161stfe17o1_500.gif"/>
 
     </div>
 
@@ -186,6 +202,10 @@ font-size: 25px;" >Client-side encrypted communication across the web.</p>
         <img style="margin-top:30px;width:100%;" src="http://31.media.tumblr.com/eca927ed58e655bd139fa9f269724a03/tumblr_mf09rsPUOg1r1mkubo1_500.gif"/>
         <p style="margin-top:40px;"> @shubhrosaha @swang_93 @blumua @MaxFowler2</p>
     </div>
+
+    <script>
+
+    </script>
 
 
 </div> <!-- /container -->
