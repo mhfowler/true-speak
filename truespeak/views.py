@@ -46,7 +46,7 @@ def connect_with_facebook(request):
     PAGE_TITLE = "Connect TrueSpeak with Facebook"
     
     # return render_to_response('connect_with_facebook_bootstrap.html',locals())
-    return render_to_response('connect_with_facebook.html',locals())
+    return render_to_response('connect_with_facebook_bootstrap.html',locals())
 
 def facebook_callback(request):
     """
