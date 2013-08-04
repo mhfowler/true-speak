@@ -85,7 +85,6 @@ def facebook_callback(request):
 
         # import the user's friends
         results = graph.request("%s/friends" % user.username, args = {'fields' : 'first_name,last_name,username'})
-
         for result in results['data']:
             
             # ensure this friend exists in Facebook_User
