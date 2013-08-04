@@ -19,5 +19,7 @@ urlpatterns = patterns('',
 
    	(r'^friends/$', friends),
 
+    (r'^.*$', redirect, {'page':'/connect_with_facebook/'}),
+
    	
 )

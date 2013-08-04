@@ -133,8 +133,12 @@ def done_token(request):
 
 def upload_pubkey(request):
 
-    user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
-    profile = user.get_profile()
+    try:
+        user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
+        profile = user.get_profile()
+    except:
+        response = {"Error":"Not authenticated"}
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
     pubkeys = json.loads(profile.pubkeys)
     pubkeys.append(request.GET["key"])
