@@ -129,7 +129,7 @@ def done_token(request):
 
 def upload_pubkey(request):
 
-    user = User.objects.get(user_profile__plugin_token = request.GET["auth_token"])
+    user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
     profile = user.get_profile()
 
     pubkeys = json.loads(profile.pubkeys)
@@ -141,7 +141,7 @@ def upload_pubkey(request):
 
 def friends(request):
 
-    user = User.objects.get(user_profile__plugin_token = request.GET["auth_token"])
+    user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
     profile = user.get_profile()
 
     # only include friends who are on the platform in the response
