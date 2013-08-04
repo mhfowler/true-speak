@@ -82,6 +82,13 @@ def facebook_callback(request):
 
         profile = user.get_profile()
         profile.facebook_user = facebook_user
+        
+        # create a plugin token to authenticate later with
+        import hashlib, datetime
+        m = hashlib.md5()
+        m.update(str(datetime.datetime.now()))
+        
+        profile.plugin_token = m.hexdigest()
         profile.save()
 
         # import the user's friends
@@ -104,12 +111,7 @@ def facebook_callback(request):
             
             profile.friends.add(fbuser)
 
-        # create a plugin token to authenticate later with
-        import hashlib, datetime
-        m = hashlib.md5()
-        m.update(str(datetime.datetime.now()))
-        
-        profile.plugin_token = m.hexdigest()
+
 
         profile.save()
 
