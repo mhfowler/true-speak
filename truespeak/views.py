@@ -45,7 +45,8 @@ def connect_with_facebook(request):
     MEDIA_URL = settings.MEDIA_URL
     PAGE_TITLE = "Connect TrueSpeak with Facebook"
     
-    return render_to_response('connect_with_facebook_bootstrap.html',locals())
+    # return render_to_response('connect_with_facebook_bootstrap.html',locals())
+    return render_to_response('connect_with_facebook.html',locals())
 
 def facebook_callback(request):
     """
@@ -85,7 +86,6 @@ def facebook_callback(request):
 
         # import the user's friends
         results = graph.request("%s/friends" % user.username, args = {'fields' : 'first_name,last_name,username'})
-
         for result in results['data']:
             
             # ensure this friend exists in Facebook_User
