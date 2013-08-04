@@ -128,8 +128,24 @@ def done_token(request):
     plugin_token = profile.plugin_token
     fb_id = user.username
     fb_handle = profile.facebook_user.handle
+    will_encrypt = str(profile.will_encrypt)
 
     return render_to_response('done_token.html',locals())
+
+def set_encrypt(request):
+
+    try:
+        user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
+        profile = user.get_profile()
+    except:
+        response = {"Error":"Not authenticated"}
+        return HttpResponse(json.dumps(response), content_type="application/json")
+
+    profile.will_encrypt = bool(request.GET["will_encrypt"])
+    profile.save()
+
+    return HttpResponse("Success")
+
 
 def upload_pubkey(request):
 
