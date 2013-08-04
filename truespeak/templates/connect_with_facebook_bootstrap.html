@@ -75,82 +75,66 @@
 
 <body>
 <div id="fb-root"></div>
-    <script>
-        // Additional JS functions here
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '365137646922410', // App ID
-                channelUrl : '/channel', // Channel File
-                status     : true, // check login status
-                cookie     : true, // enable cookies to allow the server to access the session
-                xfbml      : true  // parse XFBML
+<script>
+    // Additional JS functions here
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '365137646922410', // App ID
+            channelUrl : '/channel', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+        });
+
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                postUserAuth(response.authResponse.accessToken);
+            } else if (response.status === 'not_authorized') {
+                // not_authorized
+                //login();
+            } else {
+                // not_logged_in
+                // login();
+            }
+        });
+
+        FB.Event.subscribe('auth.login', function () {
+            // what happens after they click the facebook button
+            postUserAuth();
+        });
+
+    };
+
+    function postUserAuth(token) {
+
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+
+            if (token == null){
+                // quirk the first time you authenticate
+                document.location.reload(true);
+            }
+
+            var url = "/facebook_callback/?token="+token;
+            $.get(url, function(data) {
+                $('#connect-result').html(data);
+                window.location = "http://fakeblock.herokuapp.com/done_token/";
             });
 
-            FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                    postUserAuth(response.authResponse.accessToken);
-                } else if (response.status === 'not_authorized') {
-                    // not_authorized
-                    //login();
-                } else {
-                    // not_logged_in
-                    // login();
-                }
-            });
-
-            FB.Event.subscribe('auth.login', function () {
-                // what happens after they click the facebook button
-                postUserAuth();
-            });
-
-        };
-
-        function postUserAuth(token) {
-
-            console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function(response) {
-
-                if (token == null){
-                    // quirk the first time you authenticate
-                    document.location.reload(true);
-                }
-
-{#                $(".snake_image").animate(#}
-{#                        {#}
-{#                            opacity: 0.0#}
-{#                        },#}
-{#                        {#}
-{#                            duration:5000,#}
-{#                            queue:false#}
-{#                        },#}
-{#                        function() {#}
-{#                        });#}
-{#                $(".snake_loading").animate({#}
-{#                    opacity: 1.0#}
-{#                }, 5000, function() {#}
-{#                });#}
+            console.log('Good to see you, ' + response.id + '.');
+        });
+    }
 
 
-                var url = "/facebook_callback/?token="+token;
-                $.get(url, function(data) {
-                    $('#connect-result').html(data);
-                    window.location = "http://fakeblock.herokuapp.com/done_token/";
-                });
-
-                console.log('Good to see you, ' + response.id + '.');
-            });
-        }
-
-
-        // Load the SDK Asynchronously
-        (function(d){
-            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement('script'); js.id = id; js.async = true;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            ref.parentNode.insertBefore(js, ref);
-        }(document));
-    </script>
+    // Load the SDK Asynchronously
+    (function(d){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+</script>
 
 
 
@@ -167,15 +151,12 @@
 
     <div class="jumbotron">
         <h1 style="float:left;">ParselTongue</h1>
-        <a class="btn btn-large btn-success" style="display:none;float:right;margin-top:25px;"
-           href="#"  scope="" data-show-faces="false" data-width="400" data-max-rows="1">Sign up today</a>
-        <div class="fb-login-button" scope="" data-show-faces="false" data-width="400" data-max-rows="1"></div>
 
-        <!--
-        <div class="fb-login-button" style="float:right;margin-top:25px;width:100px;float: right;
+        <div class="fb-login-button" style="z-index:4;float:right;margin-top:25px;width:100px;float: right;
 position: relative;
 left: -65px;
-top: 7px;" scope="" data-size="xlarge" data-show-faces="false" data-width="400" data-max-rows="1"></div> -->
+top: 7px;" scope="" data-size="xlarge" data-show-faces="false" data-width="400" data-max-rows="1"></div>
+        <span id="connect-result"></span>
 
         <p class="lead" style="margin-top: 15px;
 margin-bottom: 5px;
