@@ -124,6 +124,8 @@ def done_token(request):
     profile = user.get_profile()
 
     plugin_token = profile.plugin_token
+    fb_id = user.username
+    fb_handle = profile.facebook_user.handle
 
     return render_to_response('done_token.html',locals())
 
