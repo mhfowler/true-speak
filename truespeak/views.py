@@ -121,6 +121,8 @@ def facebook_callback(request):
 def done_token(request):
 
     user = request.user
+    if user.is_anonymous():
+        return redirect("/connect_with_facebook")
     profile = user.get_profile()
 
     plugin_token = profile.plugin_token
@@ -131,8 +133,12 @@ def done_token(request):
 
 def upload_pubkey(request):
 
-    user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
-    profile = user.get_profile()
+    try:
+        user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
+        profile = user.get_profile()
+    except:
+        response = {"Error":"Not authenticated"}
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
     pubkeys = json.loads(profile.pubkeys)
     pubkeys.append(request.GET["key"])
