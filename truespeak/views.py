@@ -171,6 +171,14 @@ def friends(request):
             friendDict["fb_handle"] = friend_profile.facebook_user.handle
             response["friends"][friend.username] = friendDict
 
+    # per Josh's request, add yourself as one of the friends
+    friendDict = {}
+    friendDict["name"] = "%s %s" % (profile.facebook_user.first_name, profile.facebook_user.last_name)
+    friendDict["pub_keys"] = json.loads(profile.pubkeys)
+    friendDict["fb_id"] = user.username
+    friendDict["fb_handle"] = profile.facebook_user.handle
+    response["friends"][user.username] = friendDict
+
     return HttpResponse(json.dumps(response), content_type="application/json")
 
 
