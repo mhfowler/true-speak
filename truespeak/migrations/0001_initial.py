@@ -24,17 +24,17 @@ class Migration(SchemaMigration):
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
             ('facebook_user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['truespeak.Facebook_User'], unique=True, null=True, blank=True)),
             ('pubkeys', self.gf('django.db.models.fields.TextField')(default='[]')),
+            ('plugin_token', self.gf('django.db.models.fields.CharField')(max_length=400)),
         ))
         db.send_create_signal(u'truespeak', ['UserProfile'])
 
         # Adding M2M table for field friends on 'UserProfile'
-        m2m_table_name = db.shorten_name(u'truespeak_userprofile_friends')
-        db.create_table(m2m_table_name, (
+        db.create_table(u'truespeak_userprofile_friends', (
             ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
             ('userprofile', models.ForeignKey(orm[u'truespeak.userprofile'], null=False)),
             ('facebook_user', models.ForeignKey(orm[u'truespeak.facebook_user'], null=False))
         ))
-        db.create_unique(m2m_table_name, ['userprofile_id', 'facebook_user_id'])
+        db.create_unique(u'truespeak_userprofile_friends', ['userprofile_id', 'facebook_user_id'])
 
 
     def backwards(self, orm):
@@ -45,7 +45,7 @@ class Migration(SchemaMigration):
         db.delete_table(u'truespeak_userprofile')
 
         # Removing M2M table for field friends on 'UserProfile'
-        db.delete_table(db.shorten_name(u'truespeak_userprofile_friends'))
+        db.delete_table('truespeak_userprofile_friends')
 
 
     models = {
@@ -98,6 +98,7 @@ class Migration(SchemaMigration):
             'facebook_user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['truespeak.Facebook_User']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
             'friends': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "'+'", 'null': 'True', 'to': u"orm['truespeak.Facebook_User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'plugin_token': ('django.db.models.fields.CharField', [], {'max_length': '400'}),
             'pubkeys': ('django.db.models.fields.TextField', [], {'default': "'[]'"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'unique': 'True'})
         }
