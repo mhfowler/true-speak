@@ -12,6 +12,8 @@ urlpatterns = patterns('',
 
 	(r'^connect_with_facebook/$', connect_with_facebook),
    	(r'^facebook_callback/$', facebook_callback),
+   	(r'^done_token/$', done_token),
+
 
    	(r'^upload_pubkey/$', upload_pubkey),
 

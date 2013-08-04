@@ -104,15 +104,32 @@ def facebook_callback(request):
             
             profile.friends.add(fbuser)
 
+        # create a plugin token to authenticate later with
+        import hashlib, datetime
+        m = hashlib.md5()
+        m.update(str(datetime.datetime.now()))
+        
+        profile.plugin_token = m.hexdigest()
+
+        profile.save()
+
     user = authenticate(username=fb_id, password=fb_id)
     login(request, user)
             
     return HttpResponse(fb_id)
 
-@login_required
-def upload_pubkey(request):
+def done_token(request):
 
     user = request.user
+    profile = user.get_profile()
+
+    plugin_token = profile.plugin_token
+
+    return render_to_response('done_token.html',locals())
+
+def upload_pubkey(request):
+
+    user = User.objects.get(user_profile__plugin_token = request.GET["plugin_token"])
     profile = user.get_profile()
 
     pubkeys = json.loads(profile.pubkeys)
@@ -122,10 +139,9 @@ def upload_pubkey(request):
 
     return HttpResponse("Success")
 
-@login_required
 def friends(request):
 
-    user = request.user
+    user = User.objects.get(user_profile__plugin_token = request.GET["plugin_token"])
     profile = user.get_profile()
 
     # only include friends who are on the platform in the response
