@@ -69,18 +69,5 @@ Find truespeak tags in the DOM with your username.
 Try to decrypt truespeak tags for you using your private key.
 
 
-{#                $(".snake_image").animate(#}
-{#                        {#}
-{#                            opacity: 0.0#}
-{#                        },#}
-{#                        {#}
-{#                            duration:5000,#}
-{#                            queue:false#}
-{#                        },#}
-{#                        function() {#}
-{#                        });#}
-{#                $(".snake_loading").animate({#}
-{#                    opacity: 1.0#}
-{#                }, 5000, function() {#}
-{#                });#}
+
 

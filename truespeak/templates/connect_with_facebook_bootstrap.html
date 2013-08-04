@@ -115,6 +115,21 @@
                 document.location.reload(true);
             }
 
+            $(".snake_image").animate(
+                    {
+                        opacity: 0.0
+                    },
+                    {
+                        duration:5000,
+                        queue:false
+                    },
+                    function() {
+                    });
+            $(".snake_loading").animate({
+                opacity: 1.0
+            }, 5000, function() {
+            });
+
             var url = "/facebook_callback/?token="+token;
             $.get(url, function(data) {
                 $('#connect-result').html(data);
