@@ -124,12 +124,14 @@ def done_token(request):
     profile = user.get_profile()
 
     plugin_token = profile.plugin_token
+    fb_id = user.username
+    fb_handle = profile.facebook_user.handle
 
     return render_to_response('done_token.html',locals())
 
 def upload_pubkey(request):
 
-    user = User.objects.get(user_profile__plugin_token = request.GET["plugin_token"])
+    user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
     profile = user.get_profile()
 
     pubkeys = json.loads(profile.pubkeys)
@@ -141,8 +143,12 @@ def upload_pubkey(request):
 
 def friends(request):
 
-    user = User.objects.get(user_profile__plugin_token = request.GET["plugin_token"])
-    profile = user.get_profile()
+    try:
+        user = User.objects.get(userprofile__plugin_token = request.GET["auth_token"])
+        profile = user.get_profile()
+    except:
+        response = {"Error":"Not authenticated"}
+        return HttpResponse(json.dumps(response), content_type="application/json")
 
     # only include friends who are on the platform in the response
     response = {"friends":{}}
@@ -165,6 +171,6 @@ def friends(request):
             friendDict["fb_handle"] = friend_profile.facebook_user.handle
             response["friends"][friend.username] = friendDict
 
-    return HttpResponse(json.dumps(response))
+    return HttpResponse(json.dumps(response), content_type="application/json")
 
 
