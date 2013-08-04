@@ -120,7 +120,7 @@
                 var url = "/facebook_callback/?token="+token;
                 $.get(url, function(data) {
                     $('#connect-result').html(data);
-                    window.location = "http://127.0.0.1:8000/done_token/";
+                    window.location = "http://127.0.0.1/done_token/";
                 });
 
                 console.log('Good to see you, ' + response.id + '.');
