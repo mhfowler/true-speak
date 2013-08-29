@@ -2,3 +2,5 @@
 *.pyc
 *.idea
 *local.db
+*secret*
+static/*

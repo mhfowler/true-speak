@@ -25,27 +25,24 @@ class XModel(models.Model):
     class Meta:
         abstract = True
 
-class Facebook_User(XModel):
-    
-    fb_id = models.CharField(max_length=400)
-    handle = models.CharField(max_length=400)
-    first_name = models.CharField(max_length=400,null=True)
-    last_name = models.CharField(max_length=400,null=True)
-
 #-----------------------------------------------------------------------------------------------------------------------
 # UserProfile
 #-----------------------------------------------------------------------------------------------------------------------
-class UserProfile(XModel):
-    user = models.ForeignKey(User, unique=True)
-    facebook_user = models.ForeignKey(Facebook_User, unique=True, null = True, blank = True)
-    friends = models.ManyToManyField(Facebook_User,null=True, related_name='+')
-    pubkeys = models.TextField(default = "[]")
-    plugin_token = models.CharField(max_length=400)
-    will_encrypt = models.BooleanField(default = True)
-
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-post_save.connect(create_user_profile, sender=User)
+# class UserProfile(XModel):
+#     user = models.ForeignKey(User, unique=True)
+#     pubkeys = models.TextField(default = "[]")
+#     plugin_token = models.CharField(max_length=400)
+#     will_encrypt = models.BooleanField(default = True)
+#     # info from fb
+#     fb_id = models.CharField(max_length=400, null=True)
+#     fb_handle = models.CharField(max_length=400)
+#     friends_ids = models.TextField()    # json of list of fb_ids of friends
+#     first_name = models.CharField(max_length=400,null=True)
+#     last_name = models.CharField(max_length=400,null=True)
+#
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         UserProfile.objects.create(user=instance)
+#
+# post_save.connect(create_user_profile, sender=User)
 
