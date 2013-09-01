@@ -15,6 +15,7 @@ class Migration(SchemaMigration):
             ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=75)),
             ('confirmed', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('created_when', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('confirmation_link', self.gf('django.db.models.fields.CharField')(default='3082463528', max_length=100)),
         ))
         db.send_create_signal(u'truespeak', ['EmailProfile'])
 
@@ -74,6 +75,7 @@ class Migration(SchemaMigration):
         },
         u'truespeak.emailprofile': {
             'Meta': {'object_name': 'EmailProfile'},
+            'confirmation_link': ('django.db.models.fields.CharField', [], {'default': "'3082463528'", 'max_length': '100'}),
             'confirmed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'created_when': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75'}),
