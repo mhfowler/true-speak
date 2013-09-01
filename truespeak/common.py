@@ -1,4 +1,4 @@
-import uuid
+import uuid, random
 from django.contrib.auth.models import User
 from truespeak.models import EmailProfile
 from django.core.mail import send_mail
@@ -34,3 +34,13 @@ def sendEmailAssociationConfirmation(email_profile):
     confirmation_link = email_profile.getConfirmationLink()
     send_mail('ParselTongue Email Confirmation', confirmation_link, 'settings@parseltongue.com',
     [email_profile.email], fail_silently=False)
+
+
+def getNewConfirmationLink():
+    confirmation_link = None
+    while not confirmation_link:
+        confirmation_link = random.randint(0,10000000000)
+        already = EmailProfile.objects.filter(confirmation_link=confirmation_link)
+        if already:
+            confirmation_link = None
+    return confirmation_link

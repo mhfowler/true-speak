@@ -4,8 +4,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.exceptions import ObjectDoesNotExist
 from truespeak.models import PubKey, getUserPubKeys, EmailProfile, getAssociatedEmailAddresses
-from truespeak.common import sendEmailAssociationConfirmation
-import json
+from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink
+import json, random
 
 # authentication backends
 from socialregistration.contrib.facebook.models import FacebookProfile
@@ -51,11 +51,13 @@ def settingsPage(request):
                     to_return["error"] = "This email address is already associated with a ParselTongue user."
                 else:
                     email_profile.user = user
+                    email_profile.confirmation_link = getNewConfirmationLink()
                     email_profile.save()
                     sendEmailAssociationConfirmation(email_profile)
                     to_return["message"] = "A confirmation email has been resent to your email address."
             else:
                 email_profile = EmailProfile(email=new_email, user=user, confirmed=False)
+                email_profile.confirmation_link = getNewConfirmationLink()
                 email_profile.save()
                 sendEmailAssociationConfirmation(email_profile)
                 to_return["message"] = "A confirmation email has been sent to your email address."

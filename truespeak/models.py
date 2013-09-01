@@ -29,15 +29,12 @@ class XModel(models.Model):
 # -----------------------------------------------------------------------------------------------------------------------
 # EmailProfile. associate as many email addresses as you want with parseltongue user
 # -----------------------------------------------------------------------------------------------------------------------
-def generateConfirmationLink():
-    return str(random.randint(0,100000000000))
-
 class EmailProfile(XModel):
     user = models.ForeignKey(User)
     email = models.EmailField(unique=True)
     confirmed = models.BooleanField(default=False)
     created_when = models.DateTimeField(auto_now_add=True, blank=True)
-    confirmation_link = models.CharField(max_length=100, default=generateConfirmationLink())
+    confirmation_link = models.CharField(max_length=100)
 
     def getConfirmationLink(self):
         return "/confirm/" + str(self.confirmation_link) + "/"
