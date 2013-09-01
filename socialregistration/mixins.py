@@ -75,7 +75,8 @@ class CommonMixin(TemplateResponseMixin):
         """
         Redirect the user back to the ``next`` session/request variable.
         """
-        return HttpResponseRedirect(self.get_next(request))
+        next_url = self.get_next(request)
+        return HttpResponseRedirect(next_url)
 
 class ClientMixin(object):
     """

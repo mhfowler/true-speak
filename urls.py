@@ -1,14 +1,30 @@
 from django.conf.urls import patterns, include, url
 from truespeak.views import *
 from django.conf import settings
+from settings.common import PROJECT_PATH
+import os
+
+LOCAL_STATIC_FILES = os.path.join(PROJECT_PATH, 'truespeak/static/')
 
 urlpatterns = patterns('',
 
 
-                       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+                       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': LOCAL_STATIC_FILES}),
 
+                        # pages
                        ('^login/$', loginPage),
+                       ('^logout/$', redirect, {'page':'/social/logout/'}),
                        (r'^home/$', home),
+                       (r'^goodbye/$', goodbye),
+                       (r'^about/$', about),
+                       (r'^welcome/$', viewWrapper(welcome)),
+                       (r'^settings/$', viewWrapper(settingsPage)),
+                       (r'^confirm/(?P<link_number>\d+)/$', viewWrapper(confirmEmail)),
+
+                       # ajax methods
+                        (r'^get_pubkeys/$', viewWrapper(getPubKeys)),
+                        (r'^upload_pubkey/$', viewWrapper(uploadPubKey)),
+
                        ('^/$', redirect),
                        ('^$', redirect),
 

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+
+    <div class="settings">
+
+        <p>
+            settings
+        </p>
+
+        <p>
+            facebook_profile : {{ fb_profile }}
+        </p>
+
+        <p>
+            username : {{ user.username }}
+        </p>
+
+        <p>
+            primary email : {{ user.email }}
+        </p>
+        <p>
+            first name : {{ user.first_name }}
+        </p>
+        <p>
+            last name : {{ user.last_name }}
+        </p>
+
+        <p>
+            associated email addresses:
+        <ul>
+            {% for x in associated_email_addresses %}
+                <li>{{ x }}</li>
+            {% endfor %}
+        </ul>
+        </p>
+
+        <p>
+        <div> Add associated email addresses: </div>
+        <div class="wrapper">
+            <p>
+                <input type="text" class="new_email" name="new_email"/>
+            </p>
+            <div class="success"></div>
+            <div class="error"></div>
+            <a class="btn new_email_save">save</a>
+        </div>
+    </div>
+
+{% endblock %}

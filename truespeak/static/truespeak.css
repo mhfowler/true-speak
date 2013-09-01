@@ -1,0 +1,15 @@
+
+.top-nav {
+    height: 80px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    margin-bottom: 20px;
+    background-color: lightgray;
+}
+
+.success {
+    background-color:lightblue;
+}
+.error {
+    background-color:salmon;
+}

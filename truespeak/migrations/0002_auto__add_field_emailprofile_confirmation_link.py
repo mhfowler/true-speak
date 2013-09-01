@@ -8,31 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'EmailProfile'
-        db.create_table(u'truespeak_emailprofile', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('email', self.gf('django.db.models.fields.EmailField')(unique=True, max_length=75)),
-            ('confirmed', self.gf('django.db.models.fields.BooleanField')(default=False)),
-            ('created_when', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-        ))
-        db.send_create_signal(u'truespeak', ['EmailProfile'])
-
-        # Adding model 'PubKey'
-        db.create_table(u'truespeak_pubkey', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('pub_key_text', self.gf('django.db.models.fields.CharField')(max_length=200)),
-        ))
-        db.send_create_signal(u'truespeak', ['PubKey'])
+        # Adding field 'EmailProfile.confirmation_link'
+        db.add_column(u'truespeak_emailprofile', 'confirmation_link',
+                      self.gf('django.db.models.fields.CharField')(default='306638560', max_length=100),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'EmailProfile'
-        db.delete_table(u'truespeak_emailprofile')
-
-        # Deleting model 'PubKey'
-        db.delete_table(u'truespeak_pubkey')
+        # Deleting field 'EmailProfile.confirmation_link'
+        db.delete_column(u'truespeak_emailprofile', 'confirmation_link')
 
 
     models = {
@@ -74,6 +58,7 @@ class Migration(SchemaMigration):
         },
         u'truespeak.emailprofile': {
             'Meta': {'object_name': 'EmailProfile'},
+            'confirmation_link': ('django.db.models.fields.CharField', [], {'default': "'306638560'", 'max_length': '100'}),
             'confirmed': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'created_when': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '75'}),

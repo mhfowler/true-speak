@@ -10,9 +10,11 @@ TEMPLATE_DEBUG = DEBUG
 SECRETS_PATH = os.path.join(PROJECT_PATH, "secret.json")
 if LOCAL:
     SECRETS_DICT = json.loads(open(SECRETS_PATH, "r").read())
+    DOMAIN = "local.parseltongueextension.com"
 else:
     SECRETS_ENV = os.environ.get("SECRETS")
     SECRETS_DICT = json.loads(SECRETS_ENV)
+    DOMAIN = "www.parseltongueextension.com"
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -186,9 +188,23 @@ LOGGING = {
     }
 }
 
+# ### EMAIL SETTINGS
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'parseltongueextension@gmail.com'
+EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
+
+### SETTINGS FOR socialregistration
+LOGIN_REDIRECT_URL = "/welcome/"        # default redirect url after login if none is provided
+LOGOUT_REDIRECT_URL = "/goodbye/"
+SOCIALREGISTRATION_ERROR_VIEW_FUNCTION = "truespeak.views.errorView"
+
 
 ### SETTINGS FOR DIFFERENT FORMS OF AUTHENTICATION
 
 FACEBOOK_APP_ID = SECRETS_DICT["FACEBOOK_APP_ID"]
 FACEBOOK_SECRET_KEY = SECRETS_DICT["FACEBOOK_APP_SECRET"]
 FACEBOOK_REQUEST_PERMISSIONS = ['email']
+
+

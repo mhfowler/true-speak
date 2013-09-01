@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import random
 from django.db.models.signals import post_save
+
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Useful manager for all models.
@@ -25,24 +26,52 @@ class XModel(models.Model):
     class Meta:
         abstract = True
 
-#-----------------------------------------------------------------------------------------------------------------------
-# UserProfile
-#-----------------------------------------------------------------------------------------------------------------------
-# class UserProfile(XModel):
-#     user = models.ForeignKey(User, unique=True)
-#     pubkeys = models.TextField(default = "[]")
-#     plugin_token = models.CharField(max_length=400)
-#     will_encrypt = models.BooleanField(default = True)
-#     # info from fb
-#     fb_id = models.CharField(max_length=400, null=True)
-#     fb_handle = models.CharField(max_length=400)
-#     friends_ids = models.TextField()    # json of list of fb_ids of friends
-#     first_name = models.CharField(max_length=400,null=True)
-#     last_name = models.CharField(max_length=400,null=True)
-#
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         UserProfile.objects.create(user=instance)
-#
-# post_save.connect(create_user_profile, sender=User)
+# -----------------------------------------------------------------------------------------------------------------------
+# EmailProfile. associate as many email addresses as you want with parseltongue user
+# -----------------------------------------------------------------------------------------------------------------------
+def generateConfirmationLink():
+    return str(random.randint(0,100000000000))
 
+class EmailProfile(XModel):
+    user = models.ForeignKey(User)
+    email = models.EmailField(unique=True)
+    confirmed = models.BooleanField(default=False)
+    created_when = models.DateTimeField(auto_now_add=True, blank=True)
+    confirmation_link = models.CharField(max_length=100, default=generateConfirmationLink())
+
+    def getConfirmationLink(self):
+        return "/confirm/" + str(self.confirmation_link) + "/"
+
+def getAssociatedEmailAddresses(user, confirmed=True):
+    emails = EmailProfile.objects.filter(user=user)
+    if confirmed:
+        emails = emails.filter(confirmed=True)
+    to_return = []
+    for x in emails:
+        to_return.append(x.email)
+    return to_return
+
+# -----------------------------------------------------------------------------------------------------------------------
+# Pubkey
+# -----------------------------------------------------------------------------------------------------------------------
+class PubKey(XModel):
+    user = models.ForeignKey(User)
+    pub_key_text = models.CharField(max_length=200)
+
+def getUserPubKeys(user):
+    pub_keys = PubKey.objects.filter(user=user)
+    to_return = []
+    for x in pub_keys:
+        to_return.append(x.pub_key_text)
+    return to_return
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Post save function for auth user.
+#-----------------------------------------------------------------------------------------------------------------------
+def authUserPostSave(sender, **kwargs):
+    user = kwargs['instance']
+    if user.email:
+        from truespeak.common import addAssociatedEmailProfile
+        addAssociatedEmailProfile(user, user.email)
+
+post_save.connect(authUserPostSave, sender=User, dispatch_uid="auth_user_post_save")

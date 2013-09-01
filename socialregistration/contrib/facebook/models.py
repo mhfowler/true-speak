@@ -9,7 +9,7 @@ AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 class FacebookProfile(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, unique=True)
     site = models.ForeignKey(Site, default=Site.objects.get_current)
-    uid = models.CharField(max_length=255, blank=False, null=False)
+    uid = models.CharField(max_length=255, blank=False, null=False)     # facebook_id
 
     def __unicode__(self):
         try:

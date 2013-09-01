@@ -11,7 +11,7 @@ from socialregistration.mixins import SocialRegistration
 import logging
 import socket
 
-
+from truespeak.common import addAssociatedEmailProfile
 
 GENERATE_USERNAME = getattr(settings, 'SOCIALREGISTRATION_GENERATE_USERNAME', False)
 
@@ -119,6 +119,7 @@ class Setup(SocialRegistration, View):
         When signing a new user up - either display a setup form, or
         generate the username automatically.
         """
+        # TODO: make setup refresh data for all logged in backends, and redirect to next_page or /settings/
 
         if request.user.is_authenticated():
             return HttpResponseRedirect(self.get_next(request))
@@ -128,14 +129,34 @@ class Setup(SocialRegistration, View):
         except KeyError:
             return self.error_to_response(request, dict(
                 error=_("Social profile is missing from your session.")))
+
+        # ~PARSLETONGUE~
+        from truespeak.common import generateRandomUsername
+        user.username = generateRandomUsername()
+        user.set_unusable_password()
+        user.save()
+        profile.user = user
+        profile.save()
+
+        user = profile.authenticate()
+
+        self.send_connect_signal(request, user, profile, client)
+
+        self.login(request, user)
+
+        self.send_login_signal(request, user, profile, client)
+
+        self.delete_session_data(request)
+
+        return HttpResponseRedirect(self.get_next(request))
          
-        if GENERATE_USERNAME:
-            return self.generate_username_and_redirect(request, user, profile, client)
-            
-        form = self.get_form()(initial=self.get_initial_data(request, user, profile, client))
-        
-        additional_context = self.get_context(request, user, profile, client)
-        return self.render_to_response(dict({'form': form}, **additional_context))
+        # if GENERATE_USERNAME:
+        #     return self.generate_username_and_redirect(request, user, profile, client)
+        #
+        # form = self.get_form()(initial=self.get_initial_data(request, user, profile, client))
+        #
+        # additional_context = self.get_context(request, user, profile, client)
+        # return self.render_to_response(dict({'form': form}, **additional_context))
         
     def post(self, request):
         """
@@ -291,6 +312,7 @@ class SetupCallback(SocialRegistration, TemplateView):
             return self.error_to_response(request, {'error': "Session expired."})
         
         # Get the lookup dictionary to find the user's profile
+        user_info = client.get_user_info()
         lookup_kwargs = self.get_lookup_kwargs(request, client)
 
         # Logged in user (re-)connecting an account
@@ -304,7 +326,13 @@ class SetupCallback(SocialRegistration, TemplateView):
                     return self.error_to_response(request, {
                         'error': _('This profile is already connected to another user account.')
                     })
-                
+                else: # refresh user fields if they do not already exist
+                    user = request.user
+                    user.email = user.email or user_info.get('email')
+                    user.first_name = user.first_name or user_info.get('first_name')
+                    user.last_name = user.last_name or user_info.get('last_name')
+                    user.save()
+
             except self.get_model().DoesNotExist: 
                 profile, created = self.get_or_create_profile(request.user,
                     save=True, **lookup_kwargs) 
@@ -326,6 +354,9 @@ class SetupCallback(SocialRegistration, TemplateView):
                     'error': _('We are not currently accepting new OpenID signups.')
                 })
             user = self.create_user()
+            user.email = user_info['email']
+            user.first_name = user_info['first_name']
+            user.last_name = user_info['last_name']
             profile = self.create_profile(user, **lookup_kwargs)
             
             self.store_user(request, user)
