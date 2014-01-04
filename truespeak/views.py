@@ -8,6 +8,7 @@ from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmatio
 import json, random
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def redirect(request, page='/home'):
@@ -36,6 +37,7 @@ def about(request):
 def contact(request):
     return render_to_response('contact.html',locals(), context_instance=RequestContext(request))
 
+@ensure_csrf_cookie
 def settingsPage(request):
     user = request.user
     # if its a post then user is updating some settings
@@ -78,7 +80,7 @@ def confirmEmail(request, link_number):
         return shortcuts.redirect("/settings/")
 
 
-
+@ensure_csrf_cookie
 def loginPage(request):
     if request.method == "GET":
         return render_to_response('login.html',locals(), context_instance=RequestContext(request))
@@ -116,6 +118,7 @@ def logoutPage(request):
     return shortcuts.redirect("/login/")
 
 
+@ensure_csrf_cookie
 def registerPage(request):
     if request.method == "GET":
         return render_to_response('register.html',locals(), context_instance=RequestContext(request))
