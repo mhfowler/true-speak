@@ -130,6 +130,7 @@ MIDDLEWARE_CLASSES = (
 
 TEMPLATE_CONTEXT_PROESSORS = (
     'django.core.context_processors.request',
+    'django.core.context_processors.csrf',
 )
 
 ROOT_URLCONF = 'urls'
