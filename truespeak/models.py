@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 import random
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models.signals import post_save
+from django.core.mail import send_mail
+
+# import the logging library
+import logging
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 
 #-----------------------------------------------------------------------------------------------------------------------

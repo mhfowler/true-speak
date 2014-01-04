@@ -17,7 +17,7 @@ else:
     DOMAIN = "www.parseltongueextension.com"
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ("Max Fowler", "maximusfowler@gmail.com"),
 )
 
 MANAGERS = ADMINS
@@ -42,7 +42,12 @@ AUTHENTICATION_BACKENDS = (
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "*",
+    # "www.getparseltongue.com",
+    # "www.parseltongueextension.com",
+    # "127.0.0.1:8000"
+]
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -164,6 +169,14 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -174,7 +187,14 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'log_file':{
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(PROJECT_PATH, 'logs/pt.log'),
+            'maxBytes': '16777216', # 16megabytes
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django.request': {
@@ -182,10 +202,16 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        '': {
+            'handlers': ['mail_admins','log_file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     }
 }
 
 # ### EMAIL SETTINGS
+SERVER_EMAIL = 'parseltongueextension@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
@@ -203,5 +229,6 @@ SOCIALREGISTRATION_ERROR_VIEW_FUNCTION = "truespeak.views.errorView"
 FACEBOOK_APP_ID = SECRETS_DICT["FACEBOOK_APP_ID"]
 FACEBOOK_SECRET_KEY = SECRETS_DICT["FACEBOOK_APP_SECRET"]
 FACEBOOK_REQUEST_PERMISSIONS = ['email']
+
 
 

@@ -42,19 +42,25 @@ $(document).ready(function()
     /* javascript for /settings/ page */
     var settings_url = "/settings/";
 
-    $(".new_email_save").click(function() {
+    $(".new_email_save").click(function(e) {
+        e.preventDefault();
+        $(".settings_success").hide();
+        $(".settings_error").hide();
+        $(".loading-gif").show();
         var new_email_input = $(".new_email");
         var new_email = new_email_input.val();
-        var wrapper = new_email_input.parents(".wrapper");
         var post_data = {"new_email":new_email};
         $.post(settings_url, post_data, function(data) {
+            $(".loading-gif").hide();
             var error = data['error'];
             var message = data['message'];
             if (error == null) {
-                wrapper.find(".success").html(message);
+                $(".settings_success").html(message);
+                $(".settings_success").fadeIn();
             }
             else {
-                wrapper.find(".error").html(error);
+                $(".settings_error").html(error);
+                $(".settings_error").fadeIn();
             }
         });
     });
@@ -70,37 +76,42 @@ $(document).ready(function()
         e.preventDefault();
         var form_wrapper = $(".register_form");
         var error_div = $(".register_error");
-        var loading_gif = $(".loading_gif");
+        var loading_gif = $(".loading-gif");
         error_div.hide();
         loading_gif.fadeIn();
-        var password_input1 = $(".register_password1");
-        var password_input2 = $(".register_password2");
-        var password1 = password_input1.val();
-        var password2 = password_input2.val();
-        var email_input = $(".register_email");
-        var email_val = email_input.val();
-        var post_data = {
-            "email":email_val,
-            "password1":password1,
-            "password2":password2
-        };
-        $.post("/register/", post_data, function(data) {
-            loading_gif.hide();
-            var error = data['error'];
-            var message = data['message'];
-            if (error == null) {
-                // show sound of music image
-                // generate public and private key
-                // upload public key
-                // upload encrypted version of private key
-                // redirect to gmail
-                alert('success!')
-            }
-            else {
-                error_div.show();
-                error_div.html(error);
-            }
-        });
+        setTimeout(function(){
+            var password_input1 = $(".register_password1");
+            var password_input2 = $(".register_password2");
+            var password1 = password_input1.val();
+            var password2 = password_input2.val();
+            var email_input = $(".register_email");
+            var email_val = email_input.val();
+            var post_data = {
+                "email":email_val,
+                "password1":password1,
+                "password2":password2
+            };
+            $.post("/register/", post_data, function(data) {
+                loading_gif.hide();
+                var error = data['error'];
+                var message = data['message'];
+                if (error == '') {
+                    // show sound of music image
+                    // generate public and private key
+                    // password encrypt private key, and store that in local storage too
+                    window.location.href = "/welcome/" + email_val + "/";
+                    // after confirmation email
+                    // upload public key
+                    // upload encrypted version of private key
+                    // redirect to gmail
+                }
+                else {
+                    error_div.show();
+                    error_div.html(error);
+                }
+            });
+        },1000);
+
     });
 
 
@@ -113,7 +124,7 @@ $(document).ready(function()
     $(".login_button").click(function(e) {
         e.preventDefault();
         var error_div = $(".login_error");
-        var loading_gif = $(".loading_gif");
+        var loading_gif = $(".loading-gif");
         error_div.hide();
         loading_gif.fadeIn();
         var password_input = $(".login_password");
@@ -128,9 +139,9 @@ $(document).ready(function()
             loading_gif.hide();
             var error = data['error'];
             var message = data['message'];
-            if (error == null) {
+            if (error == '') {
                 //redirect to page they were previously at
-                alert('success!')
+                window.location.href = "/settings/"
             }
             else {
                 error_div.show();

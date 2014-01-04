@@ -1,6 +1,6 @@
 import uuid, random
 from django.contrib.auth.models import User
-from truespeak.models import EmailProfile
+from truespeak.models import EmailProfile, logger
 from django.core.mail import send_mail
 
 def generateRandomUsername():
@@ -41,3 +41,7 @@ def getNewConfirmationLink():
         if already:
             confirmation_link = None
     return confirmation_link
+
+
+def logError(message):
+    logger.error(message)

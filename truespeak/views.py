@@ -4,14 +4,11 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.exceptions import ObjectDoesNotExist
 from truespeak.models import *
-from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink
+from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError
 import json, random
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
-
-# authentication backends
-from socialregistration.contrib.facebook.models import FacebookProfile
 
 def redirect(request, page='/home'):
     return shortcuts.redirect(page)
@@ -25,19 +22,19 @@ def viewWrapper(view):
     return new_view
 
 def home(request):
-    return render_to_response('home.html',locals())
+    return render_to_response('home.html',locals(), context_instance=RequestContext(request))
 
 def goodbye(request):
-    return render_to_response('goodbye.html',locals())
+    return render_to_response('goodbye.html',locals(), context_instance=RequestContext(request))
 
-def welcome(request):
-    return render_to_response('welcome.html',locals())
+def welcome(request, email_address=None):
+    return render_to_response('welcome.html',locals(), context_instance=RequestContext(request))
 
 def about(request):
-    return render_to_response('docs.html',locals())
+    return render_to_response('docs.html',locals(), context_instance=RequestContext(request))
 
 def contact(request):
-    return render_to_response('contact.html',locals())
+    return render_to_response('contact.html',locals(), context_instance=RequestContext(request))
 
 def settingsPage(request):
     user = request.user
@@ -59,7 +56,7 @@ def settingsPage(request):
                     email_profile.confirmation_link = getNewConfirmationLink()
                     email_profile.save()
                     sendEmailAssociationConfirmation(email_profile)
-                    to_return["message"] = "A confirmation email has been resent to your email address."
+                    to_return["message"] = "A confirmation email has been sent to your email address."
             else:
                 email_profile = EmailProfile(email=new_email, user=user, confirmed=False)
                 email_profile.confirmation_link = getNewConfirmationLink()
@@ -74,6 +71,7 @@ def settingsPage(request):
     else:
         associated_email_addresses = getAssociatedEmailAddresses(user, confirmed=True)
         return render_to_response('settings.html',locals())
+
 
 def confirmEmail(request, link_number):
     email_profile = EmailProfile.objects.filter(confirmation_link=link_number)
@@ -104,7 +102,7 @@ def loginPage(request):
         except ObjectDoesNotExist:
             error = "Oops, this email was not found. <br> Try <a href='/register/'>registering?</a>"
         except MultipleObjectsReturned:
-            print ("shit this should never happen.")
+            logError("multiple email profiles for single email -- this is bad! " + str(email))
         else:
             if not email_profile.confirmed:
                 error = "Oops, this email has not been confirmed. <br> <a href='/reconfirm/" + email + "/'> Resend? </a>"
@@ -124,6 +122,9 @@ def loginPage(request):
         }
         return HttpResponse(json.dumps(to_return), content_type="application/json")
 
+def logoutPage(request):
+    logout(request)
+    return shortcuts.redirect("/login/")
 
 
 def registerPage(request):
@@ -153,8 +154,6 @@ def registerPage(request):
 
 def errorView(request, error_dict=None):
     return HttpResponse("My special error view.")
-
-
 
 
 # list of identifiers which can be used to find associated public keys
@@ -207,19 +206,6 @@ def getPubKeysAssociatedWithIndentifiers(identifier_dict):
     # for all identifier,values to try... give it a go
     # TODO: should we check if there are conflicting results by different identifiers?
     for identifier,value in identifier_dict.items():
-
-        if identifier == "facebook_id":
-            fb_id = value
-            try:
-                fb_profile = FacebookProfile.objects.get(uid=fb_id)
-                user = fb_profile.user
-                identifier_used = identifier
-                break
-            except ObjectDoesNotExist:
-                continue
-            except Exception as e:
-                error = e.message
-                break
 
         if identifier == "email":
             email = value
@@ -279,7 +265,19 @@ def uploadPriKey(request):
     return HttpResponse("Success")
 
 
-
+def getPriKey(request):
+    user = request.user
+    pri_key = PriKey.objects.get_or_none(user=user)
+    if pri_key:
+        to_return = {
+            "success":1,
+            "pri_key":pri_key.pri_key_text
+        }
+    else:
+        to_return = {
+            "success":0
+        }
+    return HttpResponse(json.dumps(to_return), content_type="application/json")
 
 
 

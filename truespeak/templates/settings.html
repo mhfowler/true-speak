@@ -3,49 +3,41 @@
 
 {% block body %}
 
-    <div class="settings">
+    <div class="container">
 
-        <p>
-            settings
-        </p>
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron welcome-container settings-wrapper">
 
-        <p>
-            facebook_profile : {{ fb_profile }}
-        </p>
-
-        <p>
-            username : {{ user.username }}
-        </p>
-
-        <p>
-            primary email : {{ user.email }}
-        </p>
-        <p>
-            first name : {{ user.first_name }}
-        </p>
-        <p>
-            last name : {{ user.last_name }}
-        </p>
-
-        <p>
-            associated email addresses:
-        <ul>
-            {% for x in associated_email_addresses %}
-                <li>{{ x }}</li>
-            {% endfor %}
-        </ul>
-        </p>
-
-        <p>
-        <div> Add associated email addresses: </div>
-        <div class="wrapper">
-            <p>
-                <input type="text" class="new_email" name="new_email"/>
-            </p>
-            <div class="success"></div>
-            <div class="error"></div>
-            <a class="btn new_email_save">save</a>
+            <div class="over-sound-of-music">
+                <h1 class="sound-of-music-header settings-header">Your Email Addresses</h1>
+                <div class="settings-bottom">
+                    <div class="emails-wrapper">
+                        {% for x in associated_email_addresses %}
+                            <div class="an-email">{{ x }}</div>
+                        {% endfor %}
+                    </div>
+                    <form role="form wrapper">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Add Another Email Address</label>
+                            <input type="email" class="form-control register-input new_email" placeholder="Enter email">
+                        </div>
+                        <span class="password-error-message login_error"> Oops, email/password not found. Try again? </span>
+                        <button type="submit" class="btn btn-lg btn-primary register-button settings-save new_email_save">Save</button>
+                        <div class="settings_success"></div>
+                        <div class="settings_error"></div>
+                        <div class="loading-gif">
+                            <img src="/static/flakes.gif"/>
+                        </div>
+                        <div style="clear:both;"></div>
+                    </form>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div style="clear:both;"></div>
         </div>
+
+        <div style="clear:both;"></div>
+
     </div>
 
 {% endblock %}

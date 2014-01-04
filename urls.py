@@ -14,17 +14,18 @@ urlpatterns = patterns('',
                         # pages
                        ('^register/$', registerPage),
                        ('^login/$', loginPage),
-                       ('^logout/$', redirect, {'page':'/social/logout/'}),
+                       ('^logout/$', viewWrapper(logoutPage)),
                        (r'^home/$', home),
                        (r'^goodbye/$', goodbye),
                        (r'^about/$', about),
                        (r'^contact/$', contact),
-                       (r'^welcome/$', viewWrapper(welcome)),
+                       (r'^welcome/(?P<email_address>\S*)/$', welcome),
                        (r'^settings/$', viewWrapper(settingsPage)),
                        (r'^confirm/(?P<link_number>\d+)/$', viewWrapper(confirmEmail)),
 
                        # ajax methods
                         (r'^get_pubkeys/$', viewWrapper(getPubKeys)),
+                        (r'^get_prikey/$', viewWrapper(getPriKey)),
                         (r'^upload_pubkey/$', viewWrapper(uploadPubKey)),
                         (r'^upload_prikey/$', viewWrapper(uploadPriKey)),
 

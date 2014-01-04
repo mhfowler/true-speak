@@ -49,27 +49,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand pt-logo" href="/register/">ParselTongue</a>
+            <a class="navbar-brand pt-logo" {% if user.is_authenticated %}href="/settings/"{% else %}href="/register/"{% endif %}>ParselTongue</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                {% if not logged_in %}
+                {% if not user.is_authenticated %}
                     <li {% if request.path == "/register/" %}class="active"{% endif %}><a href="/register/">Register</a></li>
                 {% else %}
-                    <li class="active"><a href="#">Home</a></li>
+                    <li {% if request.path == "/settings/" %}class="active"{% endif %}><a href="/settings/">Settings</a></li>
                 {% endif %}
                 <li  {% if request.path == "/about/" %}class="active"{% endif %}><a href="/about/">About</a></li>
                 <li  {% if request.path == "/contact/" %}class="active"{% endif %}><a href="/contact/">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if logged_in %}
-                    <li {% if request.path == "/docs/" %}class="active"{% endif %}><a href="./">Docs</a></li>
-                    <li {% if request.path == "/settings/" %}class="active"{% endif %}><a href="/settings/">Settings</a></li>
+                {% if user.is_authenticated %}
+                    <li class="already-registered"> you are logged in as <span class="who-are-you">{{ user.username }}</span> </li>
+                    <a href="/logout/" class="btn btn-small btn-success sign-in-button">logout?</a>
                 {% else %}
-                    {% if request.path != "/login/" %}
-                        <li class="already-registered"> already registered? </li>
-                        <a href="/login/" class="btn btn-small btn-success sign-in-button">sign in</a>
-                    {% endif %}
+                    <li class="already-registered"> already registered? </li>
+                    <a href="/login/" class="btn btn-small btn-success sign-in-button">sign in</a>
                 {% endif %}
             </ul>
         </div><!--/.nav-collapse -->
@@ -77,8 +75,8 @@
 </div>
 
 <div class="atleast">
-{% block body %}
-{% endblock %}
+    {% block body %}
+    {% endblock %}
 </div>
 
 

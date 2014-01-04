@@ -39,6 +39,7 @@
 
 .over-sound-of-music {
     position: absolute;
+    padding-right: 125px;
 }
 
 .upside-down {
@@ -148,7 +149,7 @@ span.password-error-message {
     height: 100px;
     max-margin-left: 156px;
     margin-left:20%;
-    margin-top: 45px;
+    margin-top: 22px;
     display:none;
 }
 
@@ -160,7 +161,7 @@ span.password-error-message {
     top: 4px;
 width: 365px;
 position: absolute;
-left: -138%;
+    left: -103%;
 }
 
 .disco-josh {
@@ -171,5 +172,61 @@ margin-bottom: 110px;
 }
 
 .atleast {
-    min-height:600px;
+    min-height:640px;
+}
+
+.jumbotron {
+    height:auto;
+}
+
+
+.who-are-you {
+    margin-left:8px;
+    margin-right:7px;
+    font-weight:bold;
+}
+
+.an-email {
+    width:100%;
+    margin-bottom:15px;
+}
+
+h1.settings-header {
+    font-size:50px;
+}
+.settings-bottom {
+    padding-left:45px;
+}
+
+.settings-save {
+    margin-bottom:30px;
+}
+
+.settings_success {
+    color:#3276b1;
+}
+.settings_error {
+    color:red;
+}
+
+.settings-wrapper .loading-gif {
+    margin-left:30%;
+}
+
+h1.welcome-header {
+    color: white;
+margin-left: 8%;
+margin-top: 61px;
+font-size: 50px;
+}
+
+.welcome-wrapper {
+    position: relative;
+top: -38px;
+width: 100%;
+padding-right: 0px;
+}
+
+.welcome-email-address {
+    width:auto;
 }
