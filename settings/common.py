@@ -4,7 +4,7 @@ import json
 PROJECT_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 LOCAL = os.environ.get("LOCAL")
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 SECRETS_PATH = os.path.join(PROJECT_PATH, "secret.json")

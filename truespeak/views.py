@@ -80,6 +80,7 @@ def confirmEmail(request, link_number):
 
 
 def loginPage(request):
+    raise Exception("blah blah blah")
     if request.method == "GET":
         return render_to_response('login.html',locals(), context_instance=RequestContext(request))
     else:
