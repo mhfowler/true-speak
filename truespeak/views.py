@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.exceptions import ObjectDoesNotExist
 from truespeak.models import *
-from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError
+from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError, createEmailProfile
 import json, random
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -46,24 +46,11 @@ def settingsPage(request):
         }
         if "new_email" in request.POST:
             new_email = request.POST['new_email']
-            already = EmailProfile.objects.filter(email=new_email)
-            if already:
-                email_profile = already[0]
-                if email_profile.confirmed:
-                    to_return["error"] = "This email address is already associated with a ParselTongue user."
-                else:
-                    email_profile.user = user
-                    email_profile.confirmation_link = getNewConfirmationLink()
-                    email_profile.save()
-                    sendEmailAssociationConfirmation(email_profile)
-                    to_return["message"] = "A confirmation email has been sent to your email address."
+            success, message = createEmailProfile(new_email, user)
+            if success:
+                to_return['message'] = message
             else:
-                email_profile = EmailProfile(email=new_email, user=user, confirmed=False)
-                email_profile.confirmation_link = getNewConfirmationLink()
-                email_profile.save()
-                sendEmailAssociationConfirmation(email_profile)
-                to_return["message"] = "A confirmation email has been sent to your email address."
-
+                to_return['error'] = message
         # return json
         return HttpResponse(json.dumps(to_return), content_type="application/json")
 
@@ -79,13 +66,15 @@ def confirmEmail(request, link_number):
         return HttpResponse("There is no email profile at this link.")
     # TODO: check if confirmation link is less than 2 weeks old
     email_profile = email_profile[0]
-    user = request.user
+    user = email_profile.user
+    user.backend = 'django.contrib.auth.backends.ModelBackend' #TODO this is questionable..
+    login(request, user)
     if not email_profile.confirmed:
-        email_profile.user = user
         email_profile.confirmed = True
         email_profile.save()
         return shortcuts.redirect("/settings/")
     else:
+        logError("second time clicking on confirmation link? " + email_profile.email)
         return shortcuts.redirect("/settings/")
 
 
@@ -140,8 +129,11 @@ def registerPage(request):
         elif not password1 == password2:
             error = "Oops, passwords must be the same."
         # check if email already exists
-        already = EmailProfile.objects.filter(email=email, confirmed=True)
-        if already:
+        already_profile = EmailProfile.objects.filter(email=email, confirmed=True)
+        if already_profile:
+            error = "This email is already associated with an account.<br> Try <a href='/login/'>logging in?</a>"
+        already_user = User.objects.filter(username=email)
+        if already_user:
             error = "This email is already associated with an account.<br> Try <a href='/login/'>logging in?</a>"
         if not error:
             user = User.objects.create_user(username=email, email=email, password=password1)

@@ -21,7 +21,7 @@ urlpatterns = patterns('',
                        (r'^contact/$', contact),
                        (r'^welcome/(?P<email_address>\S*)/$', welcome),
                        (r'^settings/$', viewWrapper(settingsPage)),
-                       (r'^confirm/(?P<link_number>\d+)/$', viewWrapper(confirmEmail)),
+                       (r'^confirm/(?P<link_number>\d+)/$', confirmEmail),
 
                        # ajax methods
                         (r'^get_pubkeys/$', viewWrapper(getPubKeys)),

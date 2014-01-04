@@ -20,10 +20,10 @@ def addAssociatedEmailProfile(user, email):
     if already:
         email_profile = already[0]
         if email_profile.user != user:
-            print "Error: %s has already been assigned to another ParselTongue User. " % email
+            logError("Error: %s has already been assigned to another ParselTongue User. " % email)
             return
     else:
-        email_profile = EmailProfile(user=user, email=email, confirmed=True)
+        email_profile = EmailProfile(user=user, email=email)
         email_profile.save()
 
 
@@ -45,3 +45,24 @@ def getNewConfirmationLink():
 
 def logError(message):
     logger.error(message)
+
+
+# returns True if no error, false otherwise (tuple)
+def createEmailProfile(new_email, user):
+    already = EmailProfile.objects.filter(email=new_email)
+    if already:
+        email_profile = already[0]
+        if email_profile.confirmed:
+            return False, "This email address is already associated with a ParselTongue user."
+        else:
+            email_profile.user = user
+            email_profile.confirmation_link = getNewConfirmationLink()
+            email_profile.save()
+            sendEmailAssociationConfirmation(email_profile)
+            return True, "A confirmation email has been sent to your email address."
+    else:
+        email_profile = EmailProfile(email=new_email, user=user, confirmed=False)
+        email_profile.confirmation_link = getNewConfirmationLink()
+        email_profile.save()
+        sendEmailAssociationConfirmation(email_profile)
+        return True, "A confirmation email has been sent to your email address."

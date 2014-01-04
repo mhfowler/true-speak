@@ -89,8 +89,9 @@ def getUserPriKey(user):
 #-----------------------------------------------------------------------------------------------------------------------
 def authUserPostSave(sender, **kwargs):
     user = kwargs['instance']
-    if user.email:
-        from truespeak.common import addAssociatedEmailProfile
-        addAssociatedEmailProfile(user, user.email)
+    created = kwargs['created']
+    if created:
+        from truespeak.common import createEmailProfile
+        createEmailProfile(user.email, user)
 
 post_save.connect(authUserPostSave, sender=User, dispatch_uid="auth_user_post_save")
