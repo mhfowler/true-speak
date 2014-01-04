@@ -12,11 +12,13 @@ urlpatterns = patterns('',
                        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': LOCAL_STATIC_FILES}),
 
                         # pages
+                       ('^register/$', registerPage),
                        ('^login/$', loginPage),
                        ('^logout/$', redirect, {'page':'/social/logout/'}),
                        (r'^home/$', home),
                        (r'^goodbye/$', goodbye),
                        (r'^about/$', about),
+                       (r'^contact/$', contact),
                        (r'^welcome/$', viewWrapper(welcome)),
                        (r'^settings/$', viewWrapper(settingsPage)),
                        (r'^confirm/(?P<link_number>\d+)/$', viewWrapper(confirmEmail)),

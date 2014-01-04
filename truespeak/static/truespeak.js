@@ -59,5 +59,89 @@ $(document).ready(function()
         });
     });
 
+    /* javascript for /register/ page */
+
+    var email_input = $(".register_email");
+    if (window.location.pathname == "/register/") {
+        email_input.focus();
+    }
+
+    $(".register_button").click(function(e) {
+        e.preventDefault();
+        var form_wrapper = $(".register_form");
+        var error_div = $(".register_error");
+        var loading_gif = $(".loading_gif");
+        error_div.hide();
+        loading_gif.fadeIn();
+        var password_input1 = $(".register_password1");
+        var password_input2 = $(".register_password2");
+        var password1 = password_input1.val();
+        var password2 = password_input2.val();
+        var email_input = $(".register_email");
+        var email_val = email_input.val();
+        var post_data = {
+            "email":email_val,
+            "password1":password1,
+            "password2":password2
+        };
+        $.post("/register/", post_data, function(data) {
+            loading_gif.hide();
+            var error = data['error'];
+            var message = data['message'];
+            if (error == null) {
+                // show sound of music image
+                // generate public and private key
+                // upload public key
+                // upload encrypted version of private key
+                // redirect to gmail
+                alert('success!')
+            }
+            else {
+                error_div.show();
+                error_div.html(error);
+            }
+        });
+    });
+
+
+    /* javascript for /login/ page */
+    var login_email_input = $(".login_email");
+    if (window.location.pathname == "/login/") {
+        login_email_input.focus();
+    }
+
+    $(".login_button").click(function(e) {
+        e.preventDefault();
+        var error_div = $(".login_error");
+        var loading_gif = $(".loading_gif");
+        error_div.hide();
+        loading_gif.fadeIn();
+        var password_input = $(".login_password");
+        var password = password_input.val();
+        var login_email_input = $(".login_email");
+        var email_val = login_email_input.val();
+        var post_data = {
+            "email":email_val,
+            "password":password
+        };
+        $.post("/login/", post_data, function(data) {
+            loading_gif.hide();
+            var error = data['error'];
+            var message = data['message'];
+            if (error == null) {
+                //redirect to page they were previously at
+                alert('success!')
+            }
+            else {
+                error_div.show();
+                error_div.html(error);
+            }
+        });
+
+
+
+
+    });
+
 
 });

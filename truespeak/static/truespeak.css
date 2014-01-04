@@ -17,6 +17,8 @@
     padding-top:0px;
     margin-top:20px;
     padding-left:0px;
+    height:650px;
+    background:none;
 }
 
 .sound-of-music {
@@ -36,7 +38,7 @@
 }
 
 .over-sound-of-music {
-  position: absolute;
+    position: absolute;
 }
 
 .upside-down {
@@ -66,20 +68,15 @@ label {
     color: rgb(145, 145, 145);
 }
 
-.register-button {
-    margin-left: 1%;
-    margin-top: 42px;
-    max-width:400px;
-    width:75%;
-}
+
 
 .snake-drawing {
-position: absolute;
-z-index: -1;
-width: 549px;
-float: right;
-left: 462px;
-top: 122px;
+    position: absolute;
+    z-index: -1;
+    width: 549px;
+    float: right;
+    left: 462px;
+    top: 122px;
 }
 
 .already-registered {
@@ -97,4 +94,82 @@ a.sign-in-button {
 .pt-logo {
     font-weight:bold;
     color:black;
+}
+
+.pt-footer {
+    width: 77%;
+    margin-left: 10%;
+    padding-bottom:15px;
+    padding-top:15px;
+}
+
+.footer-bar {
+
+    border-top: 1px solid gray;
+}
+
+.latin {
+    font-style:italic;
+    margin-left: 20px;
+}
+
+.footer-text {
+    margin-top:15px;
+    float:left;
+}
+
+.twitter-link {
+    margin-top:15px;
+    color:black;
+    float:right;
+}
+.twitter-link:hover {
+    color:gray;
+}
+
+span.password-error-message {
+    padding-left: 9px;
+    color: red;
+    margin-top:5px;
+    float:left;
+    width:100%;
+    display:none;
+}
+
+.register-button {
+    margin-left: 1%;
+    margin-top: 25px;
+    max-width:400px;
+    width:75%;
+}
+
+.loading-gif {
+    width: 100px;
+    height: 100px;
+    max-margin-left: 156px;
+    margin-left:20%;
+    margin-top: 45px;
+    display:none;
+}
+
+.login-wrapper .over-sound-of-music {
+    left: 47%;
+}
+
+.snake-drawing2 {
+    top: 4px;
+width: 365px;
+position: absolute;
+left: -138%;
+}
+
+.disco-josh {
+    margin-left: 36%;
+margin-right: auto;
+margin-top: 110px;
+margin-bottom: 110px;
+}
+
+.atleast {
+    min-height:600px;
 }

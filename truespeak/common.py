@@ -16,15 +16,12 @@ def addAssociatedEmailProfile(user, email):
     """
      force add an email address to be associated with a user
     """
-    already = EmailProfile.objects.filter(email=email)
+    already = EmailProfile.objects.filter(email=email, confirmed=True)
     if already:
         email_profile = already[0]
         if email_profile.user != user:
             print "Error: %s has already been assigned to another ParselTongue User. " % email
             return
-        elif not email_profile.confirmed:
-            email_profile.confirmed = True
-            email_profile.save()
     else:
         email_profile = EmailProfile(user=user, email=email, confirmed=True)
         email_profile.save()

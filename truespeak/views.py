@@ -6,6 +6,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from truespeak.models import *
 from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink
 import json, random
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+
 
 # authentication backends
 from socialregistration.contrib.facebook.models import FacebookProfile
@@ -32,6 +35,9 @@ def welcome(request):
 
 def about(request):
     return render_to_response('docs.html',locals())
+
+def contact(request):
+    return render_to_response('contact.html',locals())
 
 def settingsPage(request):
     user = request.user
@@ -66,13 +72,7 @@ def settingsPage(request):
 
     # otherwise we are just displaying settings
     else:
-
         associated_email_addresses = getAssociatedEmailAddresses(user, confirmed=True)
-        try:
-            fb_profile = FacebookProfile.objects.get(user=user.id)
-        except ObjectDoesNotExist:
-            fb_profile = None
-
         return render_to_response('settings.html',locals())
 
 def confirmEmail(request, link_number):
@@ -93,7 +93,63 @@ def confirmEmail(request, link_number):
 
 
 def loginPage(request):
-    return render_to_response('login.html',locals(), context_instance=RequestContext(request))
+    if request.method == "GET":
+        return render_to_response('login.html',locals(), context_instance=RequestContext(request))
+    else:
+        email = request.POST['email']
+        password = request.POST['password']
+        error = ""
+        try:
+            email_profile = EmailProfile.objects.get(email=email)
+        except ObjectDoesNotExist:
+            error = "Oops, this email was not found. <br> Try <a href='/register/'>registering?</a>"
+        except MultipleObjectsReturned:
+            print ("shit this should never happen.")
+        else:
+            if not email_profile.confirmed:
+                error = "Oops, this email has not been confirmed. <br> <a href='/reconfirm/" + email + "/'> Resend? </a>"
+            else:
+                user = email_profile.user
+                user = authenticate(username=user.username, password=password)
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+                    else:
+                        error = "Your account has been disabled!"
+                else:
+                    error = "Oops, email/password was not found."
+        to_return = {
+            "error":error,
+            "message":"blah"
+        }
+        return HttpResponse(json.dumps(to_return), content_type="application/json")
+
+
+
+def registerPage(request):
+    if request.method == "GET":
+        return render_to_response('register.html',locals(), context_instance=RequestContext(request))
+    else:
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        error = ""
+        if not password1:
+            error = "Oops, password can't be empty."
+        elif not password1 == password2:
+            error = "Oops, passwords must be the same."
+        # check if email already exists
+        already = EmailProfile.objects.filter(email=email, confirmed=True)
+        if already:
+            error = "This email is already associated with an account.<br> Try <a href='/login/'>logging in?</a>"
+        if not error:
+            user = User.objects.create_user(username=email, email=email, password=password1)
+        to_return = {
+            "error":error,
+            "message":"blah"
+        }
+        return HttpResponse(json.dumps(to_return), content_type="application/json")
+
 
 def errorView(request, error_dict=None):
     return HttpResponse("My special error view.")
