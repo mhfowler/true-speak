@@ -3,13 +3,12 @@ from django import shortcuts
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.core.exceptions import ObjectDoesNotExist
-from truespeak.models import PubKey, getUserPubKeys, EmailProfile, getAssociatedEmailAddresses
+from truespeak.models import *
 from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink
 import json, random
 
 # authentication backends
 from socialregistration.contrib.facebook.models import FacebookProfile
-
 
 def redirect(request, page='/home'):
     return shortcuts.redirect(page)
@@ -103,7 +102,7 @@ def errorView(request, error_dict=None):
 
 
 # list of identifiers which can be used to find associated public keys
-ALLOWED_IDENTIFIERS = ["facebook_id"]
+ALLOWED_IDENTIFIERS = ["email"]
 
 def getPubKeys(request):
     """
@@ -189,23 +188,39 @@ def getPubKeysAssociatedWithIndentifiers(identifier_dict):
     return to_return
 
 
-
 def uploadPubKey(request):
     """
     Upload a pub key to your user account.
     """
     user = request.user
     pub_key_text = request.POST['pub_key']
+    prior_keys = PubKey.objects.filter(user=user)
+    if prior_keys:
+        pass
+        # TODO: should send you an email saying a pub_key was uploaded to your account, if not initial registration
     already = PubKey.objects.filter(user=user,pub_key_text=pub_key_text)
     if not already:
         pub_key = PubKey(user=request.user, pub_key_text=pub_key_text)
         pub_key.save()
-        if user.email:
-            pass
-            # TODO: should send you an email saying a pub_key was uploaded to your account
         return HttpResponse("Success")
     else:
         return HttpResponse("Error: Key has already been uploaded.")
+
+
+def uploadPriKey(request):
+    """
+    Upload an encrypted private key to your user account.
+    """
+    user = request.user
+    pri_key_text = request.POST['pri_key']
+    already = PriKey.objects.get_or_none(user=user)
+    if already:
+        already.pri_key_text = pri_key_text
+        already.save()
+    else:
+        pri_key = PriKey(user=user, pri_key_text=pri_key_text)
+        pri_key.save()
+    return HttpResponse("Success")
 
 
 

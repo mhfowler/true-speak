@@ -24,6 +24,7 @@ urlpatterns = patterns('',
                        # ajax methods
                         (r'^get_pubkeys/$', viewWrapper(getPubKeys)),
                         (r'^upload_pubkey/$', viewWrapper(uploadPubKey)),
+                        (r'^upload_prikey/$', viewWrapper(uploadPriKey)),
 
                        ('^/$', redirect),
                        ('^$', redirect),

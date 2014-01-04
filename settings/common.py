@@ -38,7 +38,6 @@ DATABASES = {
 
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
-        'socialregistration.contrib.facebook.auth.FacebookAuth',
 )
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -149,8 +148,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'truespeak',
     'south',
-    'socialregistration',
-    'socialregistration.contrib.facebook',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import random
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_save
 
 
@@ -61,6 +62,20 @@ def getUserPubKeys(user):
     for x in pub_keys:
         to_return.append(x.pub_key_text)
     return to_return
+
+# -----------------------------------------------------------------------------------------------------------------------
+# Prikey... should be stored encrypted (via a password only the user knows)
+# -----------------------------------------------------------------------------------------------------------------------
+class PriKey(XModel):
+    user = models.OneToOneField(User)
+    pri_key_text = models.CharField(max_length=200)
+
+def getUserPriKey(user):
+    try:
+        pri_key = PriKey.objects.get(user=user)
+        return pri_key.pri_key_text
+    except ObjectDoesNotExist as e:
+        return None
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Post save function for auth user.

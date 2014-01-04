@@ -1,10 +1,5 @@
 
-.top-nav {
-    height: 80px;
-    width: 100%;
-    border-bottom: 1px solid gray;
-    margin-bottom: 20px;
-    background-color: lightgray;
+.navbar {
 }
 
 .success {
@@ -12,4 +7,94 @@
 }
 .error {
     background-color:salmon;
+}
+
+
+.welcome-container {
+    #color:white;
+    float:left;
+    background-color:white;
+    padding-top:0px;
+    margin-top:20px;
+    padding-left:0px;
+}
+
+.sound-of-music {
+    float:left;
+    width:100%;
+    z-index:-1;
+}
+
+.sound-of-music-header {
+    float: left;
+    margin-left: 0%;
+    margin-top: 0px;
+    word-wrap:break-word;
+    padding-right:20px;
+    margin-bottom: 23px;
+    width:100%;
+}
+
+.over-sound-of-music {
+  position: absolute;
+}
+
+.upside-down {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+}
+
+.register-input {
+    width: 75%;
+    height: 50px;
+    font-size: 19px;
+    max-width:400px;
+}
+
+.form-group {
+    margin-bottom: 13px;
+    padding-left: 1%;
+}
+
+label {
+    float: left;
+    width: 100%;
+    padding-top: 4px;
+    font-size: 20px;
+    #color: rgb(228, 228, 228);
+    color: rgb(145, 145, 145);
+}
+
+.register-button {
+    margin-left: 1%;
+    margin-top: 42px;
+    max-width:400px;
+    width:75%;
+}
+
+.snake-drawing {
+position: absolute;
+z-index: -1;
+width: 549px;
+float: right;
+left: 462px;
+top: 122px;
+}
+
+.already-registered {
+    margin-top: 17px;
+}
+
+a.sign-in-button {
+    margin-left:20px;
+    color:white;
+    float: left;
+    margin-top: 8px;
+    margin-right:100px;
+}
+
+.pt-logo {
+    font-weight:bold;
+    color:black;
 }

@@ -3,10 +3,41 @@
 
 {% block body %}
 
-    <div class="login-options">
 
-        {% load facebook %}
-        {% facebook_button %}
+    <div class="container">
+
+        <!-- Main component for a primary marketing message or call to action -->
+        <div class="jumbotron welcome-container">
+
+            {% comment %}
+             <img class="sound-of-music" src="https://d2nh4f9cbhlobh.cloudfront.net/_uploads/galleries/240/the-sound-of-music-image_2.jpg"/>
+            <img class="sound-of-music upside-down" src="https://d2nh4f9cbhlobh.cloudfront.net/_uploads/galleries/240/the-sound-of-music-image_2.jpg"/>
+            {% endcomment %}
+            <div class="over-sound-of-music">
+                <h1 class="sound-of-music-header">Welcome to ParselTongue</h1>
+                      <form role="form">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control register-input" id="exampleInputEmail1" placeholder="Enter email">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control register-input" id="exampleInputPassword1" placeholder="Password">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Same Password</label>
+                        <input type="password" class="form-control register-input" id="exampleInputPassword1" placeholder="Password">
+                      </div>
+                      <button type="submit" class="btn btn-lg btn-primary register-button">Register</button>
+                       <div style="clear:both;"></div>
+                    </form>
+                    <img class="snake-drawing" src="http://upload.wikimedia.org/wikipedia/commons/1/1d/Black_snake_1_%28PSF%29.png"/>
+                    <div style="clear:both;"></div>
+             </div>
+            <div style="clear:both;"></div>
+        </div>
+
+        <div style="clear:both;"></div>
 
     </div>
 
