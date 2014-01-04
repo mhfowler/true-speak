@@ -3,5 +3,5 @@
 *.idea
 *local.db
 *secret*
+*.log
 static/*
-logs/*
