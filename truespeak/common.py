@@ -28,8 +28,15 @@ def addAssociatedEmailProfile(user, email):
 
 
 def sendEmailAssociationConfirmation(email_profile):
-    confirmation_link = email_profile.getConfirmationLink()
-    send_mail('ParselTongue Email Confirmation', confirmation_link, 'settings@parseltongue.com',
+    confirmation_link = "http://www.parseltongueextension.com" + email_profile.getConfirmationLink()
+    message = "Dear " + email_profile.email + ",\n\n" \
+    "To confirm your email address with ParselTongue please click this link: \n\n"  + confirmation_link + "\n\n" \
+    "Confirming your email will allow other ParselTongue users to encrpyt their emails to you using your public key. " \
+    "The only copy of the private key that matches your public key exists on your laptop. \n\n" \
+    "Truly,\n" \
+    "Max, Josh and Stephanie\n" \
+    "http://www.parseltongueextension.com/about/"
+    send_mail('ParselTongue Email Confirmation', message, 'settings@parseltongue.com',
     [email_profile.email], fail_silently=False)
 
 
