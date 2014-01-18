@@ -9,6 +9,7 @@ TEMPLATE_DEBUG = DEBUG
 
 SECRETS_PATH = os.path.join(PROJECT_PATH, "secret.json")
 if LOCAL:
+    DEBUG = True
     SECRETS_DICT = json.loads(open(SECRETS_PATH, "r").read())
     DOMAIN = "local.parseltongueextension.com"
 else:

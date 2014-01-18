@@ -272,7 +272,7 @@ def uploadPriKey(request):
 
 def getPriKey(request):
     user = request.user
-    pri_key = PriKey.objects.get_or_none(user=user)
+    pri_key = PriKey.lg.get_or_none(user=user)
     if pri_key:
         to_return = {
             "success":1,

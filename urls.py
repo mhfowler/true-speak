@@ -7,8 +7,6 @@ import os
 LOCAL_STATIC_FILES = os.path.join(PROJECT_PATH, 'truespeak/static/')
 
 urlpatterns = patterns('',
-
-
                        (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': LOCAL_STATIC_FILES}),
 
                         # pages
