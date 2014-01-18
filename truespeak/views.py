@@ -8,13 +8,14 @@ from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmatio
 import json, random
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 
 
 def redirect(request, page='/home'):
     return shortcuts.redirect(page)
 
 def viewWrapper(view):
+    @csrf_exempt
     def new_view(request, *args, **kwargs):
         if not request.user.is_authenticated():
             return HttpResponse("You need to be logged in doe")
@@ -36,6 +37,9 @@ def about(request):
 
 def contact(request):
     return render_to_response('contact.html',locals(), context_instance=RequestContext(request))
+
+def initializingPage(request):
+    return render_to_response('initializing.html',locals(), context_instance=RequestContext(request))
 
 @ensure_csrf_cookie
 def settingsPage(request):
@@ -74,7 +78,7 @@ def confirmEmail(request, link_number):
     if not email_profile.confirmed:
         email_profile.confirmed = True
         email_profile.save()
-        return shortcuts.redirect("/settings/")
+        return shortcuts.redirect("/initializing/")
     else:
         logError("second time clicking on confirmation link? " + email_profile.email)
         return shortcuts.redirect("/settings/")
@@ -154,6 +158,7 @@ def errorView(request, error_dict=None):
 # list of identifiers which can be used to find associated public keys
 ALLOWED_IDENTIFIERS = ["email"]
 
+@csrf_exempt
 def getPubKeys(request):
     """
         If requested_keys in request.POST:
@@ -213,6 +218,8 @@ def getPubKeysAssociatedWithIndentifiers(identifier_dict):
             except Exception as e:
                 error = e.message
                 break
+        else:
+            error = "invalid identifier"
 
     to_return["error"] = error # this will still be none if there were no errors
     if identifier_used: # this means a user was found
@@ -224,13 +231,15 @@ def getPubKeysAssociatedWithIndentifiers(identifier_dict):
 
     return to_return
 
-
 def uploadPubKey(request):
     """
     Upload a pub key to your user account.
     """
     user = request.user
     pub_key_text = request.POST['pub_key']
+    post_user = request.POST["username"]
+    if user.username != post_user:
+        logError("authenticated user is not who they think they are? " + user.username + " " + post_user)
     prior_keys = PubKey.objects.filter(user=user)
     if prior_keys:
         pass
@@ -243,14 +252,16 @@ def uploadPubKey(request):
     else:
         return HttpResponse("Error: Key has already been uploaded.")
 
-
 def uploadPriKey(request):
     """
     Upload an encrypted private key to your user account.
     """
     user = request.user
+    post_user = request.POST["username"]
+    if user.username != post_user:
+        logError("authenticated user is not who they think they are? " + user.username + " " + post_user)
     pri_key_text = request.POST['pri_key']
-    already = PriKey.objects.get_or_none(user=user)
+    already = PriKey.lg.get_or_none(user=user)
     if already:
         already.pri_key_text = pri_key_text
         already.save()
@@ -258,7 +269,6 @@ def uploadPriKey(request):
         pri_key = PriKey(user=user, pri_key_text=pri_key_text)
         pri_key.save()
     return HttpResponse("Success")
-
 
 def getPriKey(request):
     user = request.user

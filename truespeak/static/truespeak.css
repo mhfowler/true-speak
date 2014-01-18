@@ -82,6 +82,7 @@ label {
 
 .already-registered {
     margin-top: 17px;
+    margin-left: 14px;
 }
 
 a.sign-in-button {
@@ -229,4 +230,15 @@ padding-right: 0px;
 
 .welcome-email-address {
     width:auto;
+}
+
+.initializing-image-wrapper {
+    width:100%;
+}
+
+.initializing-image {
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:10%;
+    width:200px;
 }
