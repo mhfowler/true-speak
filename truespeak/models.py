@@ -75,7 +75,7 @@ def getUserPubKeys(user):
 # -----------------------------------------------------------------------------------------------------------------------
 class PriKey(XModel):
     user = models.OneToOneField(User)
-    pri_key_text = models.CharField(max_length=200)
+    pri_key_text = models.TextField()
 
 def getUserPriKey(user):
     try:
