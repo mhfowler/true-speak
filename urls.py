@@ -46,9 +46,3 @@ urlpatterns = patterns('',
                        # (r'^set_encrypt/$', set_encrypt),
 
 )
-
-
-urlpatterns += patterns('',
-                        # Here be other urls ...
-                        url(r'^social/', include('socialregistration.urls',
-                                                 namespace = 'socialregistration')))
