@@ -8,36 +8,36 @@
         <!-- Main component for a primary marketing message or call to action -->
         <div class="jumbotron welcome-container settings-wrapper">
 
-            <div class="over-sound-of-music">
+            <div class="over-sound-of-music container">
                 <h1 class="sound-of-music-header settings-header">Your Email Addresses</h1>
                 <div class="settings-bottom">
-                    <div class="emails-wrapper">
-                        {% for x in associated_email_addresses %}
-                            <div class="an-email">{{ x }}</div>
+                    <div class="emails-wrapper col-md-6">
+                        <ul class="list-group">
+                        {% for email in associated_email_addresses %}
+                            <li class="list-group-item">
+                                {{ email }} 
+                            </li>
                         {% endfor %}
+                        </table>
                     </div>
-                    <form role="form wrapper">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Add Another Email Address</label>
-                            <input type="email" class="form-control register-input new_email" placeholder="Enter email">
-                        </div>
-                        <span class="password-error-message login_error"> Oops, email/password not found. Try again? </span>
-                        <button type="submit" class="btn btn-lg btn-primary register-button settings-save new_email_save">Save</button>
-                        <div class="settings_success"></div>
-                        <div class="settings_error"></div>
-                        <div class="loading-gif">
-                            <img src="/static/flakes.gif"/>
-                        </div>
-                        <div style="clear:both;"></div>
-                    </form>
+                    <div class="col-md-6">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Add Another Email Address</label>
+                                <input type="email" class="form-control register-input new_email" placeholder="Enter email">
+                            </div>
+                            <span class="password-error-message login_error"> Oops, email/password not found. Try again? </span>
+                            <button type="submit" class="btn btn-lg btn-primary register-button settings-save new_email_save">Save</button>
+                            <div class="settings_success"></div>
+                            <div class="settings_error"></div>
+                            <div class="loading-gif">
+                                <img src="/static/flakes.gif"/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div style="clear:both;"></div>
             </div>
-            <div style="clear:both;"></div>
         </div>
-
-        <div style="clear:both;"></div>
-
     </div>
 
 {% endblock %}
