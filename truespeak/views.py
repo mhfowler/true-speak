@@ -18,7 +18,7 @@ def viewWrapper(view):
     @csrf_exempt
     def new_view(request, *args, **kwargs):
         if not request.user.is_authenticated():
-            return HttpResponse("You need to be logged in doe")
+            return shortcuts.redirect("/login/")
         else:
             return view(request,*args,**kwargs)
     return new_view
@@ -70,18 +70,26 @@ def confirmEmail(request, link_number):
     email_profile = EmailProfile.objects.filter(confirmation_link=link_number)
     if not email_profile:
         return HttpResponse("There is no email profile at this link.")
-    # TODO: check if confirmation link is less than 2 weeks old
     email_profile = email_profile[0]
     user = email_profile.user
-    user.backend = 'django.contrib.auth.backends.ModelBackend' #TODO this is questionable..
-    login(request, user)
+    user.backend = 'django.contrib.auth.backends.ModelBackend'
     if not email_profile.confirmed:
+        login(request, user)
+        link_age = email_profile.getAge()
+        two_weeks_in_seconds = 60*60*24*14
+        if link_age > two_weeks_in_seconds:
+            email_profile.confirmation_link = getNewConfirmationLink()
+            email_profile.created_when = datetime.datetime.now()
+            email_profile.save()
+            sendEmailAssociationConfirmation(email_profile)
+            return HttpResponse("This confirmation link has expired. We sent you another confirmation email.")
+        # if link not too old, we chillin
         email_profile.confirmed = True
         email_profile.save()
         return shortcuts.redirect("/initializing/")
     else:
         logError("second time clicking on confirmation link? " + email_profile.email)
-        return shortcuts.redirect("/settings/")
+        return shortcuts.redirect("/login/")
 
 
 @ensure_csrf_cookie

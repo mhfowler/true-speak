@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 
 # import the logging library
 import logging
+import datetime
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -46,6 +47,12 @@ class EmailProfile(XModel):
 
     def getConfirmationLink(self):
         return "/confirm/" + str(self.confirmation_link) + "/"
+
+    def getAge(self):
+        now = datetime.datetime.now()
+        age = now - self.created_when
+        age_in_seconds = age.total_seconds()
+        return age_in_seconds
 
 def getAssociatedEmailAddresses(user, confirmed=True):
     emails = EmailProfile.objects.filter(user=user)
