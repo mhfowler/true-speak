@@ -19,6 +19,8 @@ else:
 
 ADMINS = (
     ("Max Fowler", "maximusfowler@gmail.com"),
+    ("Josh Blum", "joshblum@mit.com"),
+    ("Stephanie Wang", "swang93@mit.com")
 )
 
 MANAGERS = ADMINS

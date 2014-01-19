@@ -29,7 +29,7 @@ def viewWrapper(view):
 
 def home(request):
     if request.user.is_authenticated():
-        return settingsPage(request)
+        return shortcuts.redirect("/settings/")
     return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 

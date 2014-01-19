@@ -74,8 +74,6 @@ def getAssociatedEmailAddresses(user, confirmed=True):
 #-------------------------------------------------------------------------
 # Pubkey
 #-------------------------------------------------------------------------
-
-
 class PubKey(XModel):
     user = models.ForeignKey(User)
     pub_key_text = models.CharField(max_length=200)
