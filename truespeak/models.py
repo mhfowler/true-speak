@@ -13,12 +13,14 @@ import datetime
 logger = logging.getLogger(__name__)
 
 
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Useful manager for all models.
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 class XManager(models.Manager):
+
     """Adds get_or_none method to objects
     """
+
     def get_or_none(self, **kwargs):
         to_return = self.filter(**kwargs)
         if to_return:
@@ -26,18 +28,23 @@ class XManager(models.Manager):
         else:
             return to_return
 
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # All models inherit from this
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
+
+
 class XModel(models.Model):
-    lg = XManager()
+    xobjects = XManager()
     objects = models.Manager()
+
     class Meta:
         abstract = True
 
-# -----------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------
 # EmailProfile. associate as many email addresses as you want with parseltongue user
-# -----------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------
+
+
 class EmailProfile(XModel):
     user = models.ForeignKey(User)
     email = models.EmailField(unique=True)
@@ -54,6 +61,7 @@ class EmailProfile(XModel):
         age_in_seconds = age.total_seconds()
         return age_in_seconds
 
+
 def getAssociatedEmailAddresses(user, confirmed=True):
     emails = EmailProfile.objects.filter(user=user)
     if confirmed:
@@ -63,12 +71,15 @@ def getAssociatedEmailAddresses(user, confirmed=True):
         to_return.append(x.email)
     return to_return
 
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Pubkey
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
+
+
 class PubKey(XModel):
     user = models.ForeignKey(User)
     pub_key_text = models.CharField(max_length=200)
+
 
 def getUserPubKeys(user):
     pub_keys = PubKey.objects.filter(user=user)
@@ -77,12 +88,15 @@ def getUserPubKeys(user):
         to_return.append(x.pub_key_text)
     return to_return
 
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Prikey... should be stored encrypted (via a password only the user knows)
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
+
+
 class PriKey(XModel):
     user = models.OneToOneField(User)
     pri_key_text = models.TextField()
+
 
 def getUserPriKey(user):
     try:
@@ -91,9 +105,11 @@ def getUserPriKey(user):
     except ObjectDoesNotExist as e:
         return None
 
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 # Post save function for auth user.
-#-----------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
+
+
 def authUserPostSave(sender, **kwargs):
     user = kwargs['instance']
     created = kwargs['created']
@@ -101,4 +117,5 @@ def authUserPostSave(sender, **kwargs):
         from truespeak.common import createEmailProfile
         createEmailProfile(user.email, user)
 
-post_save.connect(authUserPostSave, sender=User, dispatch_uid="auth_user_post_save")
+post_save.connect(authUserPostSave,
+                  sender=User, dispatch_uid="auth_user_post_save")

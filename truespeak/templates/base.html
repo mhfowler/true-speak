@@ -66,7 +66,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     <li class="already-registered"> you are logged in as <span class="who-are-you">{{ user.username }}</span> </li>
-                    <a href="/logout/" class="btn btn-small btn-success sign-in-button parseltongue_logout">logout?</a>
+                    <a href="/logout/" class="btn btn-small btn-success sign-in-button parseltongue_logout">logout</a>
                 {% else %}
                     <li class="already-registered"> already registered? </li>
                     <a href="/login/" class="btn btn-small btn-success sign-in-button">sign in</a>

@@ -237,7 +237,7 @@ def uploadPriKey(request):
         logError("authenticated user is not who they think they are? " +
                  user.username + " " + post_user)
     pri_key_text = request.POST['pri_key']
-    already = PriKey.lg.get_or_none(user=user)
+    already = PriKey.xobjects.get_or_none(user=user)
     if already:
         already.pri_key_text = pri_key_text
         already.save()
@@ -249,7 +249,7 @@ def uploadPriKey(request):
 
 def getPriKey(request):
     user = request.user
-    pri_key = PriKey.lg.get_or_none(user=user)
+    pri_key = PriKey.xobjects.get_or_none(user=user)
     if pri_key:
         to_return = {
             "success": 1,
