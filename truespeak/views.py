@@ -28,6 +28,8 @@ def viewWrapper(view):
 
 
 def home(request):
+    if request.user.is_authenticated():
+        return settingsPage(request)
     return render_to_response('home.html', locals(), context_instance=RequestContext(request))
 
 
@@ -40,7 +42,7 @@ def welcome(request, email_address=None):
 
 
 def about(request):
-    return render_to_response('docs.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('about.html', locals(), context_instance=RequestContext(request))
 
 
 def contact(request):
@@ -88,7 +90,7 @@ def confirmEmail(request, link_number):
     if not email_profile.confirmed:
         login(request, user)
         link_age = email_profile.getAge()
-        two_weeks_in_seconds = 60*60*24*14
+        two_weeks_in_seconds = 60 * 60 * 24 * 14
         if link_age > two_weeks_in_seconds:
             email_profile.confirmation_link = getNewConfirmationLink()
             email_profile.created_when = datetime.datetime.now()
@@ -100,8 +102,10 @@ def confirmEmail(request, link_number):
         email_profile.save()
         return shortcuts.redirect("/initializing/")
     else:
-        logError("second time clicking on confirmation link? " + email_profile.email)
+        logError(
+            "second time clicking on confirmation link? " + email_profile.email)
         return shortcuts.redirect("/login/")
+
 
 @ensure_csrf_cookie
 def loginPage(request):
@@ -183,7 +187,7 @@ def errorView(request, error_dict=None):
 def getPubKeys(request):
 
     requested_keys = json.loads(request.GET.get('requested_keys', []))
-    
+
     res = {email: getPubKeysAssociatedWithEmail(email) for email in requested_keys}
 
     return json_response(res)

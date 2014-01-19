@@ -7,9 +7,10 @@ import os
 LOCAL_STATIC_FILES = os.path.join(PROJECT_PATH, 'truespeak/static/')
 
 urlpatterns = patterns('',
-                       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': LOCAL_STATIC_FILES}),
+                       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+                        'document_root': LOCAL_STATIC_FILES}),
 
-                        # pages
+                       # pages
                        ('^register/$', registerPage),
                        ('^login/$', loginPage),
                        ('^logout/$', viewWrapper(logoutPage)),
@@ -23,10 +24,10 @@ urlpatterns = patterns('',
                        (r'^confirm/(?P<link_number>\d+)/$', confirmEmail),
 
                        # ajax methods
-                        (r'^get_pubkeys/$', viewWrapper(getPubKeys)),
-                        (r'^get_prikey/$', viewWrapper(getPriKey)),
-                        (r'^upload_pubkey/$', viewWrapper(uploadPubKey)),
-                        (r'^upload_prikey/$', viewWrapper(uploadPriKey)),
+                      (r'^get_pubkeys/$', viewWrapper(getPubKeys)),
+                      (r'^get_prikey/$', viewWrapper(getPriKey)),
+                      (r'^upload_pubkey/$', viewWrapper(uploadPubKey)),
+                      (r'^upload_prikey/$', viewWrapper(uploadPriKey)),
 
                        ('^/$', redirect),
                        ('^$', redirect),
@@ -44,4 +45,4 @@ urlpatterns = patterns('',
                        #
                        # (r'^set_encrypt/$', set_encrypt),
 
-)
+                       )
