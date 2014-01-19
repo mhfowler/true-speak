@@ -86,7 +86,6 @@ def confirmEmail(request, link_number):
     email_profile = email_profile[0]
     user = email_profile.user
     user.backend = 'django.contrib.auth.backends.ModelBackend'
-    login(request, user)
     if not email_profile.confirmed:
         login(request, user)
         link_age = email_profile.getAge()

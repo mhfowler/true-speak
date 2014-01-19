@@ -92,7 +92,6 @@ def getUserPubKeys(user):
 # Prikey... should be stored encrypted (via a password only the user knows)
 #-------------------------------------------------------------------------
 
-
 class PriKey(XModel):
     user = models.OneToOneField(User)
     pri_key_text = models.TextField()
