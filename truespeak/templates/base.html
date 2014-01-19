@@ -56,13 +56,13 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                {% if not user.is_authenticated %}
+                <li  {% if request.path == "/about/" %}class="active"{% endif %}><a href="/about/">About</a></li>
+                <li  {% if request.path == "/contact/" %}class="active"{% endif %}><a href="/contact/">Contact</a></li>
+                            {% if not user.is_authenticated %}
                     <li class="{% if request.path == "/register/" %}active{% endif %} pt_extension_installed" style="display:none;"><a href="/register/">Register</a></li>
                 {% else %}
                     <li {% if request.path == "/settings/" %}class="active"{% endif %}><a href="/settings/">Settings</a></li>
                 {% endif %}
-                <li  {% if request.path == "/about/" %}class="active"{% endif %}><a href="/about/">About</a></li>
-                <li  {% if request.path == "/contact/" %}class="active"{% endif %}><a href="/contact/">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right pt_extension_installed">
                 {% if user.is_authenticated %}
