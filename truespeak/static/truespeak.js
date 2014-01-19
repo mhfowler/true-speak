@@ -94,5 +94,4 @@ $(document).ready(function()
         login_email_input.focus();
     }
 
-
 });

@@ -168,7 +168,7 @@ position: absolute;
 .disco-josh {
     margin-left: 36%;
 margin-right: auto;
-margin-top: 110px;
+margin-top: 10px;
 margin-bottom: 110px;
 }
 
@@ -242,4 +242,22 @@ padding-right: 0px;
 
 .form-group {
     margin-top:-15px;
+}
+
+.about-wrapper p {
+    font-size:20px;
+    width:75%;
+    margin-top:30px;
+}
+.about-wrapper h3 {
+    margin-top:50px;
+    font-size:36px;
+}
+.about-wrapper {
+    padding-left:10%;
+    padding-bottom:70px;
+}
+
+.pt_extension_installed {
+    display:none;
 }
