@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django import shortcuts
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
-from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError, createEmailProfile
+from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError, createEmailProfile, normalize_email
 from truespeak.models import *
 import json
 
@@ -63,7 +63,7 @@ def settingsPage(request):
             "message": ""
         }
         if "new_email" in request.POST:
-            new_email = request.POST['new_email']
+            new_email = normalize_email(request.POST['new_email'])
             success, message = createEmailProfile(new_email, user)
             if success:
                 to_return['message'] = message
@@ -112,7 +112,7 @@ def loginPage(request):
     if request.method == "GET":
         return render_to_response('login.html', locals(), context_instance=RequestContext(request))
     else:
-        email = request.POST['email']
+        email = normalize_email(request.POST['email'])
         password = request.POST['password']
         error = ""
         try:
@@ -153,7 +153,7 @@ def registerPage(request):
     if request.method == "GET":
         return render_to_response('register.html', locals(), context_instance=RequestContext(request))
     else:
-        email = request.POST['email']
+        email = normalize_email(request.POST['email'])
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         error = ""
@@ -187,7 +187,7 @@ def errorView(request, error_dict=None):
 def getPubKeys(request):
 
     requested_keys = json.loads(request.GET.get('requested_keys', []))
-
+    requested_keys = map(normalize_email, requested_keys)
     res = {email: getPubKeysAssociatedWithEmail(email) for email in requested_keys}
 
     return json_response(res)

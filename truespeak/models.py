@@ -57,7 +57,7 @@ class EmailProfile(XModel):
 
     def getAge(self):
         now = datetime.datetime.now()
-        age = now - self.created_when
+        age = now - self.created_when.replace(tzinfo=None)
         age_in_seconds = age.total_seconds()
         return age_in_seconds
 

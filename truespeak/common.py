@@ -82,3 +82,6 @@ def createEmailProfile(new_email, user):
         email_profile.save()
         sendEmailAssociationConfirmation(email_profile)
         return True, "A confirmation email has been sent to your email address."
+
+def normalize_email(email):
+    return email.lower()
