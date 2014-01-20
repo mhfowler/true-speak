@@ -7,7 +7,7 @@
     <div class="container">
 
         <!-- Main component for a primary marketing message or call to action -->
-        <div class="jumbotron welcome-container">
+        <div class="jumbotron welcome-container register-container">
 
             {% comment %}
              <img class="sound-of-music" src="https://d2nh4f9cbhlobh.cloudfront.net/_uploads/galleries/240/the-sound-of-music-image_2.jpg"/>
@@ -28,18 +28,30 @@
                         <label for="exampleInputPassword1">Same Password</label>
                         <input type="password" class="form-control register-input register_password2" id="exampleInputPassword2" placeholder="Password">
                     </div>
-                    <span class="password-error-message register_error"> Oops, both passwords must be the same. </span>
                     <button type="submit" class="btn btn-lg btn-primary register-button register_button">Register</button>
-                    <div class="loading-gif">
+                    <div class="loading-gif register-loading">
                         <img src="/static/flakes.gif"/>
                     </div>
+                    <span class="password-error-message register_error"> Oops, both passwords must be the same. </span>
                     <div style="clear:both;"></div>
                 </form>
                 <img class="snake-drawing" src="http://upload.wikimedia.org/wikipedia/commons/1/1d/Black_snake_1_%28PSF%29.png"/>
                 <div style="clear:both;"></div>
             </div>
+
+                    <div class="register-explain">
+            <h3>Choose a password you will remember! Your password is used to encyrpt your private key and is non-recoverable.</h3>
+            <p class="register-explain-p">
+                When you register ParselTongue it initializes your private key and uploads a matching public key that gets associated
+                with the email address you registered which allows other users to send emails to this email address encrypted
+                so that only you can read them. To learn more about how ParselTongue works read our <a href="/about/">FAQ</a>.
+            </p>
+        </div>
+
             <div style="clear:both;"></div>
         </div>
+
+
 
         <div style="clear:both;"></div>
 
