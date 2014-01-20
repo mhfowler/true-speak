@@ -169,7 +169,8 @@ span.password-error-message {
 width: 600px;
 position: absolute;
 left: 40%;
-    margin-left:100px;
+    z-index:-1;
+    /*margin-left:100px;*/
 }
 
 .disco-josh {
