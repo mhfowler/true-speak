@@ -23,6 +23,10 @@ ADMINS = (
     ("Stephanie Wang", "swang93@mit.com")
 )
 
+HAPPY_EMAILS = [
+    "maximusfowler@gmail.com"
+]
+
 MANAGERS = ADMINS
 
 DATABASES = {
