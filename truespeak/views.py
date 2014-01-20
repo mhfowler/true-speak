@@ -45,6 +45,8 @@ def welcome(request, email_address=None):
 def about(request):
     return render_to_response('about.html', locals(), context_instance=RequestContext(request))
 
+def tutorial(request):
+    return render_to_response('tutorial.html', locals(), context_instance=RequestContext(request))
 
 def contact(request):
     return render_to_response('contact.html', locals(), context_instance=RequestContext(request))
