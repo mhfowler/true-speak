@@ -6,54 +6,67 @@
 
 {% block body %}
 
-<div class="container-narrow">
+    <div class="container-narrow">
 
-    <div class="masthead muted">
-        <h3>
-            Secure your email from eavesdroppers.
-        </h3>
-    </div>
+        <div class="masthead muted">
+            <h3>
+                Secure your email from eavesdroppers.
+            </h3>
+        </div>
 
-    <hr>
+        <hr>
 
-    <div class="jumbotron">
-        <h1 class="pull-left">
-            ParselTongue
-        </h1>
-        <img src="http://icons.iconarchive.com/icons/martin-berube/animal/256/snake-icon.png" class="snake-icon">
+        <div class="jumbotron">
+            <h1 class="pull-left">
+                ParselTongue
+            </h1>
+            <img src="http://icons.iconarchive.com/icons/martin-berube/animal/256/snake-icon.png" class="snake-icon">
 
-        <p class="lead def-text">
-            Client-side encrypted communication across the web.
-        </p>
+            <p class="lead def-text">
+                Client-side encrypted communication for gmail.
+            </p>
 
-        <a class="btn btn-primary chrome-btn" href="https://chrome.google.com/webstore/detail/parseltongue/logcpfjpklbbdbchkhjnpnnflbcmgnaj?hl=EN" target="_blank">Get it for Chrome </a> <img src="http://netflix.burtonthird.com/static/img/chrome-logo.png" class="chrome-icon"/>
+            <a class="btn btn-primary chrome-btn" href="https://chrome.google.com/webstore/detail/parseltongue/logcpfjpklbbdbchkhjnpnnflbcmgnaj?hl=EN" target="_blank">Get it for Chrome </a> <img src="http://netflix.burtonthird.com/static/img/chrome-logo.png" class="chrome-icon"/>
 
-        <img class="snake-img" src="http://fc06.deviantart.net/fs70/i/2012/329/3/f/black_and_white_snake_by_evilpurplechicken-d5m6g7f.jpg"/>
+            <img class="snake-img" src="http://fc06.deviantart.net/fs70/i/2012/329/3/f/black_and_white_snake_by_evilpurplechicken-d5m6g7f.jpg"/>
 
-    </div>
+        </div>
 
-    <hr>
+        <hr>
 
-    <div class="row-fluid marketing">
+        <div class="row-fluid marketing">
 
-        <div class="ps-explanation">
-            <h3>Secure</h3>
+            <div class="ps-explanation">
+                <h3>Secure</h3>
+                <p>
+                    Speak freely knowing that only the intended recipients of your messages can read them. The government, targeted advertisers, Google, Facebook and hackers will all be unable to read your messages even if they are eavesdropping on them. With ParselTongue installed, all of your communications can only be decrypted with the private key only your message recipient has.
+                </p>
+                <h3>Seamless</h3>
+                <p>
+                    Once you've installed the ParselTongue chrome extension, that's it. ParselTonge will keep your communications secure and you'll forget it's even there.
+                </p>
+                <h3>Snakes</h3>
+                <p>
+                    Snakes are elongated, legless, carnivorous reptiles of the suborder Serpentes that can be distinguished from legless lizards by their lack of eyelids and external ears.
+                </p>
+            </div>
+
+
+        </div>
+
+        <hr>
+
+        <div class="tutorial-wrapper" style="padding-left:0px;padding-bottom:0px;">
+
+            {% include 'tutorial_snippet.html' %}
+
             <p>
-                Speak freely and sleep easy knowing that only the intended recipients of your messages can read them. The government, targeted advertisers, Google, Facebook and Mom will all be unable to read your messages even if they are eavesdropping on them. With ParselTongue installed, all of your communications can only be decrypted with the private key only your message recipient has.
+                It's simple, and it's free. <a href="https://chrome.google.com/webstore/detail/parseltongue/logcpfjpklbbdbchkhjnpnnflbcmgnaj?hl=EN" target="_blank">Get it for chrome</a>.
             </p>
-            <h3>Seamless</h3>
-            <p>
-                Once you've installed the ParselTongue chrome extension, that's it. ParselTonge will keep your communications secure and you'll forget it's even there.
-            </p>
-            <h3>Snakes</h3>
-            <p> 
-                Snakes are elongated, legless, carnivorous reptiles of the suborder Serpentes that can be distinguished from legless lizards by their lack of eyelids and external ears.
-            </p>
+
         </div>
 
     </div>
 
-    <hr>
     <img class="crazy-snake" src="http://31.media.tumblr.com/eca927ed58e655bd139fa9f269724a03/tumblr_mf09rsPUOg1r1mkubo1_500.gif"/>
-</div>
 {% endblock %}
