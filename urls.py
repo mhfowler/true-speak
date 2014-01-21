@@ -25,7 +25,7 @@ urlpatterns = patterns('',
                        (r'^confirm/(?P<link_number>\S*)/$', confirmEmail),
 
                        # ajax methods
-                      (r'^get_pubkeys/$', viewWrapper(getPubKeys)),
+                      (r'^get_pubkeys/$', getPubKeys),
                       (r'^get_prikey/$', viewWrapper(getPriKey)),
                       (r'^upload_pubkey/$', viewWrapper(uploadPubKey)),
                       (r'^upload_prikey/$', viewWrapper(uploadPriKey)),
