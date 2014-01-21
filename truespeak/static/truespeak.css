@@ -174,7 +174,7 @@ left: 40%;
 }
 
 .disco-josh {
-    margin-left: 36%;
+    margin-left: 33%;
 margin-right: auto;
 margin-top: 10px;
 margin-bottom: 110px;
@@ -316,8 +316,10 @@ margin-top: 35px;
 
 .screenshot-image {
     width:600px;
+    max-width:100%;
     /*margin-left:6%;*/
     margin-top: 30px;
     border:1px solid lightgray;
     margin-bottom: 10px;
 }
+

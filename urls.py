@@ -29,21 +29,9 @@ urlpatterns = patterns('',
                       (r'^get_prikey/$', viewWrapper(getPriKey)),
                       (r'^upload_pubkey/$', viewWrapper(uploadPubKey)),
                       (r'^upload_prikey/$', viewWrapper(uploadPriKey)),
+                      (r'^error/$', ajaxError),
 
                        ('^/$', redirect),
                        ('^$', redirect),
-
-                       # ('^channel/$', channel),
-                       #
-                       # (r'^connect_with_facebook/$', connect_with_facebook),
-                       # (r'^facebook_callback/$', facebook_callback),
-                       # (r'^done_token/$', done_token),
-                       #
-                       #
-                       # (r'^upload_pubkey/$', upload_pubkey),
-                       #
-                       # (r'^friends/$', friends),
-                       #
-                       # (r'^set_encrypt/$', set_encrypt),
 
                        )

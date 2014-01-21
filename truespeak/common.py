@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from truespeak.models import EmailProfile, logger
 from django.core.mail import send_mail
+from settings.common import ERROR_EMAILS
 
 import uuid
 import random
@@ -59,6 +60,7 @@ def getNewConfirmationLink():
 
 
 def logError(message):
+    send_mail('ParselTongue Javascript Error', message, 'parseltongueextension@gmail.com',ERROR_EMAILS, fail_silently=True)
     logger.error(message)
 
 

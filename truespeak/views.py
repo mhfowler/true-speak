@@ -263,3 +263,15 @@ def getPriKey(request):
             "success": 0
         }
     return json_response(to_return)
+
+
+@csrf_exempt
+def ajaxError(request):
+    user = request.user
+    error = request.POST.get("error")
+    email = ""
+    if user and not user.is_anonymous():
+        email = user.email
+    error_message = "javascript error | user: " + email + " | " + error
+    logError(error_message)
+    return HttpResponse("error logged")
