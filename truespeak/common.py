@@ -3,7 +3,7 @@ from truespeak.models import EmailProfile, logger
 from django.core.mail import send_mail
 from settings.common import ERROR_EMAILS
 
-import uuid, os
+import uuid, os, binascii
 import random
 
 
@@ -51,7 +51,10 @@ def sendEmailAssociationConfirmation(email_profile):
 def getNewConfirmationLink():
     confirmation_link = None
     while not confirmation_link:
-        confirmation_link = random.randint(0, 10000000000)
+        confirmation_link = ""
+        for i in range(0,3):
+            confirmation_link += binascii.b2a_hex(os.urandom(15))
+        print confirmation_link
         already = EmailProfile.objects.filter(
             confirmation_link=confirmation_link)
         if already:
