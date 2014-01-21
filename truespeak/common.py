@@ -3,7 +3,7 @@ from truespeak.models import EmailProfile, logger
 from django.core.mail import send_mail
 from settings.common import ERROR_EMAILS
 
-import uuid
+import uuid, os
 import random
 
 
