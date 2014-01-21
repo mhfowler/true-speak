@@ -28,7 +28,7 @@ HAPPY_EMAILS = [
     "joshblum@mit.edu",
     "swang93@mit.com"
 ]
-ERROR_EMAILS = ["max_fowler@brown.edu"]
+ERROR_EMAILS = HAPPY_EMAILS
 
 MANAGERS = ADMINS
 
