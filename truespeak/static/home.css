@@ -3,10 +3,25 @@
 }
 
 .snake-icon {
-  width: 90px;
-    float: left;
-    margin-top: -6px;
-    margin-left: 49px;
+  /*width: 90px;*/
+    /*float: left;*/
+    /*margin-top: -6px;*/
+    /*margin-left: 49px;*/
+width: 118px;
+float: left;
+margin-top: 25px;
+margin-left: 41%;
+position: relative;
+left: -87px;
+}
+
+.image-wrapper {
+    float:right;
+    width:80px;
+}
+.left-side {
+    float:left;
+    width:85%;
 }
 
 .snake-img {

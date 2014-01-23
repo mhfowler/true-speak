@@ -6,6 +6,9 @@ from settings.common import ERROR_EMAILS
 import uuid, os, binascii
 import random
 
+def sendTestMessage():
+    message = "<div> You should see this. </div><div style='display:none;'>You should not see this</div>"
+    send_mail('Test Email', message, 'parseltongueextension@gmail.com',['max_fowler@brown.edu'], fail_silently=True)
 
 def generateRandomUsername():
     username = None
