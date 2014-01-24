@@ -1,14 +1,19 @@
 from django.contrib.auth.models import User
 from truespeak.models import EmailProfile, logger
 from django.core.mail import send_mail
-from settings.common import ERROR_EMAILS
+from django.conf import settings# import settings.ERROR_EMAILS
 
-import uuid, os, binascii
+import uuid
+import os
+import binascii
 import random
+
 
 def sendTestMessage():
     message = "<div> You should see this. </div><div style='display:none;'>You should not see this</div>"
-    send_mail('Test Email', message, 'parseltongueextension@gmail.com',['max_fowler@brown.edu'], fail_silently=True)
+    send_mail('Test Email', message, 'parseltongueextension@gmail.com',
+              ['max_fowler@brown.edu'], fail_silently=True)
+
 
 def generateRandomUsername():
     username = None
@@ -55,7 +60,7 @@ def getNewConfirmationLink():
     confirmation_link = None
     while not confirmation_link:
         confirmation_link = ""
-        for i in range(0,3):
+        for i in range(0, 3):
             confirmation_link += binascii.b2a_hex(os.urandom(15))
         print confirmation_link
         already = EmailProfile.objects.filter(
@@ -66,7 +71,8 @@ def getNewConfirmationLink():
 
 
 def logError(message):
-    send_mail('ParselTongue Javascript Error', message, 'parseltongueextension@gmail.com',ERROR_EMAILS, fail_silently=True)
+    send_mail('ParselTongue Javascript Error', message,
+              'parseltongueextension@gmail.com', settings.ERROR_EMAILS, fail_silently=True)
     logger.error(message)
 
 
@@ -90,6 +96,7 @@ def createEmailProfile(new_email, user):
         email_profile.save()
         sendEmailAssociationConfirmation(email_profile)
         return True, "A confirmation email has been sent to your email address."
+
 
 def normalize_email(email):
     return email.lower()

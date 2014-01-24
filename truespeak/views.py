@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError, createEmailProfile, normalize_email
 from truespeak.models import *
-from settings.common import HAPPY_EMAILS
+from django.conf import settings
 import json
 
 
@@ -174,7 +174,7 @@ def registerPage(request):
         if not error:
             user = User.objects.create_user(
                 username=email, email=email, password=password1)
-            send_mail('ParselTongue Registration', email, 'settings@parseltongue.com',HAPPY_EMAILS, fail_silently=True)# nice email
+            send_mail('ParselTongue Registration', email, 'settings@parseltongue.com',settings.HAPPY_EMAILS, fail_silently=True)# nice email
         to_return = {
             "error": error,
             "message": "blah"
