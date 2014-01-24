@@ -3,16 +3,12 @@
 }
 
 .snake-icon {
-  /*width: 90px;*/
-    /*float: left;*/
-    /*margin-top: -6px;*/
-    /*margin-left: 49px;*/
-width: 118px;
-float: left;
-margin-top: 25px;
-margin-left: 41%;
-position: relative;
-left: -87px;
+    width: 118px;
+    float: left;
+    margin-top: 25px;
+    margin-left: 41%;
+    position: relative;
+    left: -87px;
 }
 
 .image-wrapper {
@@ -50,39 +46,12 @@ left: -87px;
     margin-top: 13px;
     display:none;
 }
-
-/* Custom container */
-.container-narrow {
-    margin: 0 auto;
-    max-width: 700px;
-}
-
-.container-narrow > hr {
-    margin: 30px 0;
-}
-
 .ps-explanation p {
     font-size: 22px;
     line-height: 31px;
     width: 95%;
     margin-bottom: 39px;
     text-align: left;
-}
-
-    /* Main marketing message and sign up button */
-.jumbotron {
-    margin: 0px 0;
-    text-align: center;
-}
-
-.jumbotron h1 {
-    font-size: 72px;
-    line-height: 1;
-}
-
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
 }
 
 /* Supporting marketing content */
