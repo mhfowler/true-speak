@@ -1,13 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
-import random
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.db.models.signals import post_save
 from django.core.mail import send_mail
 
-# import the logging library
 import logging
 import datetime
+import random
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -22,11 +21,10 @@ class XManager(models.Manager):
     """
 
     def get_or_none(self, **kwargs):
-        to_return = self.filter(**kwargs)
-        if to_return:
-            return to_return[0]
-        else:
-            return to_return
+        res = self.filter(**kwargs)
+        if res:
+            return res[0]
+        return res
 
 #-------------------------------------------------------------------------
 # All models inherit from this
@@ -58,37 +56,33 @@ class EmailProfile(XModel):
     def getAge(self):
         now = datetime.datetime.now()
         age = now - self.created_when.replace(tzinfo=None)
-        age_in_seconds = age.total_seconds()
-        return age_in_seconds
+        return age.total_seconds()
 
 
 def getAssociatedEmailAddresses(user, confirmed=True):
     emails = EmailProfile.objects.filter(user=user)
     if confirmed:
         emails = emails.filter(confirmed=True)
-    to_return = []
-    for x in emails:
-        to_return.append(x.email)
-    return to_return
+    return [email.email for email in emails]
 
 #-------------------------------------------------------------------------
 # Pubkey
 #-------------------------------------------------------------------------
+
+
 class PubKey(XModel):
     user = models.ForeignKey(User)
     pub_key_text = models.CharField(max_length=200)
 
 
 def getUserPubKeys(user):
-    pub_keys = PubKey.objects.filter(user=user)
-    to_return = []
-    for x in pub_keys:
-        to_return.append(x.pub_key_text)
-    return to_return
+    keys = PubKey.objects.filter(user=user)
+    return [key.pub_key_text for key in keys]
 
 #-------------------------------------------------------------------------
 # Prikey... should be stored encrypted (via a password only the user knows)
 #-------------------------------------------------------------------------
+
 
 class PriKey(XModel):
     user = models.OneToOneField(User)

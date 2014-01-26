@@ -24,10 +24,6 @@
     margin: 30px 0;
 }
 
-
-.navbar {
-}
-
 .success {
     background-color:lightblue;
 }
@@ -35,9 +31,8 @@
     background-color:salmon;
 }
 
-
 .welcome-container {
-    #color:white;
+    color:white;
     float:left;
     background-color:white;
     padding-top:0px;
@@ -64,7 +59,6 @@
 }
 
 .over-sound-of-music {
-    /*position: absolute;*/
     padding-right: 125px;
 }
 
@@ -95,15 +89,11 @@ label {
     color: rgb(145, 145, 145);
 }
 
-
-
 .snake-drawing {
     position: absolute;
     z-index: -1;
     width: 549px;
     float: right;
-    /*left: 462px;*/
-    /*top: 122px;*/
     left: 47%;
     top: 159px;
 }
@@ -191,19 +181,11 @@ span.password-error-message {
 }
 
 .snake-drawing2 {
-  top: 109px;
-width: 600px;
-position: absolute;
-left: 40%;
+    top: 109px;
+    width: 600px;
+    position: absolute;
+    left: 40%;
     z-index:-1;
-    /*margin-left:100px;*/
-}
-
-.disco-josh {
-    margin-left: 33%;
-margin-right: auto;
-margin-top: 10px;
-margin-bottom: 110px;
 }
 
 .atleast {
@@ -248,16 +230,16 @@ h1.settings-header {
 
 h1.welcome-header {
     color: white;
-margin-left: 8%;
-margin-top: 61px;
-font-size: 50px;
+    margin-left: 8%;
+    margin-top: 61px;
+    font-size: 50px;
 }
 
 .welcome-wrapper {
     position: relative;
-top: -38px;
-width: 100%;
-padding-right: 0px;
+    top: -38px;
+    width: 100%;
+    padding-right: 0px;
 }
 
 .welcome-email-address {
@@ -343,9 +325,25 @@ padding-right: 0px;
 .screenshot-image {
     width:600px;
     max-width:100%;
-    /*margin-left:6%;*/
     margin-top: 30px;
     border:1px solid lightgray;
     margin-bottom: 10px;
 }
 
+/* carousel overrides */
+.carousel-caption {
+    color: black;
+    text-shadow:none;
+}
+
+.glyphicon-chevron-right {
+    right:10% !important;
+}
+
+.glyphicon-chevron-left {
+    left:10% !important;
+}
+
+.carousel-control.right, .carousel-control.left {
+    background-image: none;
+}

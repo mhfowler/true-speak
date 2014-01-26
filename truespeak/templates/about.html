@@ -8,65 +8,55 @@
         <div class="jumbotron about-wrapper">
             <h3> How do I use ParselTongue? </h3>
             <p>
-                First you have to install the ParselTongue google chrome extension. You can get it <a href="https://chrome.google.com/webstore/detail/parseltongue/egpagjaeoilneaefepllapmajaoefcgd?hl=en&gl=US" target="_blank">here</a>.
+                First, <a href="https://chrome.google.com/webstore/detail/parseltongue/egpagjaeoilneaefepllapmajaoefcgd?hl=en&gl=US" target="_blank">install the ParselTongue Google Chrome Extension</a>.
             </p>
             <p>
-                Second you have to register the gmail address that you would like to use with ParselTongue. You can register <a href="/register/" target="_blank">here</a>.
+                Second, <a href="/register/" target="_blank">register </a> any Gmail addresses that you would like to use with ParselTongue.
             </p>
             <p>
-                That's all it takes to set it up. Below is a screenshot tutorial showing what ParselTongue looks like once it's setup.
+                That's <strong> all it takes to set it up. </strong> Below is a screenshot tutorial showing what ParselTongue looks like once it's setup.
             </p>
 
             {% include 'tutorial_snippet.html' %}
 
             <p>
-                That's it. The rest of your internet and email experience will be unaffected &mdash; although you may find yourself
-                more aware of the fact that without ParselTongue you and your message recipients are not necessarily
-                the only one's in the conversation.
+                That's it. The rest of your internet and email experience will be unaffected &mdash; although you may find yourself more aware of the fact that without ParselTongue you and your message recipients are not necessarily the only one's in the conversation.
             </p>
 
             <h3> How does ParselTongue Work? </h3>
             <p>
-                ParselTongue is a Google Chrome extension which uses Javascript and a public key store to encrypt
-                emails between ParselTongue users.
+                ParselTongue is a Google Chrome extension which uses Javascript and a public key store to encrypt emails between ParselTongue users.
             </p>
             <p>
-                When you register for ParselTongue your browser generates a private key along with a matching public key.
-                Your private key is stored in your Google chrome local storage which is only accessible by you.
+                When you register for ParselTongue your browser generates a public/private key pair.
+                Your private key is stored in the extenion's local storage which sandboxed from other domains and only the extension can access.
                 Your public key is uploaded to the ParselTongue public key server where other users have access to it.
-                ParselTongue then works on top of your gmail to detect when you are emailing another ParselTongue
-                user and encrypts your emails to other ParselTongue users using their public key.
-                This encryption takes place in your browser, so plain text never gets sent through Google's servers,
-                or onto the network at all.
-                The cipher text that passes through the network is encrypted with a 1024 bit public key, such that an adversary would be
-                unable to decipher it unless they possess the correct private key.
+            <p>
+                ParselTongue then works on top of your Gmail to detect when you are emailing another ParselTongue user and encrypts your emails to other ParselTongue users using their public key.
+                This encryption takes place in your browser, so plain text never gets sent through Google's servers, or onto the network at all. Even when Gmail is saving your drafts, all of the content is encrypted.
+            <p>
+                The cipher text that passes through the network is encrypted with a 1024 bit public key, such that an adversary would be unable to decipher it unless they possess the correct private key.
             </p>
             <p>
-                When your intended recipient opens your email, ParselTongue uses their private key in their browser's local storage
-                to seamlessly decrypt the email. You see plain text, and they see plain text, and no else can in between.
+                When your intended recipient opens your email, ParselTongue uses their private key in their browser's local storage to seamlessly decrypt the email. You see plain text, and they see plain text, and no else can in between.
             </p>
 
             <h3> Who made ParselTongue? </h3>
             <p>
-                Stephanie Wang (MIT '14), Josh Blum (MIT '14) and Max Fowler (Brown '14). We originally built
-                ParselTongue for a Facebook hackathon in the summer of 2013. Over the winter of 2014 we built it out to
-                release it -- although between school and other commitments it is hardly a polished final product. We think
-                that ParselTongue can go a long way against blanket surveillance, and that client-side encryption should be
-                the standard for private communication.
+                Stephanie Wang (MIT '15), Josh Blum (MIT '14) and Max Fowler (Brown '14). We originally built
+                ParselTongue for a Facebook hackathon in the summer of 2013. Over the winter of 2014 we built it out to release it -- although between school and other commitments it is hardly a polished final product. We think that ParselTongue can go a long way against blanket surveillance, and that client-side encryption should be the standard for private communication.
             </p>
 
             <h3> Why should you trust us more than Google? </h3>
             <p>
                 The beauty of client-side encryption is you don't have to. We don't store your password. We don't have your private key.
-                If you are technically literate you could watch the encryption code run in your browser and trust in that.
+                The <a href="https://github.com/maximusfowler/true-speak" about="_blank">public key server</a> and <a href="https://github.com/joshblum/fakeblock" about="_blank">extension</a> are both public on GitHub.
             </p>
 
             <h3> What are the downsides? </h3>
             <p>
-                Because your ParselTongue encrypted emails are stored as cipher text on Google's servers, gmail search won't be
-                able to understand the contents of your emails (because it can't read them), but you will still be able to search
-                by email subject and recipient (which are not encrypted). Besides that, ParselTongue is completely seamless and
-                won't effect your gmail experience in any way -- other than that the NSA won't be able to read your emails anymore.
+                Because your ParselTongue encrypted emails are stored as cipher text on Google's servers, Gmail search won't be able to understand the contents of your emails (because it can't read them), but you will still be able to search
+                by email subject and recipient (which are not encrypted). Also, any browser you read your email from must have the ParselTongue extension installed in order to read the emails. Besides that, ParselTongue is completely seamless and won't effect your Gmail experience in any way -- other than that the NSA won't be able to read your emails anymore.
             </p>
 
             <h3> What is the future of ParselTongue? </h3>
@@ -74,21 +64,13 @@
                 ParselTongue may have bugs and could definitely be more polished and thoroughly tested.
             </p>
             <p>
-                We would also like to add a feature to allow power users to manually enter a private key into the extension. Currently
-                we store a password encrypted version of your private key on our servers to allow users to install the extension
-                on multiple machines. This provides a level of security up to the strength of the user's password, but for users
-                who demand an even stronger security guarantee we would like to allow them to install and store their private
+                We would also like to add a feature to allow power users to manually enter a private key into the extension. Currently we store a password encrypted version of your private key on our servers to allow users to install the extension on multiple machines. This provides a level of security up to the strength of the user's password, but for users who demand an even stronger security guarantee we would like to allow them to install and store their private
                 key by whatever method they see fit.
             </p>
 
-
             <h3> How does ParselTongue really work? </h3>
             <p>
-                You can check out the code that is running your extension in our <a href="https://github.com/joshblum/fakeblock">repository</a>.
-                The underlying cryptography is from a Javascript library called <a href="https://github.com/wwwtyro/cryptico">cryptico</a>.
-            </p>
-             <p>
-
+                TODO
             </p>
 
         </div>
