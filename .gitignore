@@ -5,3 +5,6 @@
 *secret*
 *.log
 static/*
+server.key
+server.crt
+bundle.pem
