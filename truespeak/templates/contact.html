@@ -1,10 +1,24 @@
 {% extends "base.html" %}
+{% load filters %}
+
+{% block css %}
+
+{% include_style "/static/css/contact" %}
+{% endblock %}
 
 {% block body %}
 
     <div class="container">
         <div class="contributors">
-        	
+            <div class="profile-wrap pull-left">
+                <img class="img-circle profile-img" src="/static/img/stephanie-profile.png">
+            </div>
+            <div class="profile-wrap pull-left">
+                <img class="img-circle profile-img" src="/static/img/josh-profile.png">
+            </div>
+            <div class="profile-wrap pull-left">
+                <img class="img-circle profile-img" src="/static/img/max-profile.png">
+            </div>
         </div>
         <div class="github">
 
