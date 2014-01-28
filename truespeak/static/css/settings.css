@@ -4,11 +4,11 @@
 
 .settings-wrapper h1 {
     font-size: 36px;
-    margin-bottom: 60px;
+    margin-bottom: 10px;
 }
 
 .settings-messages {
-    height: 110px;
+    height: 100px;
 }
 
 .settings-success {
@@ -32,7 +32,7 @@
 
 .new-email-form {
     padding: 0;
-    margin-bottom: 10px;
+    margin: 20px 0;
 }
 
 .new-email {
@@ -47,4 +47,7 @@
     margin-left: 5%;
     width: 25%;
     height: 50px;
+    line-height: 50px;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
