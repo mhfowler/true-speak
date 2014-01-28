@@ -69,3 +69,12 @@ $(document).ready(function()
     }
 
 });
+
+// flash message after this many ms
+var flashMessageDelay = 1500;
+function flashMessage($elm, message) {
+    //cancel old animations
+    $elm.dequeue();
+    $elm.html(message);
+    $elm.fadeIn().delay(flashMessageDelay).fadeOut('slow');
+}

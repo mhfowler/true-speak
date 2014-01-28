@@ -1,10 +1,14 @@
-.settings-wrapper h1 {
-    font-size: 36px;
-    margin-bottom: 50px;
+.settings-wrapper {
+    background-color: white;
 }
 
-.settings-save {
-    margin-bottom:30px;
+.settings-wrapper h1 {
+    font-size: 36px;
+    margin-bottom: 60px;
+}
+
+.settings-messages {
+    height: 110px;
 }
 
 .settings-success {
@@ -28,13 +32,19 @@
 
 .new-email-form {
     padding: 0;
+    margin-bottom: 10px;
 }
 
 .new-email {
+    float: left;
     margin: 0;
-    width: 100%;
+    width: 70%;
 }
 
 .new-email-save {
-    position: relative;
+    float: left;
+    margin: 0;
+    margin-left: 5%;
+    width: 25%;
+    height: 50px;
 }

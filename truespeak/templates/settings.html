@@ -19,38 +19,40 @@
                 <div class="settings-bottom">
 
                         <form role="form">
-                            <div class="form-group new-email-form">
-                                <!-- <label for="exampleInputEmail1"></label> -->
+                            <div class="form-group new-email-form floated-wrapper">
                                 <input type="email" class="form-control register-input new-email list-group-item" placeholder="Add Another Email Address">
-                            <button type="submit" class="btn btn-lg btn-primary register-button settings-save new-email-save">Save</button>
+                                <button type="submit" class="btn btn-lg btn-primary register-button new-email-save">Save</button>
                             </div>
                         </form>
-                        
-                        <ul class="list-group">
-                        {% for email, confirmed in associated_email_addresses %}
-                            <li class="list-group-item email-address">
-                                {{ email }}
-                                {% if email != user.email %}
-                                    <div class="email-btn delete-email" email="{{ email }}">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </div>
-                                {% endif %}
-                                {% if not confirmed %}
-                                    <div class="email-btn resend-confirmation">
-                                        <span class="glyphicon glyphicon-envelope"></span>
-                                    </div>
-                                {% endif %}
-                            </li>
-                        {% endfor %}    
-                        </table>
 
-                    <div class="settings-messages">
-                        <div class="settings-success"></div>
-                        <div class="settings-error"></div>
-                        <div class="loading-gif">
-                            <img src="/static/img/flakes.gif"/>
+                        <div class="settings-messages floated-wrapper">
+                            <div class="settings-success"></div>
+                            <div class="settings-error"></div>
+                            <div class="loading-gif">
+                                <img src="/static/img/flakes.gif"/>
+                            </div>
                         </div>
-                    </div>
+                        
+                        <div class="floated-wrapper"> 
+                            <ul class="list-group" style="position: relative;">
+                            {% for email, confirmed in associated_email_addresses %}
+                                <li class="list-group-item email-address">
+                                    {{ email }}
+                                    {% if email != user.email %}
+                                        <div class="email-btn delete-email" email="{{ email }}">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </div>
+                                    {% endif %}
+                                    {% if not confirmed %}
+                                        <div class="email-btn resend-confirmation">
+                                            <span class="glyphicon glyphicon-envelope"></span>
+                                        </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}    
+                            </ul>
+                        </div>
+
 
                 </div>
             </div>
@@ -89,10 +91,9 @@ $(".new-email-save").click(function(e) {
 
         if (error === null) {
 
-            $(".settings-success").html(message);
-            $(".settings-success").fadeIn();
+            flashMessage($('.settings-success'), message);
 
-            $emailElm = '<li class="list-group-item email-address">' +
+            $emailElm = $('<li class="list-group-item email-address">' +
                     newEmail +
                     '<div class="email-btn delete-email" email="' + newEmail + '">' +
                         '<span class="glyphicon glyphicon-remove"></span>' + 
@@ -100,19 +101,21 @@ $(".new-email-save").click(function(e) {
                     '<div class="email-btn resend-confirmation">' + 
                         '<span class="glyphicon glyphicon-envelope"></span>' + 
                     '</div>' + 
-                '</li>';
+                '</li>');
+            $emailElm.find('.delete-email').click(function() {
+                deleteEmailHandler($(this));
+            });
             $('.list-group').append($emailElm);
         }
         else {
-            $(".settings-error").html(error);
-            $(".settings-error").fadeIn();
+            flashMessage($('.settings-error'), error);
         }
     });
 });
 
-$('.delete-email').click(function() {
-    var $emailElm = $(this).closest('.email-address');
-    var deleteEmail = $(this).attr('email');
+function deleteEmailHandler($elm) {
+    var $emailElm = $elm.closest('.email-address');
+    var deleteEmail = $elm.attr('email');
     var postData = {
         'delete_email' : deleteEmail,
     }
@@ -121,6 +124,10 @@ $('.delete-email').click(function() {
             $emailElm.remove();
         }
     });
+}
+
+$('.delete-email').click(function() {
+    deleteEmailHandler($(this));
 });
 
 </script>
