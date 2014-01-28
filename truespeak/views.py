@@ -91,6 +91,7 @@ def settingsPage(request):
 
     # otherwise we are just displaying settings
     else:
+        page_title = "settings"
         associated_email_addresses = getAssociatedEmailAddresses(user)
         return render_to_response('settings.html', locals())
 
@@ -139,6 +140,7 @@ def resendConfirmationLink(request):
 @ensure_csrf_cookie
 def loginPage(request):
     if request.method == "GET":
+        page_title = "login"
         return render_to_response('login.html', locals(), context_instance=RequestContext(request))
     else:
         email = normalize_email(request.POST['email'])
