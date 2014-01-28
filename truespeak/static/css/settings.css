@@ -1,0 +1,40 @@
+.settings-wrapper h1 {
+    font-size: 36px;
+    margin-bottom: 50px;
+}
+
+.settings-save {
+    margin-bottom:30px;
+}
+
+.settings-success {
+    color:#3276b1;
+}
+.settings-error {
+    color:red;
+}
+
+.settings-wrapper .loading-gif {
+    margin: auto;
+    width: 70%;
+}
+
+.email-btn {
+    float: right;
+    color: black;
+    cursor: pointer;
+    padding: 0 7px;
+}
+
+.new-email-form {
+    padding: 0;
+}
+
+.new-email {
+    margin: 0;
+    width: 100%;
+}
+
+.new-email-save {
+    position: relative;
+}

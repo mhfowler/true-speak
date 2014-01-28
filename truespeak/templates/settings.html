@@ -8,29 +8,21 @@
 {% block body %}
 
 
-    <div class="container">
+    <div class="container-narrow">
 
         <!-- Main component for a primary marketing message or call to action -->
-        <div class="jumbotron welcome-container settings-wrapper">
+        <!-- <div class="jumbotron welcome-container settings-wrapper"> -->
+        <div class="jumbotron settings-wrapper">
 
-            <div class="over-sound-of-music container">
-                <h1 class="sound-of-music-header settings-header">Your Email Addresses</h1>
+            <div class="container">
+                <h1>Your Email Addresses</h1>
                 <div class="settings-bottom">
-                    <div class="emails-wrapper col-md-6">
 
                         <form role="form">
-
                             <div class="form-group new-email-form">
-                                <label for="exampleInputEmail1">Add Another Email Address</label>
-                                <input type="email" class="form-control register-input new-email list-group-item" placeholder="Email">
+                                <!-- <label for="exampleInputEmail1"></label> -->
+                                <input type="email" class="form-control register-input new-email list-group-item" placeholder="Add Another Email Address">
                             <button type="submit" class="btn btn-lg btn-primary register-button settings-save new-email-save">Save</button>
-                            </div>
-                            
-                            <span class="password-error-message login_error"> Oops, email/password not found. Try again? </span>
-                            <div class="settings_success"></div>
-                            <div class="settings_error"></div>
-                            <div class="loading-gif">
-                                <img src="/static/img/flakes.gif"/>
                             </div>
                         </form>
                         
@@ -51,7 +43,15 @@
                             </li>
                         {% endfor %}    
                         </table>
+
+                    <div class="settings-messages">
+                        <div class="settings-success"></div>
+                        <div class="settings-error"></div>
+                        <div class="loading-gif">
+                            <img src="/static/img/flakes.gif"/>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -67,29 +67,34 @@ $('.resend-confirmation').tooltip({
 });
 
 /* javascript for /settings/ page */
-var settings_url = "/settings/";
+var settingsUrl = "/settings/";
 
 $(".new-email-save").click(function(e) {
     e.preventDefault();
 
-    $(".settings_success").hide();
-    $(".settings_error").hide();
+    $(".settings-success").hide();
+    $(".settings-error").hide();
     $(".loading-gif").show();
 
-    var new_email_input = $(".new-email");
-    var new_email = new_email_input.val();
-    var post_data = {"new_email":new_email};
+    var newEmailInput = $(".new-email");
+    var newEmail = newEmailInput.val();
+    var postData = {
+        "new_email":newEmail, 
+    };
 
-    $.post(settings_url, post_data, function(data) {
+    $.post(settingsUrl, postData, function(data) {
         $(".loading-gif").hide();
         var error = data['error'];
         var message = data['message'];
+
         if (error === null) {
-            $(".settings_success").html(message);
-            $(".settings_success").fadeIn();
+
+            $(".settings-success").html(message);
+            $(".settings-success").fadeIn();
+
             $emailElm = '<li class="list-group-item email-address">' +
-                    new_email +
-                    '<div class="email-btn delete-email" email="' + new_email + '">' +
+                    newEmail +
+                    '<div class="email-btn delete-email" email="' + newEmail + '">' +
                         '<span class="glyphicon glyphicon-remove"></span>' + 
                     '</div>' + 
                     '<div class="email-btn resend-confirmation">' + 
@@ -99,8 +104,8 @@ $(".new-email-save").click(function(e) {
             $('.list-group').append($emailElm);
         }
         else {
-            $(".settings_error").html(error);
-            $(".settings_error").fadeIn();
+            $(".settings-error").html(error);
+            $(".settings-error").fadeIn();
         }
     });
 });
@@ -108,10 +113,10 @@ $(".new-email-save").click(function(e) {
 $('.delete-email').click(function() {
     var $emailElm = $(this).closest('.email-address');
     var deleteEmail = $(this).attr('email');
-    var post_data = {
+    var postData = {
         'delete_email' : deleteEmail,
     }
-    $.post(settings_url, post_data, function(data) {
+    $.post(settingsUrl, postData, function(data) {
         if (data['error'] == null) {
             $emailElm.remove();
         }

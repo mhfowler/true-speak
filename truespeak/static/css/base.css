@@ -208,25 +208,6 @@ span.password-error-message {
     margin-bottom:15px;
 }
 
-h1.settings-header {
-    font-size:40px;
-}
-
-.settings-save {
-    margin-bottom:30px;
-}
-
-.settings_success {
-    color:#3276b1;
-}
-.settings_error {
-    color:red;
-}
-
-.settings-wrapper .loading-gif {
-    margin-left:30%;
-}
-
 h1.welcome-header {
     color: white;
     margin-left: 8%;
