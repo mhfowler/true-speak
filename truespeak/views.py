@@ -4,9 +4,11 @@ from django.shortcuts import render_to_response
 from django import shortcuts
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
-from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError, createEmailProfile, normalize_email
+from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError, createEmailProfile, normalize_email, _template_values
 from truespeak.models import *
 from django.conf import settings
+from annoying.decorators import render_to
+
 import json
 
 
@@ -15,7 +17,8 @@ def redirect(request, page='/home'):
 
 
 def json_response(res):
-    return HttpResponse(json.dumps(res), content_type="application/json")
+    return HttpResponse(json.dumps(res), 
+        content_type="application/json")
 
 
 def viewWrapper(view):
@@ -31,29 +34,36 @@ def viewWrapper(view):
 def home(request):
     if request.user.is_authenticated():
         return shortcuts.redirect("/settings/")
-    return render_to_response('home.html', locals(), context_instance=RequestContext(request))
+    return _template_values('home.html', locals(), 
+        context_instance=RequestContext(request))
 
 
-def goodbye(request):
-    return render_to_response('goodbye.html', locals(), context_instance=RequestContext(request))
-
-
+@render_to("welcome.html")
 def welcome(request, email_address=None):
-    return render_to_response('welcome.html', locals(), context_instance=RequestContext(request))
+    return _template_values(request, page_title="welcome", 
+        email_address=email_address)
 
 
+@render_to("about.html")
 def about(request):
-    return render_to_response('about.html', locals(), context_instance=RequestContext(request))
+    return _template_values(request, page_title="about", 
+        navbar="nav_about")
 
+
+@render_to("tutorial.html")
 def tutorial(request):
-    return render_to_response('tutorial.html', locals(), context_instance=RequestContext(request))
-
-def contact(request):
-    return render_to_response('contact.html', locals(), context_instance=RequestContext(request))
+    return _template_values(request, page_title="tutorial")
 
 
+@render_to("team.html")
+def team(request):
+    return _template_values(request, page_title="team", 
+        navbar="nav_team")
+
+
+@render_to("initializing.html")
 def initializingPage(request):
-    return render_to_response('initializing.html', locals(), context_instance=RequestContext(request))
+    return _template_values(request, page_title="initializing")
 
 
 @ensure_csrf_cookie
@@ -174,17 +184,14 @@ def registerPage(request):
         if not error:
             user = User.objects.create_user(
                 username=email, email=email, password=password1)
-            send_mail('ParselTongue Registration', email, 'settings@parseltongue.com',settings.HAPPY_EMAILS, fail_silently=True)# nice email
+            send_mail(
+                'ParselTongue Registration', email, 'settings@parseltongue.com',
+                settings.HAPPY_EMAILS, fail_silently=True)  # nice email
         to_return = {
             "error": error,
             "message": "blah"
         }
         return json_response(to_return)
-
-
-def errorView(request, error_dict=None):
-    return HttpResponse("My special error view.")
-
 
 @csrf_exempt
 def getPubKeys(request):

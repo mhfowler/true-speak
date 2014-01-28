@@ -1,0 +1,17 @@
+.contributors {
+    width:90%;
+    margin:auto;
+    margin-top:60px;
+    min-height:450px;
+}
+
+.profile-wrap {
+    margin-left:50px;
+    margin-right:50px;
+    text-align: center;
+}
+
+.profile-img {
+    height:232px;
+    width:232px;
+}

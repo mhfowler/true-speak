@@ -15,7 +15,7 @@
     {% endblock %}
 
     <meta charset="utf-8">
-    <title>ParselTongue</title>
+    <title> ParselTongue | {{ page_title }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ParselTongue - the client-side encryption extension for Gmail.">
     <meta name="author" content="Max Fowler, Josh Blum, Stephanie Wang">
@@ -59,12 +59,12 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li  {% if request.path == "/about/" %}class="active"{% endif %}><a href="/about/">About</a></li>
-                <li  {% if request.path == "/contact/" %}class="active"{% endif %}><a href="/contact/">Contact</a></li>
+                <li class="{{ nav_about }}"><a href="/about/">About</a></li>
+                <li  class="{{ nav_team }}"><a href="/team/">Team</a></li>
                 {% if not user.is_authenticated %}
-                    <li class="{% if request.path == "/register/" %}active{% endif %} pt_extension_installed" style="display:none;"><a href="/register/">Register</a></li>
+                    <li class="{{ nav_register }} pt_extension_installed" style="display:none;"><a href="/register/">Register</a></li>
                 {% else %}
-                    <li {% if request.path == "/settings/" %}class="active"{% endif %}><a href="/settings/">Settings</a></li>
+                    <li class={{ nav_settings }}><a href="/settings/">Settings</a></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right pt_extension_installed">
@@ -80,7 +80,7 @@
     </div>
 </div>
 
-<div class="atleast">
+<div>
     {% block body %}
     {% endblock %}
 </div>
@@ -89,9 +89,13 @@
 <div class="pt-footer">
     <div class="footer-bar"></div>
     <div class="footer-wrapper">
-        <a style="margin-right:30px" class="twitter-link" href="https://twitter.com/swang_93">@swang_93</a>
-        <a style="margin-right:30px" class="twitter-link" href="https://twitter.com/blumua">@blumua</a>
-        <a style="margin-right:30px" class="twitter-link" href="https://twitter.com/MaxFowler2">@maxfowler2</a>
+        <a class="pull-right twitter-link" href="http://www.twitter.com/teamparseltongue"> <img src="https://si0.twimg.com/favicons/favicon.ico">
+            @teamparseltongue 
+        </a>
+        <a class="pull-right twitter-link" href="mailto:parseltongueextension@gmail.com">
+            <i class="glyphicon glyphicon-envelope"></i>
+            parseltongueextension@gmail.com 
+        </a>
         <div style="clear:both;"></div>
     </div>
 </div>
