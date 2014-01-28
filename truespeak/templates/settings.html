@@ -1,7 +1,12 @@
 {% extends "base.html" %}
+{% load filters %}
 
+{% block css %}
+{% include_style "/static/css/settings" %}
+{% endblock %}
 
 {% block body %}
+
 
     <div class="container">
 
@@ -12,32 +17,107 @@
                 <h1 class="sound-of-music-header settings-header">Your Email Addresses</h1>
                 <div class="settings-bottom">
                     <div class="emails-wrapper col-md-6">
-                        <ul class="list-group">
-                        {% for email in associated_email_addresses %}
-                            <li class="list-group-item">
-                                {{ email }} 
-                            </li>
-                        {% endfor %}
-                        </table>
-                    </div>
-                    <div class="col-md-6">
+
                         <form role="form">
-                            <div class="form-group">
+
+                            <div class="form-group new-email-form">
                                 <label for="exampleInputEmail1">Add Another Email Address</label>
-                                <input type="email" class="form-control register-input new_email" placeholder="Enter email">
+                                <input type="email" class="form-control register-input new-email list-group-item" placeholder="Email">
+                            <button type="submit" class="btn btn-lg btn-primary register-button settings-save new-email-save">Save</button>
                             </div>
+                            
                             <span class="password-error-message login_error"> Oops, email/password not found. Try again? </span>
-                            <button type="submit" class="btn btn-lg btn-primary register-button settings-save new_email_save">Save</button>
                             <div class="settings_success"></div>
                             <div class="settings_error"></div>
                             <div class="loading-gif">
-                                <img src="/static/flakes.gif"/>
+                                <img src="/static/img/flakes.gif"/>
                             </div>
                         </form>
+                        
+                        <ul class="list-group">
+                        {% for email, confirmed in associated_email_addresses %}
+                            <li class="list-group-item email-address">
+                                {{ email }}
+                                {% if email != user.email %}
+                                    <div class="email-btn delete-email" email="{{ email }}">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </div>
+                                {% endif %}
+                                {% if not confirmed %}
+                                    <div class="email-btn resend-confirmation">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </div>
+                                {% endif %}
+                            </li>
+                        {% endfor %}    
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+
+$('.resend-confirmation').tooltip({
+    'title' : 'Resend confirmation link',
+});
+
+/* javascript for /settings/ page */
+var settings_url = "/settings/";
+
+$(".new-email-save").click(function(e) {
+    e.preventDefault();
+
+    $(".settings_success").hide();
+    $(".settings_error").hide();
+    $(".loading-gif").show();
+
+    var new_email_input = $(".new-email");
+    var new_email = new_email_input.val();
+    var post_data = {"new_email":new_email};
+
+    $.post(settings_url, post_data, function(data) {
+        $(".loading-gif").hide();
+        var error = data['error'];
+        var message = data['message'];
+        if (error === null) {
+            $(".settings_success").html(message);
+            $(".settings_success").fadeIn();
+            $emailElm = '<li class="list-group-item email-address">' +
+                    new_email +
+                    '<div class="email-btn delete-email" email="' + new_email + '">' +
+                        '<span class="glyphicon glyphicon-remove"></span>' + 
+                    '</div>' + 
+                    '<div class="email-btn resend-confirmation">' + 
+                        '<span class="glyphicon glyphicon-envelope"></span>' + 
+                    '</div>' + 
+                '</li>';
+            $('.list-group').append($emailElm);
+        }
+        else {
+            $(".settings_error").html(error);
+            $(".settings_error").fadeIn();
+        }
+    });
+});
+
+$('.delete-email').click(function() {
+    var $emailElm = $(this).closest('.email-address');
+    var deleteEmail = $(this).attr('email');
+    var post_data = {
+        'delete_email' : deleteEmail,
+    }
+    $.post(settings_url, post_data, function(data) {
+        if (data['error'] == null) {
+            $emailElm.remove();
+        }
+    });
+});
+
+</script>
 
 {% endblock %}
