@@ -129,6 +129,7 @@ a.sign-in-button {
     color:black;
     float:right;
 }
+
 .twitter-link:hover {
     color:gray;
 }
@@ -142,10 +143,6 @@ span.password-error-message {
     display:none;
 }
 
-.login-error-message {
-    margin-bottom: 25px;
-}
-
 .loading-gif {
     width: 100px;
     height: 100px;
@@ -154,18 +151,6 @@ span.password-error-message {
     margin-top: 22px;
     display:none;
     background-image: url("/static/img/flakes.gif")
-}
-
-.login-wrapper .over-sound-of-music {
-    left: 47%;
-}
-
-.snake-drawing2 {
-    top: 109px;
-    width: 600px;
-    position: absolute;
-    left: 40%;
-    z-index:-1;
 }
 
 .at-least {

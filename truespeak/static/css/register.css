@@ -43,7 +43,7 @@
     margin-bottom: 10px;
 }
 
-.snake-drawing {
+.register-snake {
     position: absolute;
     z-index: -1;
     width: 549px;
