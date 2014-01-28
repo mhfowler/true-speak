@@ -111,6 +111,20 @@ def confirmEmail(request, link_number):
             "second time clicking on confirmation link? " + email_profile.email)
         return shortcuts.redirect("/login/")
 
+def resendConfirmationLink(request):
+    email_address = request.POST['email']
+    try:
+        email_profile = EmailProfile.objects.get(email=email_address)
+    except ObjectDoesNotExist:
+        logError("Attempt to reconfirm email address which was never registered: " + email_address)
+        to_return = {"success":0}
+        return json_response(to_return)
+    email_profile.confirmation_link = getNewConfirmationLink()
+    email_profile.created_when = datetime.datetime.now()
+    email_profile.save()
+    sendEmailAssociationConfirmation(email_profile)
+    to_return = {"success":1}
+    return json_response(to_return)
 
 @ensure_csrf_cookie
 def loginPage(request):
@@ -129,8 +143,7 @@ def loginPage(request):
                 "multiple email profiles for single email -- this is bad! " + str(email))
         else:
             if not email_profile.confirmed:
-                error = "Oops, this email has not been confirmed. <br> <a href='/reconfirm/" + \
-                    email + "/'> Resend? </a>"
+                error = "Oops, this email has not been confirmed. <br> <a class='reconfirm_button' href='/reconfirm/'> Resend? </a>"
             else:
                 user = email_profile.user
                 user = authenticate(username=user.username, password=password)
