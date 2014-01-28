@@ -47,7 +47,7 @@ var teamData = {
             "name": "maximus",
         },
     },
-}
+};
 
 var swapItems = ['img', 'blurb', 'name'];
 
@@ -80,7 +80,6 @@ function swapData($el, eventType) {
         }
     });
 }
-
 
 $(document).ready(function() {
     initTemplate();
