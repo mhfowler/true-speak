@@ -50,32 +50,6 @@ $(document).ready(function() {
 //        }
 //    });
 
-    /* javascript for /settings/ page */
-    var settings_url = "/settings/";
-
-    $(".new_email_save").click(function(e) {
-        e.preventDefault();
-        $(".settings_success").hide();
-        $(".settings_error").hide();
-        $(".loading-gif").show();
-        var new_email_input = $(".new_email");
-        var new_email = new_email_input.val();
-        var post_data = {"new_email":new_email};
-        $.post(settings_url, post_data, function(data) {
-            $(".loading-gif").hide();
-            var error = data['error'];
-            var message = data['message'];
-            if (error == null) {
-                $(".settings_success").html(message);
-                $(".settings_success").fadeIn();
-            }
-            else {
-                $(".settings_error").html(error);
-                $(".settings_error").fadeIn();
-            }
-        });
-    });
-
     /* javascript for /register/ page */
 
     var email_input = $(".register_email");
@@ -90,3 +64,12 @@ $(document).ready(function() {
     }
 
 });
+
+// flash message after this many ms
+var flashMessageDelay = 1500;
+function flashMessage($elm, message) {
+    //cancel old animations
+    $elm.dequeue();
+    $elm.html(message);
+    $elm.fadeIn().delay(flashMessageDelay).fadeOut('slow');
+}

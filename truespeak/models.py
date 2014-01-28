@@ -58,11 +58,20 @@ class EmailProfile(XModel):
         return age.total_seconds()
 
 
-def getAssociatedEmailAddresses(user, confirmed=True):
+def getAssociatedEmailAddresses(user):
     emails = EmailProfile.objects.filter(user=user)
-    if confirmed:
-        emails = emails.filter(confirmed=True)
-    return [email.email for email in emails]
+    return [(email.email, email.confirmed) for email in emails]
+
+def removeEmailAddress(email, user):
+    '''
+    removes an (alternate) email address for a user
+    returns False if the email is user's primary email
+    '''
+    if email == user.email:
+        return False 
+    email = EmailProfile.objects.filter(email=email, user=user)
+    email.delete()
+    return True
 
 #-------------------------------------------------------------------------
 # Pubkey

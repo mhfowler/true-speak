@@ -97,7 +97,10 @@ def createEmailProfile(new_email, user):
     already = EmailProfile.objects.filter(email=new_email)
     if already:
         email_profile = already[0]
-        if email_profile.confirmed:
+        alternate_email = already.filter(user=user)
+        if alternate_email:
+            return False, "This email address is already associated with you, silly!"
+        elif email_profile.confirmed:
             return False, "This email address is already associated with a ParselTongue user."
         else:
             email_profile.user = user

@@ -92,13 +92,16 @@ def settingsPage(request):
                 to_return['message'] = message
             else:
                 to_return['error'] = message
-        # return json
+        elif "delete_email" in request.POST:
+            delete_email = normalize_email(request.POST['delete_email'])
+            success = removeEmailAddress(delete_email, user)
+            if not success:
+                to_return['error'] = True
         return json_response(to_return)
 
     # otherwise we are just displaying settings
     else:
-        associated_email_addresses = getAssociatedEmailAddresses(
-            user, confirmed=True)
+        associated_email_addresses = getAssociatedEmailAddresses(user)
         return render_to_response('settings.html', locals())
 
 
