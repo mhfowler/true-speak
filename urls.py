@@ -7,18 +7,18 @@ import os
 LOCAL_STATIC_FILES = os.path.join(PROJECT_PATH, 'truespeak/static/')
 
 urlpatterns = patterns('',
-                       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
-                        'document_root': LOCAL_STATIC_FILES}),
+                      (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+                       'document_root': LOCAL_STATIC_FILES
+                       }),
 
                        # pages
                        ('^register/$', registerPage),
                        ('^login/$', loginPage),
                        ('^logout/$', viewWrapper(logoutPage)),
                        (r'^home/$', home),
-                       (r'^goodbye/$', goodbye),
                        (r'^about/$', about),
+                       (r'^team/$', team),
                        (r'^tutorial/$', tutorial),
-                       (r'^contact/$', contact),
                        (r'^welcome/(?P<email_address>\S*)/$', welcome),
                        (r'^settings/$', viewWrapper(settingsPage)),
                        (r'^initializing/$', viewWrapper(initializingPage)),
@@ -33,7 +33,7 @@ urlpatterns = patterns('',
                       (r'^upload_prikey/$', viewWrapper(uploadPriKey)),
                       (r'^error/$', ajaxError),
 
-                       ('^/$', redirect),
-                       ('^$', redirect),
+                      ('^/$', redirect),
+                      ('^$', redirect),
 
                        )
