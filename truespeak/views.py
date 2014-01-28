@@ -191,6 +191,7 @@ def logoutPage(request):
 @ensure_csrf_cookie
 def registerPage(request):
     if request.method == "GET":
+        page_title="register"
         return render_to_response('register.html', locals(), context_instance=RequestContext(request))
     else:
         email = normalize_email(request.POST['email'])
