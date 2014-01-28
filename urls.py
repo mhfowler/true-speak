@@ -7,23 +7,23 @@ import os
 LOCAL_STATIC_FILES = os.path.join(PROJECT_PATH, 'truespeak/static/')
 
 urlpatterns = patterns('',
-                       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
-                        'document_root': LOCAL_STATIC_FILES}),
+                      (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+                       'document_root': LOCAL_STATIC_FILES
+                       }),
 
                        # pages
-                       ('^register/$', registerPage),
-                       ('^login/$', loginPage),
-                       ('^logout/$', viewWrapper(logoutPage)),
-                       (r'^home/$', home),
-                       (r'^goodbye/$', goodbye),
-                       (r'^about/$', about),
-                       (r'^tutorial/$', tutorial),
-                       (r'^contact/$', contact),
-                       (r'^welcome/(?P<email_address>\S*)/$', welcome),
-                       (r'^settings/$', viewWrapper(settingsPage)),
-                       (r'^initializing/$', viewWrapper(initializingPage)),
-                       (r'^confirm/(?P<link_number>\S*)/$', confirmEmail),
-                       (r'^reconfirm/$', resendConfirmationLink),
+                      (r'^register/$', registerPage),
+                      (r'^login/$', loginPage),
+                      (r'^logout/$', viewWrapper(logoutPage)),
+                      (r'^home/$', home),
+                      (r'^about/$', about),
+                      (r'^tutorial/$', tutorial),
+                      (r'^team/$', team),
+                      (r'^welcome/(?P<email_address>\S*)/$', welcome),
+                      (r'^settings/$', viewWrapper(settingsPage)),
+                      (r'^initializing/$', viewWrapper(initializingPage)),
+                      (r'^confirm/(?P<link_number>\S*)/$', confirmEmail),
+                      (r'^reconfirm/$', resendConfirmationLink),
 
                        # ajax methods
                       (r'^get_pubkeys/$', getPubKeys),
@@ -32,7 +32,7 @@ urlpatterns = patterns('',
                       (r'^upload_prikey/$', viewWrapper(uploadPriKey)),
                       (r'^error/$', ajaxError),
 
-                       ('^/$', redirect),
-                       ('^$', redirect),
+                      ('^/$', redirect),
+                      ('^$', redirect),
 
                        )

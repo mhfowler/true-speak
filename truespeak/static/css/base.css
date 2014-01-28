@@ -140,6 +140,7 @@ a.sign-in-button {
 
 .twitter-link {
     margin-top:15px;
+    margin-right:30px;
     color:black;
     float:right;
 }
@@ -188,8 +189,8 @@ span.password-error-message {
     z-index:-1;
 }
 
-.atleast {
-    min-height:640px;
+.at-least {
+    min-height:540px;
 }
 
 .jumbotron {
@@ -343,4 +344,9 @@ h1.welcome-header {
 .floated-wrapper {
     width: 100%;
     float: left;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
 }

@@ -103,3 +103,11 @@ def createEmailProfile(new_email, user):
 
 def normalize_email(email):
     return email.lower()
+
+def _template_values(request, page_title='', navbar='', **kwargs):
+    template_values = {
+        'page_title' : page_title,
+        navbar : 'active',
+    }
+
+    return dict(template_values.items() + kwargs.items())
