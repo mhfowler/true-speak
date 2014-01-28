@@ -23,6 +23,7 @@ urlpatterns = patterns('',
                        (r'^settings/$', viewWrapper(settingsPage)),
                        (r'^initializing/$', viewWrapper(initializingPage)),
                        (r'^confirm/(?P<link_number>\S*)/$', confirmEmail),
+                       (r'^reconfirm/$', resendConfirmationLink),
 
                        # ajax methods
                       (r'^get_pubkeys/$', getPubKeys),
