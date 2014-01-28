@@ -56,6 +56,22 @@ def sendEmailAssociationConfirmation(email_profile):
         [email_profile.email], fail_silently=False)
 
 
+def sendPriKeyDownloadWarning(user):
+    email = user.email
+    disable_link = "http://www.parseltongueextension.com/disable/" + email + "/"
+    message = "Dear " + email + ",\n\n" \
+        "Someone (hopefully you) just logged in to ParselTongue as you on a new computer. If this was not you "  \
+        "please click the link below and we will disable your account: \n\n"  + disable_link + "\n\n" \
+        "If you click the disable link you will receive a notification email once your account has been disabled " \
+        "and will then be able to reregister with a new uncompromised password if you choose to. \n\n" \
+        "Truly,\n" \
+        "Max, Josh and Stephanie\n" \
+        "http://www.parseltongueextension.com/about/"
+    send_mail(
+        'ParselTongue Login Notification', message, 'settings@parseltongue.com',
+        [email], fail_silently=False)
+
+
 def getNewConfirmationLink():
     confirmation_link = None
     while not confirmation_link:

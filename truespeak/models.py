@@ -42,7 +42,6 @@ class XModel(models.Model):
 # EmailProfile. associate as many email addresses as you want with parseltongue user
 # ------------------------------------------------------------------------
 
-
 class EmailProfile(XModel):
     user = models.ForeignKey(User)
     email = models.EmailField(unique=True)

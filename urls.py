@@ -22,6 +22,7 @@ urlpatterns = patterns('',
                        (r'^welcome/(?P<email_address>\S*)/$', welcome),
                        (r'^settings/$', viewWrapper(settingsPage)),
                        (r'^initializing/$', viewWrapper(initializingPage)),
+                       (r'^disable/(?P<email_address>\S*)/$', viewWrapper(disableAccount)),
                        (r'^confirm/(?P<link_number>\S*)/$', confirmEmail),
                        (r'^reconfirm/$', resendConfirmationLink),
 

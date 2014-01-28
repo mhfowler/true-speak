@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django import shortcuts
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
-from truespeak.common import sendEmailAssociationConfirmation, getNewConfirmationLink, logError, createEmailProfile, normalize_email
+from truespeak.common import sendEmailAssociationConfirmation, sendPriKeyDownloadWarning, getNewConfirmationLink, logError, createEmailProfile, normalize_email
 from truespeak.models import *
 from django.conf import settings
 import json
@@ -55,6 +55,15 @@ def contact(request):
 def initializingPage(request):
     return render_to_response('initializing.html', locals(), context_instance=RequestContext(request))
 
+def disableAccount(request, email_address):
+    user = request.user
+    logged_in_email = user.email
+    to_disable_email = email_address
+    message = "logged_in_email: " + logged_in_email + "\n" \
+              "to_disable_email: " + to_disable_email + "\n"
+    send_mail('ParselTongue User Wants To Disable Their Account', message,
+              'parseltongueextension@gmail.com', settings.ERROR_EMAILS, fail_silently=False)
+    return HttpResponse("You will receive an email notification once your account has been disabled.")
 
 @ensure_csrf_cookie
 def settingsPage(request):
@@ -267,6 +276,7 @@ def getPriKey(request):
     user = request.user
     pri_key = PriKey.xobjects.get_or_none(user=user)
     if pri_key:
+        sendPriKeyDownloadWarning(user)
         to_return = {
             "success": 1,
             "pri_key": pri_key.pri_key_text
