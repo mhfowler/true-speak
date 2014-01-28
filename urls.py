@@ -12,9 +12,9 @@ urlpatterns = patterns('',
                        }),
 
                        # pages
-                      ('^register/$', registerPage),
-                      ('^login/$', loginPage),
-                      ('^logout/$', viewWrapper(logoutPage)),
+                      (r'^register/$', registerPage),
+                      (r'^login/$', loginPage),
+                      (r'^logout/$', viewWrapper(logoutPage)),
                       (r'^home/$', home),
                       (r'^about/$', about),
                       (r'^tutorial/$', tutorial),
@@ -23,6 +23,7 @@ urlpatterns = patterns('',
                       (r'^settings/$', viewWrapper(settingsPage)),
                       (r'^initializing/$', viewWrapper(initializingPage)),
                       (r'^confirm/(?P<link_number>\S*)/$', confirmEmail),
+                      (r'^reconfirm/$', resendConfirmationLink),
 
                        # ajax methods
                       (r'^get_pubkeys/$', getPubKeys),
