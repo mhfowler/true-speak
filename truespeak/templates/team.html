@@ -18,27 +18,27 @@
 {% endblock %}
 {% block scripts %}
     {% include_script "js/ICanHaz" %}
-        {% verbatim %} 
-        <script id="user_template" type="text/html">
-            <div data-id="{{ id }}" class="profile-wrap pull-left">
-                <img class="img-circle profile-img" src="{{ img }}">
-                <h4 class="profile-title">
-                    <span class="profile-name"> 
-                        {{ name }}
-                    </span> ({{ school }})
-                </h4>
-                <p class="handles">
-                    <a href="https://twitter.com/{{ twitter }}" target="_blank">
-                        <img src="https://si0.twimg.com/favicons/favicon.ico"> @{{ twitter }} </a> |
-                     <a href="http://github.com/{{ github }}/" target="_blank">
-                        <img class="icon" src="https://github.com/favicon.ico"> {{ github }} 
-                    </a>                
-                </p>
-                <p class="profile-blurb">
-                    {{ blurb }}
-                </p>
-            </div>
-        </script>
+    {% verbatim %} 
+    <script id="user_template" type="text/html">
+        <div data-id="{{ id }}" class="profile-wrap pull-left">
+            <img class="img-circle profile-img" src="{{ img }}">
+            <h4 class="profile-title">
+                <span class="profile-name"> 
+                    {{ name }}
+                </span> ({{ school }})
+            </h4>
+            <p class="handles">
+                <a href="https://twitter.com/{{ twitter }}" target="_blank">
+                    <img src="https://si0.twimg.com/favicons/favicon.ico"> @{{ twitter }} </a> |
+                 <a href="http://github.com/{{ github }}/" target="_blank">
+                    <img class="icon" src="https://github.com/favicon.ico"> {{ github }} 
+                </a>                
+            </p>
+            <p class="profile-blurb">
+                {{ blurb }}
+            </p>
+        </div>
+    </script>
     {% endverbatim %}
     {% include_script "js/team" %}
 {% endblock %}

@@ -66,12 +66,9 @@ function hoverHandler(e, d) {
 
 function swapData($el, eventType) {
     var id = $el.data('id');
-    var type = "profile";
-    if (eventType === "mouseenter") {
-        type = "hover";
-    }
+    var dataType = eventType == "mouseenter" ? "hover" : "profile";
     $.each(swapItems, function(i, e) {
-        var data = teamData[id][type][e];
+        var data = teamData[id][dataType][e];
         var $mod = $el.find(".profile-" + e);
         if (e === "img") {
             $mod.attr("src", data);
