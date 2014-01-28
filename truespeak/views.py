@@ -35,7 +35,7 @@ def viewWrapper(view):
 def home(request):
     if request.user.is_authenticated():
         return shortcuts.redirect("/settings/")
-    return _template_values('home.html', locals(), 
+    return _template_values('home.html', locals(),
         context_instance=RequestContext(request))
 
 
