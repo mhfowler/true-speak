@@ -1,0 +1,15 @@
+.login-error-message {
+    margin-bottom: 25px;
+}
+
+.login-wrapper .over-sound-of-music {
+    left: 47%;
+}
+
+.login-snake {
+    top: 109px;
+    width: 400px;
+    position: absolute;
+    left: 40%;
+    z-index:-1;
+}
