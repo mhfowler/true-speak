@@ -14,6 +14,11 @@
     padding: 14px 24px;
 }
 
+.nav-logo {
+    margin-left: 8px;
+    margin-top: -8px;
+}
+
 /* Custom container */
 .container-narrow {
     margin: 0 auto;
@@ -27,6 +32,7 @@
 .success {
     background-color:lightblue;
 }
+
 .error {
     background-color:salmon;
 }
@@ -128,11 +134,6 @@ a.sign-in-button {
     border-top: 1px solid gray;
 }
 
-.latin {
-    font-style:italic;
-    margin-left: 20px;
-}
-
 .footer-text {
     margin-top:15px;
     float:left;
@@ -196,7 +197,6 @@ span.password-error-message {
     height:auto;
     margin-bottom:0px;
 }
-
 
 .who-are-you {
     margin-left:8px;
@@ -267,7 +267,7 @@ h1.welcome-header {
 }
 
 .about-wrapper p {
-    font-size:14pt;
+    font-size:12pt;
     margin-top:30px;
 }
 
@@ -307,10 +307,12 @@ h1.welcome-header {
     font-size:20px;
     margin-top:30px;
 }
+
 .tutorial-wrapper h3 {
     margin-top:50px;
     font-size:36px;
 }
+
 .tutorial-wrapper {
     max-width:1100px;
     padding-left: 10%;
@@ -346,4 +348,14 @@ h1.welcome-header {
 
 .carousel-control.right, .carousel-control.left {
     background-image: none;
+}
+
+.carousel-indicators .active {
+    background-color: #000;
+}
+
+.carousel-indicators li {
+    background-color: #000 \9;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #000;
 }
