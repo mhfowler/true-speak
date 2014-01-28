@@ -1,6 +1,7 @@
 # Django settings for truespeak project.
 import os
 import json
+
 PROJECT_PATH = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 LOCAL = os.environ.get("LOCAL")
@@ -8,7 +9,8 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 SECRETS_PATH = os.path.join(PROJECT_PATH, "secret.json")
-if LOCAL:
+
+if LOCAL: #export LOCAL=1
     DEBUG = True
     SECRETS_DICT = json.loads(open(SECRETS_PATH, "r").read())
     DOMAIN = "local.parseltongueextension.com"
@@ -28,26 +30,50 @@ HAPPY_EMAILS = [
     "joshblum@mit.edu",
     "swang93@mit.com"
 ]
+
 ERROR_EMAILS = HAPPY_EMAILS
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': '', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': '',
+        # Or path to database file if using sqlite3.
+        'NAME': '',
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        # Empty for localhost through domain sockets or '127.0.0.1' for
+        # localhost through TCP.
+        'HOST': '',
         'PORT': '',                      # Set to empty string for default.
     }
 }
 
+
+### EMAIL SETTINGS
+SERVER_EMAIL = 'parseltongueextension@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'parseltongueextension@gmail.com'
+EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
+
+########## SENDGRID ###############
+
+# EMAIL = {
+#     'EMAIL_HOST': 'smtp.sendgrid.net',
+#     'EMAIL_HOST_USER': 'parseltongueextension',
+#     'EMAIL_HOST_PASSWORD': SECRETS_DICT['EMAIL_PASSWORD'],
+#     'EMAIL_PORT': 587,
+#     'EMAIL_USE_TLS': True,
+# }
+
 # AUTH_PROFILE_MODULE = 'truespeak.UserProfile'
 
 AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -115,7 +141,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -125,7 +151,7 @@ SECRET_KEY = '&66fite8%&_#6v-_j+eg_d2@^^8+r3gcvufp-aee0%g$hd85@x'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -162,6 +188,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'truespeak',
     'south',
 
@@ -199,11 +226,11 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         },
-        'log_file':{
+        'log_file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(PROJECT_PATH, 'logs/pt.log'),
-            'maxBytes': '16777216', # 16megabytes
+            'maxBytes': '16777216',  # 16megabytes
             'formatter': 'verbose'
         },
     },
@@ -214,20 +241,9 @@ LOGGING = {
             'propagate': True,
         },
         '': {
-            'handlers': ['mail_admins','log_file'],
+            'handlers': ['mail_admins', 'log_file'],
             'level': 'DEBUG',
             'propagate': True,
         },
     }
 }
-
-# ### EMAIL SETTINGS
-SERVER_EMAIL = 'parseltongueextension@gmail.com'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'parseltongueextension@gmail.com'
-EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
-
-
-

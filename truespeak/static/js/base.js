@@ -1,5 +1,13 @@
-$(document).ready(function() {
-    $(document).ajaxSend(function(event, xhr, settings) {
+function flashMessage($elm, message, flashMessageDelay) {
+    // flash message after this many ms
+    var flashMessageDelay = flashMessageDelay || 1500;
+    //cancel old animations
+    $elm.dequeue();
+    $elm.html(message);
+    $elm.fadeIn().delay(flashMessageDelay).fadeOut('slow');
+}
+
+$(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -15,6 +23,7 @@ $(document).ready(function() {
         }
         return cookieValue;
     }
+
     function sameOrigin(url) {
         // url could be relative or scheme relative or absolute
         var host = document.location.host; // host + port
@@ -24,9 +33,10 @@ $(document).ready(function() {
         // Allow absolute or scheme relative URLs to same origin
         return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
             (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
+        // or any other URL that isn't scheme relative or absolute i.e relative.
+        !(/^(\/\/|http:|https:).*/.test(url));
     }
+
     function safeMethod(method) {
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     }
@@ -35,7 +45,6 @@ $(document).ready(function() {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
 });
-
 
 //    function csrfSafeMethod(method) {
 //        // these HTTP methods do not require CSRF protection
@@ -50,6 +59,7 @@ $(document).ready(function() {
 //        }
 //    });
 
+$(document).ready(function() {
     /* javascript for /register/ page */
 
     var email_input = $(".register_email");
@@ -64,12 +74,3 @@ $(document).ready(function() {
     }
 
 });
-
-// flash message after this many ms
-var flashMessageDelay = 1500;
-function flashMessage($elm, message) {
-    //cancel old animations
-    $elm.dequeue();
-    $elm.html(message);
-    $elm.fadeIn().delay(flashMessageDelay).fadeOut('slow');
-}
