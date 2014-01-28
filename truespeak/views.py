@@ -192,6 +192,7 @@ def logoutPage(request):
 def registerPage(request):
     if request.method == "GET":
         page_title="register"
+        nav_register = "active"
         return render_to_response('register.html', locals(), context_instance=RequestContext(request))
     else:
         email = normalize_email(request.POST['email'])
