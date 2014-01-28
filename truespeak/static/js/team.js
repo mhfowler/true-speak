@@ -1,61 +1,61 @@
 var teamData = {
-    "swang" : {
-        "profile" : {
-            "img" : "/static/img/team/stephanie-profile.png",
-            "blurb" : "Boring Stephanie.",
-            "name" : "Stephanie Wang",
-            "twitter" : "swang_93",
-            "github" : "stephanie-wang",
-            "school" : "MIT '15",
-            "id" : "swang",
+    "swang": {
+        "profile": {
+            "img": "/static/img/team/stephanie-profile.png",
+            "blurb": "Boring Stephanie.",
+            "name": "Stephanie Wang",
+            "twitter": "swang_93",
+            "github": "stephanie-wang",
+            "school": "MIT '15",
+            "id": "swang",
         },
-        "hover" : {
-            "img" : "/static/img/team/josh-hover.gif",
-            "blurb" : "Azn 4 lyfe. Math. Poop. Paint.",
-            "name" : "swangster",
-        },
-    },
-    "josh" : {
-        "profile" : {
-            "img" : "/static/img/team/josh-profile.png",
-            "blurb" : "Boring Josh",
-            "name" : "Joshua Blum",
-            "twitter" : "blumua",
-            "github" : "joshblum",
-            "school" : "MIT '14",
-            "id" : "josh",
-        },
-        "hover" : {
-            "img" : "/static/img/team/josh-hover.gif",
-            "blurb" : "Grumpy code monkey.",
-            "name" : "pooper",
+        "hover": {
+            "img": "/static/img/team/josh-hover.gif",
+            "blurb": "Azn 4 lyfe. Math. Poop. Paint.",
+            "name": "swangster",
         },
     },
-    "max" : {
-        "profile" : {
-            "img" : "/static/img/team/max-profile.png",
-            "blurb" : "Boring Max",
-            "name" : "Max Fowler",
-            "twitter" : "maxfowler2",
-            "github" : "maximusfowler",
-            "school" : "Brown '14",
-            "id" : "max",
+    "josh": {
+        "profile": {
+            "img": "/static/img/team/josh-profile.png",
+            "blurb": "Boring Josh",
+            "name": "Joshua Blum",
+            "twitter": "blumua",
+            "github": "joshblum",
+            "school": "MIT '14",
+            "id": "josh",
         },
-        "hover" : {
-            "img" : "/static/img/team/josh-hover.gif",
-            "blurb" : "Fuck it, push it.",
-            "name" : "maximus",
+        "hover": {
+            "img": "/static/img/team/josh-hover.gif",
+            "blurb": "Grumpy code monkey.",
+            "name": "pooper",
+        },
+    },
+    "max": {
+        "profile": {
+            "img": "/static/img/team/max-profile.png",
+            "blurb": "Boring Max",
+            "name": "Max Fowler",
+            "twitter": "maxfowler2",
+            "github": "maximusfowler",
+            "school": "Brown '14",
+            "id": "max",
+        },
+        "hover": {
+            "img": "/static/img/team/josh-hover.gif",
+            "blurb": "Fuck it, push it.",
+            "name": "maximus",
         },
     },
 }
 
 var swapItems = ['img', 'blurb', 'name'];
 
-function initTemplate(){
+function initTemplate() {
     $.each(teamData, function(k, v) {
         var user = ich.user_template(v.profile);
         $('.team').append(user);
-        
+
     });
 }
 
@@ -70,7 +70,7 @@ function swapData($el, eventType) {
     if (eventType === "mouseenter") {
         type = "hover";
     }
-    $.each(swapItems, function(i, e){
+    $.each(swapItems, function(i, e) {
         var data = teamData[id][type][e];
         var $mod = $el.find(".profile-" + e);
         if (e === "img") {
@@ -82,7 +82,7 @@ function swapData($el, eventType) {
 }
 
 
-$(document).ready(function () {
+$(document).ready(function() {
     initTemplate();
     $(".profile-wrap").hover(hoverHandler);
 });
