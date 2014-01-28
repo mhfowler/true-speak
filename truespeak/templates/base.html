@@ -2,111 +2,109 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="/static/img/favicon.ico">
-    {% include_style "/static/css/bootstrap.min" %}
-    {% include_style "/static/css/base" %}
+        <link rel="shortcut icon" href="img/favicon.ico">
+        {% include_style "css/bootstrap.min" %}
+        {% include_style "css/base" %}
 
-    {% block css %}
-    {% endblock %}
+        {% block css %}
+        {% endblock %}
 
-    <meta charset="utf-8">
-    <title> ParselTongue | {{ page_title }} </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ParselTongue - the client-side encryption extension for Gmail.">
-    <meta name="author" content="Max Fowler, Josh Blum, Stephanie Wang">
+        <meta charset="utf-8">
+        <title> ParselTongue | {{ page_title }} </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="ParselTongue - the client-side encryption extension for Gmail.">
+        <meta name="author" content="Max Fowler, Josh Blum, Stephanie Wang">
 
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-47467080-1', 'getparseltongue.com');
-        ga('send', 'pageview');
-
-
-        ga('create', 'UA-47467080-2', 'parseltongueextension.com');
-        ga('send', 'pageview');
-
-    </script>
+            ga('create', 'UA-47467080-1', 'getparseltongue.com');
+            ga('send', 'pageview');
 
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-</head>
+            ga('create', 'UA-47467080-2', 'parseltongueextension.com');
+            ga('send', 'pageview');
 
-<body>
+        </script>
 
-<!-- Static navbar -->
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand pt-logo" {% if user.is_authenticated %}href="/settings/"{% else %}href="/"{% endif %}>ParselTongue<img class="nav-logo" src="/static/img/snake-icon-32.png"></a>
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 createElements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <!-- Static navbar -->
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand pt-logo" {% if user.is_authenticated %}href="/settings/"{% else %}href="/"{% endif %}>ParselTongue</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="{{ nav_about }}"><a href="/about/">About</a></li>
+                        <li  class="{{ nav_team }}"><a href="/team/">Team</a></li>
+                        {% if not user.is_authenticated %}
+                            <li class="{{ nav_register }} pt_extension_installed" style="display:none;"><a href="/register/">Register</a></li>
+                        {% else %}
+                            <li class={{ nav_settings }}><a href="/settings/">Settings</a></li>
+                        {% endif %}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right pt_extension_installed">
+                        {% if user.is_authenticated %}
+                            <li class="already-registered"> you are logged in as: <span class="who-are-you">{{ user.username }}</span> </li>
+                            <a href="/logout/" class="btn btn-small btn-success sign-in-button parseltongue_logout">logout</a>
+                        {% else %}
+                            <li class="already-registered"> already registered? </li>
+                            <a href="/login/" class="btn btn-small btn-success sign-in-button">sign in</a>
+                        {% endif %}
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="{{ nav_about }}"><a href="/about/">About</a></li>
-                <li  class="{{ nav_team }}"><a href="/team/">Team</a></li>
-                {% if not user.is_authenticated %}
-                    <li class="{{ nav_register }} pt_extension_installed" style="display:none;"><a href="/register/">Register</a></li>
-                {% else %}
-                    <li class={{ nav_settings }}><a href="/settings/">Settings</a></li>
-                {% endif %}
-            </ul>
-            <ul class="nav navbar-nav navbar-right pt_extension_installed">
-                {% if user.is_authenticated %}
-                    <li class="already-registered"> you are logged in as: <span class="who-are-you">{{ user.username }}</span> </li>
-                    <a href="/logout/" class="btn btn-small btn-success sign-in-button parseltongue_logout">logout</a>
-                {% else %}
-                    <li class="already-registered"> already registered? </li>
-                    <a href="/login/" class="btn btn-small btn-success sign-in-button">sign in</a>
-                {% endif %}
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</div>
 
-<div>
-    {% block body %}
-    {% endblock %}
-</div>
+        <div>
+            {% block body %}
+            {% endblock %}
+        </div>
 
+        <div class="pt-footer">
+            <div class="footer-bar"></div>
+            <div class="footer-wrapper">
+                <a class="pull-right twitter-link" href="http://www.twitter.com/teamparseltongue"> <img src="https://si0.twimg.com/favicons/favicon.ico">
+                    @teamparseltongue 
+                </a>
+                <a class="pull-right twitter-link" href="mailto:parseltongueextension@gmail.com">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                    parseltongueextension@gmail.com 
+                </a>
+                <div style="clear:both;"></div>
+            </div>
+        </div> 
+        
+        {% include_script "js/jquery-1.10.2.min" %}
+        {% include_script "js/bootstrap.min" %}
+        {% include_script "js/base" %}
 
-<div class="pt-footer">
-    <div class="footer-bar"></div>
-    <div class="footer-wrapper">
-        <a class="pull-right twitter-link" href="http://www.twitter.com/teamparseltongue"> <img src="https://si0.twimg.com/favicons/favicon.ico">
-            @teamparseltongue 
-        </a>
-        <a class="pull-right twitter-link" href="mailto:parseltongueextension@gmail.com">
-            <i class="glyphicon glyphicon-envelope"></i>
-            parseltongueextension@gmail.com 
-        </a>
-        <div style="clear:both;"></div>
-    </div>
-</div>
+        {% block scripts %}
+        {% endblock %}
 
-{% include_script "/static/js/jquery-1.10.2.min" %}
-{% include_script "/static/js/bootstrap.min" %}
-{% include_script "/static/js/base" %}
-
-{% block js %}
-{% endblock %}
-
-
-</body>
+    </body>
 </html>

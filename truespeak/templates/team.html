@@ -1,68 +1,45 @@
 {% extends "base.html" %}
 {% load filters %}
+{% load jstemplate %}
 
 {% block css %}
-
-{% include_style "/static/css/team" %}
+    {% include_style "css/team" %}
 {% endblock %}
 
 {% block body %}
 
     <div class="container">
-        <div class="contributors">
+        <div class="team">
             <h3> Team ParselTongue </h3>
             <hr>
-            <div class="profile-wrap pull-left">
-                <img class="img-circle profile-img" src="/static/img/stephanie-profile.png">
-                <h4 class="profile-title">
-                    <span class="profile-name"> 
-                        Stephanie Wang 
-                    </span> (MIT '15)
-                </h4>
-                <p class="handles">
-                    <a href="https://twitter.com/swang_93">
-                        <img src="https://si0.twimg.com/favicons/favicon.ico"> @swang_93 </a> |
-                     <a href="http://github.com/stephanie-wang/">
-                        <img class="icon" src="https://github.com/favicon.ico"> stephanie-wang 
-                    </a>                
-                </p>
-                <p class="profile-blurb">
-                    Azn 4 lyfe. Math. Poop. Paint. 
-                </p>
-            </div>
-            <div class="profile-wrap pull-left">
-                <img class="img-circle profile-img" src="/static/img/josh-profile.png">
-                <h4 class="profile-title">
-                    <span class="profile-name"> Josh Blum </span> (MIT '14)
-                </h4>
-                <p class="handles">
-                    <a href="https://twitter.com/blumua">
-                        <img src="https://si0.twimg.com/favicons/favicon.ico"> @blumua </a> |
-                     <a href="http://github.com/joshblum/">
-                        <img class="icon" src="https://github.com/favicon.ico"> joshblum
-                    </a>                
-                </p>
-                <p class="profile-blurb">
-                    Grumpy code monkey. 
-                </p>
-            </div>
-            <div class="profile-wrap pull-left">
-                <img class="img-circle profile-img" src="/static/img/max-profile.png">
-                <h4 class="profile-title">
-                    <span class="profile-name"> Max Fowler </span> (Brown '14)
-                </h4>
-                <p class="handles">
-                    <a href="https://twitter.com/maxfowler2">
-                        <img src="https://si0.twimg.com/favicons/favicon.ico"> @maxfowler2 </a> |
-                     <a href="http://github.com/maximusfowler/">
-                        <img class="icon" src="https://github.com/favicon.ico"> maximusfowler 
-                    </a>                
-                </p>
-                <p class="profile-blurb">
-                    Fuck it, push it. 
-                </p>
             </div>
         </div>
     </div>
 
+{% endblock %}
+{% block scripts %}
+    {% include_script "js/ICanHaz" %}
+        {% verbatim %} 
+        <script id="user_template" type="text/html">
+            <div data-id="{{ id }}" class="profile-wrap pull-left">
+                <img class="img-circle profile-img" src="{{ img }}">
+                <h4 class="profile-title">
+                    <span class="profile-name"> 
+                        {{ name }}
+                    </span> ({{ school }})
+                </h4>
+                <p class="handles">
+                    <a href="https://twitter.com/{{ twitter }}">
+                        <img src="https://si0.twimg.com/favicons/favicon.ico"> @{{ twitter }} </a> |
+                     <a href="http://github.com/{{ github }}/">
+                        <img class="icon" src="https://github.com/favicon.ico"> {{ github }} 
+                    </a>                
+                </p>
+                <p class="profile-blurb">
+                    {{ blurb }}
+                </p>
+            </div>
+        </script>
+    {% endverbatim %}
+    {% include_script "js/team" %}
 {% endblock %}

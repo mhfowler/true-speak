@@ -1,4 +1,5 @@
-$(document).ajaxSend(function(event, xhr, settings) {
+$(document).ready(function() {
+    $(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -35,12 +36,6 @@ $(document).ajaxSend(function(event, xhr, settings) {
     }
 });
 
-
-
-
-
-$(document).ready(function()
-{
 
 //    function csrfSafeMethod(method) {
 //        // these HTTP methods do not require CSRF protection
