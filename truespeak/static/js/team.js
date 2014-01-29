@@ -33,7 +33,7 @@ var teamData = {
     },
     "max": {
         "profile": {
-            "img": "/static/img/team/max-profile.png",
+            "img": "/static/img/team/selfie.png",
             "blurb": "Team motivator and chef.",
             "name": "Max Fowler",
             "twitter": "maxfowler2",
