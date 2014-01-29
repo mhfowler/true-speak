@@ -8,3 +8,5 @@ static/*
 server.key
 server.crt
 bundle.pem
+www.parseltongueextension.com/*
+www.getparseltongue.com/*

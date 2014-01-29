@@ -17,7 +17,7 @@ if LOCAL: #export LOCAL=1
 else:
     SECRETS_ENV = os.environ.get("SECRETS")
     SECRETS_DICT = json.loads(SECRETS_ENV)
-    DOMAIN = "www.parseltongueextension.com"
+    DOMAIN = "www.getparseltongue.com"
 
 ADMINS = (
     ("Max Fowler", "maximusfowler@gmail.com"),
@@ -53,11 +53,11 @@ DATABASES = {
 
 
 ### EMAIL SETTINGS
-SERVER_EMAIL = 'parseltongueextension@gmail.com'
+SERVER_EMAIL = 'getparseltongue@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'parseltongueextension@gmail.com'
+EMAIL_HOST_USER = 'getparseltongue@gmail.com'
 EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
 
 ########## SENDGRID ###############
@@ -81,7 +81,7 @@ AUTHENTICATION_BACKENDS = (
 ALLOWED_HOSTS = [
     "*",
     # "www.getparseltongue.com",
-    # "www.parseltongueextension.com",
+    # "www.getparseltongue.com",
     # "127.0.0.1:8000"
 ]
 

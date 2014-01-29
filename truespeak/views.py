@@ -80,7 +80,7 @@ def disableAccount(request, email_address):
     message = "logged_in_email: %s\n to_disable_email: %s\n" % (
         logged_in_email, to_disable_email)
     send_mail('ParselTongue User Wants To Disable Their Account', message,
-              'parseltongueextension@gmail.com', settings.ERROR_EMAILS, fail_silently=False)
+              'getparseltongue@gmail.com', settings.ERROR_EMAILS, fail_silently=False)
     return HttpResponse("You will receive an email notification once your account has been disabled.")
 
 
