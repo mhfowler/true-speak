@@ -2,7 +2,7 @@ var teamData = {
     "swang": {
         "profile": {
             "img": "/static/img/team/stephanie-profile.png",
-            "blurb": "Boring Stephanie.",
+            "blurb": "DJ and frontend extraordinaire.",
             "name": "Stephanie Wang",
             "twitter": "swang_93",
             "github": "stephanie-wang",
@@ -18,7 +18,7 @@ var teamData = {
     "josh": {
         "profile": {
             "img": "/static/img/team/josh-profile.png",
-            "blurb": "Boring Josh",
+            "blurb": "Bug creation and architecting.",
             "name": "Joshua Blum",
             "twitter": "blumua",
             "github": "joshblum",
@@ -34,7 +34,7 @@ var teamData = {
     "max": {
         "profile": {
             "img": "/static/img/team/max-profile.png",
-            "blurb": "Boring Max",
+            "blurb": "Server man, team motivator, and chef.",
             "name": "Max Fowler",
             "twitter": "maxfowler2",
             "github": "maximusfowler",

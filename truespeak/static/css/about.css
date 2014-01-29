@@ -1,6 +1,12 @@
+.jumbotron {
+    background:none;
+    padding-top: 5px;
+}
+
 .about-wrapper {
     padding-bottom:70px;
     text-align: left;
+    margin-left:50px;
 }
 
 .about-wrapper p {
@@ -10,4 +16,13 @@
 
 .about-wrapper h3 {
     font-size:36px;
+}
+
+.about-nav {
+    padding:15px;
+    margin-top:25px;
+    margin-left:20px;
+    margin-right:20px;
+    background: #eee;
+    border-radius: 5px;
 }

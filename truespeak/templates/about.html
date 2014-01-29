@@ -6,10 +6,51 @@
 {% endblock %}
 
 {% block body %}
+    <div class="about-nav affix col-md-3">
+        <ul class="nav nav-pills nav-stacked">
+            <li>
+                <a href="#use">
+                    How do I use ParselTongue?
+                </a>
+            </li>
+            <li>
+                <a href="#work">
+                    How does ParselTongue work? 
+                </a>
+            </li>
+            <li>
+                <a href="#make">
+                    Who made ParselTongue? 
+                </a>
+            </li>
+            <li>
+                <a href="#trust">
+                    Why should you trust us more than Google?
+                </a>
+            </li>
+            <li>
+                <a href="#downsides">
+                    What are the downsides?
+                </a>
+            </li>
+            <li>
+                <a href="#future">
+                    What is the future of ParselTongue?
+                </a>
+            </li>
+            <li>
+                <a href="#tech">
+                    How does ParselTongue really work?
+                </a>
+            </li>
+        </ul>
+    </div>
 
     <div class="container-narrow">
-        <div class="jumbotron about-wrapper">
-            <h3> How do I use ParselTongue? </h3>
+        <div class="jumbotron about-wrapper" >
+            <h3 id="use"> 
+                How do I use ParselTongue? 
+            </h3>
             <p>
                 First, <a href="https://chrome.google.com/webstore/detail/parseltongue/egpagjaeoilneaefepllapmajaoefcgd?hl=en&gl=US" target="_blank">install the ParselTongue Google Chrome Extension</a>.
             </p>
@@ -26,7 +67,9 @@
                 That's it. The rest of your internet and email experience will be unaffected &mdash; although you may find yourself more aware of the fact that without ParselTongue you and your message recipients are not necessarily the only one's in the conversation.
             </p>
 
-            <h3> How does ParselTongue Work? </h3>
+            <h3 id="work"> 
+                How does ParselTongue Work? 
+            </h3>
             <p>
                 ParselTongue is a Google Chrome extension which uses Javascript and a public key store to encrypt emails between ParselTongue users.
             </p>
@@ -44,25 +87,33 @@
                 When your intended recipient opens your email, ParselTongue uses their private key in their browser's local storage to seamlessly decrypt the email. You see plain text, and they see plain text, and no else can in between.
             </p>
 
-            <h3> Who made ParselTongue? </h3>
+            <h3 id="make"> 
+                Who made ParselTongue? 
+            </h3>
             <p>
                 Stephanie Wang (MIT '15), Josh Blum (MIT '14) and Max Fowler (Brown '14). We originally built
                 ParselTongue for a Facebook hackathon in the summer of 2013. Over the winter of 2014 we built it out to release it -- although between school and other commitments it is hardly a polished final product. We think that ParselTongue can go a long way against blanket surveillance, and that client-side encryption should be the standard for private communication.
             </p>
 
-            <h3> Why should you trust us more than Google? </h3>
+            <h3 id="trust"> 
+                Why should you trust us more than Google? 
+            </h3>
             <p>
                 The beauty of client-side encryption is you don't have to. We don't store your password. We don't have your private key.
                 The <a href="https://github.com/maximusfowler/true-speak" target="_blank">public key server</a> and <a href="https://github.com/joshblum/fakeblock" target="_blank">extension</a> are both public on GitHub.
             </p>
 
-            <h3> What are the downsides? </h3>
+            <h3 id="downsides"> 
+                What are the downsides? 
+            </h3>
             <p>
                 Because your ParselTongue encrypted emails are stored as cipher text on Google's servers, Gmail search won't be able to understand the contents of your emails (because it can't read them), but you will still be able to search
                 by email subject and recipient (which are not encrypted). Also, any browser you read your email from must have the ParselTongue extension installed in order to read the emails. Besides that, ParselTongue is completely seamless and won't effect your Gmail experience in any way -- other than that the NSA won't be able to read your emails anymore.
             </p>
 
-            <h3> What is the future of ParselTongue? </h3>
+            <h3 id="future"> 
+                What is the future of ParselTongue? 
+            </h3>
             <p>
                 ParselTongue may have bugs and could definitely be more polished and thoroughly tested.
             </p>
@@ -71,7 +122,9 @@
                 key by whatever method they see fit.
             </p>
 
-            <h3> How does ParselTongue really work? </h3>
+            <h3 id="tech"> 
+                How does ParselTongue really work? 
+            </h3>
             <p>
                 TODO
             </p>
@@ -79,5 +132,4 @@
         </div>
 
     </div>
-
 {% endblock %}
