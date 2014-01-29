@@ -1,0 +1,35 @@
+/* carousel overrides */
+.carousel-caption {
+    color: black;
+    text-shadow:none;
+}
+
+.glyphicon-chevron-right {
+    right:10% !important;
+}
+
+.glyphicon-chevron-left {
+    left:10% !important;
+}
+
+.carousel-control.right, .carousel-control.left {
+    background-image: none;
+}
+
+.carousel-indicators .active {
+    background-color: #000;
+}
+
+.carousel-indicators li {
+    background-color: #000 \9;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #000;
+}
+
+.screenshot-image {
+    width:600px;
+    max-width:100%;
+    margin-top: 30px;
+    border:1px solid lightgray;
+    margin-bottom: 10px;
+}
