@@ -34,17 +34,17 @@ var teamData = {
     "max": {
         "profile": {
             "img": "/static/img/team/max-profile.png",
-            "blurb": "Server man, team motivator, and chef.",
+            "blurb": "Team motivator and chef.",
             "name": "Max Fowler",
             "twitter": "maxfowler2",
-            "github": "maximusfowler",
+            "github": "mhfowler",
             "school": "Brown '14",
             "id": "max",
         },
         "hover": {
             "img": "/static/img/team/max-hover.jpg",
             "blurb": "Fuck it, push it.",
-            "name": "maximus",
+            "name": "ladsworth",
         },
     },
 };
