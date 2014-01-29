@@ -80,5 +80,5 @@ function swapData($el, eventType) {
 
 $(document).ready(function() {
     initTemplate();
-    $(".profile-wrap").hover(hoverHandler);
+    $(".profile-img").hover(hoverHandler);
 });

@@ -8,6 +8,11 @@
 {% block body %}
     <div class="about-nav affix col-md-3">
         <ul class="nav nav-pills nav-stacked">
+            <li class="active">
+                <a href="#tutorial">
+                    Tutorial
+                </a>
+            </li>
             <li>
                 <a href="#use">
                     How do I use ParselTongue?
@@ -47,7 +52,10 @@
     </div>
 
     <div class="container-narrow">
-        <div class="jumbotron about-wrapper" >
+        <div class="jumbotron about-wrapper">
+            <div id="tutorial">
+                {% include 'tutorial_snippet.html' %}
+            </div>
             <h3 id="use"> 
                 How do I use ParselTongue? 
             </h3>
@@ -59,12 +67,6 @@
             </p>
             <p>
                 That's <strong> all it takes to set it up. </strong> Below is a tutorial showing what ParselTongue looks like once it's setup.
-            </p>
-
-            {% include 'tutorial_snippet.html' %}
-
-            <p>
-                That's it. The rest of your internet and email experience will be unaffected &mdash; although you may find yourself more aware of the fact that without ParselTongue you and your message recipients are not necessarily the only one's in the conversation.
             </p>
 
             <h3 id="work"> 
