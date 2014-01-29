@@ -1,38 +1,24 @@
 {% extends "base.html" %}
 {% load filters %}
 
-{% include_script "css/tutorial" %}
+{% block css %}
+    {% include_style "css/tutorial" %}
+{% endblock %}
 
 {% block body %}
 
-    <div class="container tutorial-wrapper">
+    <div class="at-least container-narrow tutorial-wrapper">
 
         <div class="tutorial-header">
-            <h3 class="super-duper-header"> ParselTongue is ready to go. </h3>
+            <h2> 
+                ParselTongue is ready to go!
+            </h2>
 
-            <p style="font-size:24px;"> Feel free to <a href="http://mail.google.com">go straight to gmail</a> and try it out, but we recommend
-                checking out the tutorial below (it's short).
+            <p> 
+                Feel free to <a href="https://mail.google.com">go straight to gmail</a> and try it out, but we recommend checking out the tutorial below (it's short).
             </p>
 
-            <img style="width:100%;margin-top:20px;" src="http://pinklemonstudio.com/wp-content/uploads/2013/07/Page-break-1.jpg"/>
-
-            <div class="tutorial-container">
-
-                <h3> Congratulations on installing ParselTongue, you should see a small new friend.</h3>
-
-                {% include 'tutorial_snippet.html' %}
-
-
-                <p>
-                That's it. To try it out for yourself <a href="http://mail.google.com">login to gmail</a>.
-                </p>
-
-                <p style="margin-top:50px;"> ParselTongue is brand new and may still have bugs. If you discover a bug or have any questions
-                    please send an email to <a href="mailto:parseltongueextension@gmail.com">parseltongueextension@gmail.com</a></p>
-
-            </div>
-
-
+            {% include "tutorial_snippet.html" %}
         </div>
 
     </div>

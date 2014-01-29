@@ -50,7 +50,7 @@ def sendEmailAssociationConfirmation(email_profile):
         "The only copy of the private key that matches your public key exists on your laptop. \n\n" \
         "Truly,\n" \
         "Max, Josh and Stephanie\n" \
-        "http://www.parseltongueextension.com/about/"
+        "http://www.parseltongueextension.com/faq/"
     send_mail(
         'ParselTongue Email Confirmation', message, 'settings@parseltongue.com',
         [email_profile.email], fail_silently=False)
@@ -66,7 +66,7 @@ def sendPriKeyDownloadWarning(user):
         "and will then be able to reregister with a new uncompromised password if you choose to. \n\n" \
         "Truly,\n" \
         "Max, Josh and Stephanie\n" \
-        "http://www.parseltongueextension.com/about/"
+        "http://www.parseltongueextension.com/faq/"
     send_mail(
         'ParselTongue Login Notification', message, 'settings@parseltongue.com',
         [email], fail_silently=False)

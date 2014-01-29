@@ -51,10 +51,10 @@ def welcome(request, email_address=None):
                             email_address=email_address)
 
 
-@render_to("about.html")
-def about(request):
-    return _template_values(request, page_title="about",
-                            navbar="nav_about")
+@render_to("faq.html")
+def faq(request):
+    return _template_values(request, page_title="faq",
+                            navbar="nav_faq")
 
 
 @render_to("tutorial.html")
