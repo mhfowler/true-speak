@@ -53,11 +53,11 @@ DATABASES = {
 
 
 ### EMAIL SETTINGS
-SERVER_EMAIL = 'parseltongueextension@gmail.com'
+SERVER_EMAIL = 'getparseltongue@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'parseltongueextension@gmail.com'
+EMAIL_HOST_USER = 'getparseltongue@gmail.com'
 EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
 
 ########## SENDGRID ###############

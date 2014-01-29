@@ -11,7 +11,7 @@ import random
 
 def sendTestMessage():
     message = "<div> You should see this. </div><div style='display:none;'>You should not see this</div>"
-    send_mail('Test Email', message, 'parseltongueextension@gmail.com',
+    send_mail('Test Email', message, 'getparseltongue@gmail.com',
               ['max_fowler@brown.edu'], fail_silently=True)
 
 
@@ -88,7 +88,7 @@ def getNewConfirmationLink():
 
 def logError(message):
     send_mail('ParselTongue Javascript Error', message,
-              'parseltongueextension@gmail.com', settings.ERROR_EMAILS, fail_silently=True)
+              'getparseltongue@gmail.com', settings.ERROR_EMAILS, fail_silently=True)
     logger.error(message)
 
 
