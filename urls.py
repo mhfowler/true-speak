@@ -10,11 +10,13 @@ urlpatterns = patterns('',
                       (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
                        'document_root': LOCAL_STATIC_FILES
                        }),
-
+                       (r'^robots\.txt$', lambda r: HttpResponse(
+                           "User-agent: *\nDisallow: /", mimetype="text/plain")),
                        # pages
-                       ('^register/$', registerPage),
-                       ('^login/$', loginPage),
-                       ('^logout/$', view_wrapper(logoutPage)),
+
+                       (r'^register/$', registerPage),
+                       (r'^login/$', loginPage),
+                       (r'^logout/$', view_wrapper(logoutPage)),
                        (r'^home/$', home),
                        (r'^about/$', about),
                        (r'^team/$', team),
@@ -22,7 +24,8 @@ urlpatterns = patterns('',
                        (r'^welcome/(?P<email_address>\S*)/$', welcome),
                        (r'^settings/$', view_wrapper(settingsPage)),
                        (r'^initializing/$', view_wrapper(initializingPage)),
-                       (r'^disable/(?P<email_address>\S*)/$', view_wrapper(disableAccount)),
+                       (r'^disable/(?P<email_address>\S*)/$',
+                        view_wrapper(disableAccount)),
                        (r'^confirm/(?P<link_number>\S*)/$', confirmEmail),
                        (r'^reconfirm/$', resendConfirmationLink),
 

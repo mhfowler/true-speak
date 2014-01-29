@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="jumbotron err-page at-least col-md-offset-2">
+   
+  <h1 id="hero"> {% block hero_title %} {% endblock %} {{ hero_err_title }} </h1>
+  {% block hero_content %} 
+    <p> 
+    Looks like an error.
+    </p>
+   <p> 
+    Head back <a href="/"> home</a> or <a href="mailto:parseltongueextension@mit.edu"> email us </a> if this is a bug.
+   </p>
+   {% endblock %}
+</div>
+
+{% endblock %}

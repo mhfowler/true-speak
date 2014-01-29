@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+{% load filters %}
 
+{% block css %}
+    {% include_style "css/about" %}
+{% endblock %}
 
 {% block body %}
 
-    <div class="about container-narrow">
-
+    <div class="container-narrow">
         <div class="jumbotron about-wrapper">
             <h3> How do I use ParselTongue? </h3>
             <p>
@@ -14,7 +17,7 @@
                 Second, <a href="/register/" target="_blank">register </a> any Gmail addresses that you would like to use with ParselTongue.
             </p>
             <p>
-                That's <strong> all it takes to set it up. </strong> Below is a screenshot tutorial showing what ParselTongue looks like once it's setup.
+                That's <strong> all it takes to set it up. </strong> Below is a tutorial showing what ParselTongue looks like once it's setup.
             </p>
 
             {% include 'tutorial_snippet.html' %}

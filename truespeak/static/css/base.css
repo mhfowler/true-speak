@@ -15,6 +15,10 @@
     padding: 14px 24px;
 }
 
+.err-page {
+    background: none;
+}
+
 /* Custom container */
 .container-narrow {
     margin: 0 auto;
