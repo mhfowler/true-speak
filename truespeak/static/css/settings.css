@@ -20,8 +20,8 @@
 
 .settings-wrapper .loading-gif {
     margin: auto;
-    width: 70%;
-}
+    width: 100px;
+    }
 
 .email-btn {
     float: right;
@@ -39,6 +39,8 @@
     float: left;
     margin: 0;
     width: 70%;
+    height: 50px;
+    font-size: 20px;
 }
 
 .new-email-save {

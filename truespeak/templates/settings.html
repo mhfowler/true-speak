@@ -23,7 +23,7 @@
 
                         <form role="form">
                             <div class="form-group new-email-form floated-wrapper">
-                                <input type="email" class="form-control register-input new-email list-group-item" placeholder="Add Another Email Address">
+                                <input type="email" class="form-control register-input list-group-item new-email " placeholder="Add Another Email Address">
                                 <button type="submit" class="btn btn-lg btn-primary register-button new-email-save">Save</button>
                             </div>
                         </form>
@@ -33,12 +33,10 @@
                             {% for email, confirmed in associated_email_addresses %}
                                 <li class="list-group-item email-address">
                                     {{ email }}
-                                    {% if email != user.email %}
+                                    {% if not confirmed and email != user.email %}
                                         <div class="email-btn delete-email" email="{{ email }}">
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </div>
-                                    {% endif %}
-                                    {% if not confirmed %}
                                         <div class="email-btn resend-confirmation">
                                             <span class="glyphicon glyphicon-envelope"></span>
                                         </div>

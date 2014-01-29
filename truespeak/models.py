@@ -69,6 +69,10 @@ def removeEmailAddress(email, user):
     '''
     if email == user.email:
         return False 
+    ## TODO: for now, don't allow deletion of email if it's confirmed, not
+    ## sure how to handle yet if user really does want to delete
+    if email.confirmed:
+        return False
     email = EmailProfile.objects.filter(email=email, user=user)
     email.delete()
     return True
