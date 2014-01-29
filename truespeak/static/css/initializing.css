@@ -1,0 +1,10 @@
+.initializing-img-wrapper {
+    width:100%;
+}
+
+.initializing-img {
+    margin-left:auto;
+    margin-right:auto;
+    padding-top:10%;
+    width:200px;
+}

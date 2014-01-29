@@ -1,7 +1,8 @@
-/* Main marketing message and sign up button */
 .jumbotron {
     margin: 0px 0;
     text-align: center;
+    height:auto;
+    margin-bottom:0px;
 }
 
 .jumbotron h1 {
@@ -12,11 +13,6 @@
 .jumbotron .btn {
     font-size: 21px;
     padding: 14px 24px;
-}
-
-.nav-logo {
-    margin-left: 8px;
-    margin-top: -8px;
 }
 
 /* Custom container */
@@ -35,57 +31,6 @@
 
 .error {
     background-color:salmon;
-}
-
-.welcome-container {
-    color:white;
-    float:left;
-    background-color:white;
-    padding-top:0px;
-    margin-top:20px;
-    padding-left:0px;
-    height:650px;
-    background:none;
-}
-
-.sound-of-music {
-    float:left;
-    width:100%;
-    z-index:-1;
-}
-
-.sound-of-music-header {
-    float: left;
-    margin-left: 0%;
-    margin-top: 0px;
-    word-wrap:break-word;
-    padding-right:20px;
-    margin-bottom: 23px;
-    width:100%;
-}
-
-.over-sound-of-music {
-    padding-right: 125px;
-}
-
-.upside-down {
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-}
-
-.form-group {
-    margin-bottom: 13px;
-    padding-left: 1%;
-}
-
-label {
-    float: left;
-    width: 100%;
-    padding-top: 4px;
-    font-size: 20px;
-    #color: rgb(228, 228, 228);
-    color: rgb(145, 145, 145);
 }
 
 .already-registered {
@@ -114,13 +59,7 @@ a.sign-in-button {
 }
 
 .footer-bar {
-
     border-top: 1px solid gray;
-}
-
-.footer-text {
-    margin-top:15px;
-    float:left;
 }
 
 .twitter-link {
@@ -157,140 +96,46 @@ span.password-error-message {
     min-height:540px;
 }
 
-.jumbotron {
-    height:auto;
-    margin-bottom:0px;
-}
-
-.who-are-you {
+.user-name {
     margin-left:8px;
     margin-right:7px;
     font-weight:bold;
 }
 
-.an-email {
-    width:100%;
-    margin-bottom:15px;
-}
-
-h1.welcome-header {
-    color: white;
-    margin-left: 8%;
-    margin-top: 61px;
-    font-size: 50px;
-}
-
-.welcome-wrapper {
-    position: relative;
-    top: -38px;
-    width: 100%;
-    padding-right: 0px;
-}
-
-.welcome-email-address {
-    width:auto;
-}
-
-.initializing-image-wrapper {
-    width:100%;
-}
-
-.initializing-image {
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:10%;
-    width:200px;
-}
-
-.form-group {
-    margin-top:-15px;
-}
-
-.about-wrapper {
-    padding-bottom:70px;
-    text-align: left;
-}
-
-.about-wrapper p {
-    font-size:12pt;
-    margin-top:30px;
-}
-
-.about-wrapper h3 {
-    font-size:36px;
-}
-
-.pt_extension_installed {
+.pt-ext-installed {
     display:none;
 }
 
-.white-text {
-    position:absolute;
-}
-
-.tutorial-wrapper p {
-    font-size:20px;
-    margin-top:30px;
-}
-
-.tutorial-wrapper h3 {
-    margin-top:50px;
-    font-size:36px;
-}
-
-.tutorial-wrapper {
-    max-width:1100px;
-    padding-left: 10%;
-    padding-right: 12%;
-    padding-bottom: 70px;
-}
-
-.tutorial-wrapper h3.super-duper-header {
-    font-size:54px;
-}
-
-.screenshot-image {
-    width:600px;
-    max-width:100%;
-    margin-top: 30px;
-    border:1px solid lightgray;
-    margin-bottom: 10px;
-}
-
-/* carousel overrides */
-.carousel-caption {
-    color: black;
-    text-shadow:none;
-}
-
-.glyphicon-chevron-right {
-    right:10% !important;
-}
-
-.glyphicon-chevron-left {
-    left:10% !important;
-}
-
-.carousel-control.right, .carousel-control.left {
-    background-image: none;
-}
-
-.carousel-indicators .active {
-    background-color: #000;
-}
-
-.carousel-indicators li {
-    background-color: #000 \9;
-    background-color: rgba(0,0,0,0);
-    border: 1px solid #000;
-}
-
-.floated-wrapper {
-    width: 100%;
-    float: left;
-}
+/* github icon */
 
 .icon {
     width: 16px;
     height: 16px;
+}
+
+/* Auth (register/login) */
+
+.auth-container {
+    float:left;
+    background-color:white;
+    padding-left:0px;
+    background:none;
+}
+
+.auth-header {
+    font-size: 50px;
+    padding-bottom: 15px;
+}
+
+.auth-input {
+    width: 400px;
+    height: 50px;
+    font-size: 19px;
+    display: inline-block;
+}
+
+.auth-button {
+    margin-left: 1%;
+    max-width:400px;
+    width:75%;
 }

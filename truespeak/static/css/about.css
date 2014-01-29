@@ -1,0 +1,13 @@
+.about-wrapper {
+    padding-bottom:70px;
+    text-align: left;
+}
+
+.about-wrapper p {
+    font-size:12pt;
+    margin-top:30px;
+}
+
+.about-wrapper h3 {
+    font-size:36px;
+}

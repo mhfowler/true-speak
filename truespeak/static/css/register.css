@@ -1,28 +1,3 @@
-.register-container {
-    float:left;
-    background-color:white;
-    padding-left:0px;
-    background:none;
-}
-
-.register-header {
-    font-size: 50px;
-    padding-bottom: 15px;
-}
-
-.register-input {
-    width: 400px;
-    height: 50px;
-    font-size: 19px;
-    display: inline-block;
-}
-
-.register-button {
-    margin-left: 1%;
-    max-width:400px;
-    width:75%;
-}
-
 .register-explain {
     width: 90%;
 }
@@ -37,10 +12,6 @@
     font-size: 18px;
     margin-bottom: 30px;
     margin-top: 35px;
-}
-
-.form-group input {
-    margin-bottom: 10px;
 }
 
 .register-snake {

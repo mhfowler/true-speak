@@ -1,15 +1,20 @@
+.auth-container {
+    margin-left:100px;
+    margin-top:100px;
+}
+
 .login-error-message {
     margin-bottom: 25px;
 }
 
-.login-wrapper .over-sound-of-music {
-    left: 47%;
+.auth-button {
+    width:100%;
 }
 
 .login-snake {
-    top: 109px;
-    width: 400px;
+    top: 200px;
+    width: 500px;
     position: absolute;
-    left: 40%;
+    left: 54%;
     z-index:-1;
 }

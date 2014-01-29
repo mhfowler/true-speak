@@ -27,7 +27,7 @@ def json_response(res):
                         content_type="application/json")
 
 
-def viewWrapper(view):
+def view_wrapper(view):
     @csrf_exempt
     def new_view(request, *args, **kwargs):
         if not request.user.is_authenticated():
@@ -77,8 +77,8 @@ def disableAccount(request, email_address):
     user = request.user
     logged_in_email = user.email
     to_disable_email = email_address
-    message = "logged_in_email: " + logged_in_email + "\n" \
-              "to_disable_email: " + to_disable_email + "\n"
+    message = "logged_in_email: %s\n to_disable_email: %s\n" % (
+        logged_in_email, to_disable_email)
     send_mail('ParselTongue User Wants To Disable Their Account', message,
               'parseltongueextension@gmail.com', settings.ERROR_EMAILS, fail_silently=False)
     return HttpResponse("You will receive an email notification once your account has been disabled.")
@@ -116,31 +116,31 @@ def settingsPage(request):
 
 def confirmEmail(request, link_number):
     email_profile = EmailProfile.objects.filter(confirmation_link=link_number)
-    
+
     if not email_profile:
         return HttpResponse("There is no email profile at this link.")
-    
+
     email_profile = email_profile[0]
     user = email_profile.user
     user.backend = 'django.contrib.auth.backends.ModelBackend'
-    
+
     if not email_profile.confirmed:
         login(request, user)
         link_age = email_profile.getAge()
         two_weeks_in_seconds = 60 * 60 * 24 * 14
-        
+
         if link_age > two_weeks_in_seconds:
             email_profile.confirmation_link = getNewConfirmationLink()
             email_profile.created_when = datetime.datetime.now()
             email_profile.save()
             sendEmailAssociationConfirmation(email_profile)
             return HttpResponse("This confirmation link has expired. We sent you another confirmation email.")
-        
+
         # if link not too old, we chillin
         email_profile.confirmed = True
         email_profile.save()
         return shortcuts.redirect("/initializing/")
-    
+
     logError(
         "second time clicking on confirmation link? %s" % email_profile.email)
     return shortcuts.redirect("/login/")
@@ -148,7 +148,7 @@ def confirmEmail(request, link_number):
 
 def resendConfirmationLink(request):
     email_address = request.POST['email']
-    
+
     try:
         email_profile = EmailProfile.objects.get(email=email_address)
     except ObjectDoesNotExist:
@@ -160,10 +160,10 @@ def resendConfirmationLink(request):
     email_profile.confirmation_link = getNewConfirmationLink()
     email_profile.created_when = datetime.datetime.now()
     email_profile.save()
-    
+
     sendEmailAssociationConfirmation(email_profile)
     res = {"success": 1}
-    
+
     return json_response(res)
 
 

@@ -1,10 +1,14 @@
 {% extends "base.html" %}
+{% load filters %}
 
+{% block css %}
+	{% include_style "css/initializing" %}
+{% endblock %}
 
 {% block body %}
 
-    <div class="initializing-image-wrapper">
-        <div class="initializing-image">
+    <div class="at-least initializing-img-wrapper">
+        <div class="initializing-img">
             <img src="/static/img/flakes.gif"/>
         </div>
     </div>

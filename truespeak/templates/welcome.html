@@ -1,19 +1,18 @@
 {% extends "base.html" %}
+{% load filters %}
 
+{% block css %}
+    {% include_style "css/welcome" %}
+{% endblock %}
 
 {% block body %}
 
-       <div class="jumbotron welcome-container welcome-wrapper">
-
-             <img class="sound-of-music" src="https://d2nh4f9cbhlobh.cloudfront.net/_uploads/galleries/240/the-sound-of-music-image_2.jpg"/>
-           {% comment %}
-            <img class="sound-of-music upside-down" src="https://d2nh4f9cbhlobh.cloudfront.net/_uploads/galleries/240/the-sound-of-music-image_2.jpg"/>
-            {% endcomment %}
-            <div class="over-sound-of-music white-text">
-                <h1 class="sound-of-music-header welcome-header">You should receive a confirmation email in a few seconds.</h1>
-                <h1 class="sound-of-music-header welcome-email-address welcome-header">{{ email_address }}</h1>
+       <div class="jumbotron welcome-container">
+             <img class="sound-of-music" src="/static/img/sound-of-music.jpg"/>
+            <div class="welcome-text">
+                    Sending a confirmation email to:
+                    {{ email_address }}
             </div>
-            <div style="clear:both;"></div>
         </div>
 
 {% endblock %}

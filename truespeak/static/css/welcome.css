@@ -1,0 +1,19 @@
+.welcome-container {
+    color:white;
+    padding:0px;
+    position: relative;
+    top: -38px;
+}
+
+.welcome-text {
+	margin-left:70px;
+    margin-top: 61px;
+    font-size: 50px;
+    position:absolute;
+}
+
+.sound-of-music {
+    float:left;
+    width:100%;
+    z-index:-1;
+}
