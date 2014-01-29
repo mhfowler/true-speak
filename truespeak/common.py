@@ -42,7 +42,7 @@ def addAssociatedEmailProfile(user, email):
 
 
 def sendEmailAssociationConfirmation(email_profile):
-    confirmation_link = "http://www.parseltongueextension.com" + \
+    confirmation_link = "http://www.getparseltongue.com" + \
         email_profile.getConfirmationLink()
     message = "Dear " + email_profile.email + ",\n\n" \
         "To confirm your email address with ParselTongue please click this link: \n\n"  + confirmation_link + "\n\n" \
@@ -50,7 +50,7 @@ def sendEmailAssociationConfirmation(email_profile):
         "The only copy of the private key that matches your public key exists on your laptop. \n\n" \
         "Truly,\n" \
         "Max, Josh and Stephanie\n" \
-        "http://www.parseltongueextension.com/faq/"
+        "http://www.getparseltongue.com/faq/"
     send_mail(
         'ParselTongue Email Confirmation', message, 'settings@parseltongue.com',
         [email_profile.email], fail_silently=False)
@@ -58,7 +58,7 @@ def sendEmailAssociationConfirmation(email_profile):
 
 def sendPriKeyDownloadWarning(user):
     email = user.email
-    disable_link = "http://www.parseltongueextension.com/disable/" + email + "/"
+    disable_link = "http://www.getparseltongue.com/disable/" + email + "/"
     message = "Dear " + email + ",\n\n" \
         "Someone (hopefully you) just logged in to ParselTongue as you on a new computer. If this was not you "  \
         "please click the link below and we will disable your account: \n\n"  + disable_link + "\n\n" \
@@ -66,7 +66,7 @@ def sendPriKeyDownloadWarning(user):
         "and will then be able to reregister with a new uncompromised password if you choose to. \n\n" \
         "Truly,\n" \
         "Max, Josh and Stephanie\n" \
-        "http://www.parseltongueextension.com/faq/"
+        "http://www.getparseltongue.com/faq/"
     send_mail(
         'ParselTongue Login Notification', message, 'settings@parseltongue.com',
         [email], fail_silently=False)

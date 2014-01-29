@@ -17,7 +17,7 @@ if LOCAL: #export LOCAL=1
 else:
     SECRETS_ENV = os.environ.get("SECRETS")
     SECRETS_DICT = json.loads(SECRETS_ENV)
-    DOMAIN = "www.parseltongueextension.com"
+    DOMAIN = "www.getparseltongue.com"
 
 ADMINS = (
     ("Max Fowler", "maximusfowler@gmail.com"),
@@ -81,7 +81,7 @@ AUTHENTICATION_BACKENDS = (
 ALLOWED_HOSTS = [
     "*",
     # "www.getparseltongue.com",
-    # "www.parseltongueextension.com",
+    # "www.getparseltongue.com",
     # "127.0.0.1:8000"
 ]
 
