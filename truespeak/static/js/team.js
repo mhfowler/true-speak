@@ -10,7 +10,7 @@ var teamData = {
             "id": "swang",
         },
         "hover": {
-            "img": "/static/img/team/stephanie-hover.jpg",
+            "img": "/static/img/team/stephanie-hover.png",
             "blurb": "Azn 4 lyfe. Math. Poop. Paint.",
             "name": "swangster",
         },
@@ -42,7 +42,7 @@ var teamData = {
             "id": "max",
         },
         "hover": {
-            "img": "/static/img/team/max-selfie.jpg",
+            "img": "/static/img/team/max-hover.png",
             "blurb": "Fuck it, push it.",
             "name": "ladsworth",
         },
