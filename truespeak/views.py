@@ -59,7 +59,7 @@ def faq(request):
 
 @render_to("tutorial.html")
 def tutorial(request):
-    return _template_values(request, page_title="tutorial", navbar="nav_tutorial")
+    return _template_values(request, page_title="tutorial")
 
 
 @render_to("team.html")

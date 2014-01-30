@@ -12,8 +12,8 @@ urlpatterns = patterns('',
                        }),
                        (r'^robots\.txt$', lambda r: HttpResponse(
                            "User-agent: *\nDisallow: /", mimetype="text/plain")),
+                       
                        # pages
-
                        (r'^sendgrid/$', lambda r: HttpResponse(
                            "sendgrid", mimetype="text/plain")),
                        (r'^register/$', registerPage),
