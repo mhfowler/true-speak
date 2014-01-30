@@ -14,6 +14,8 @@ urlpatterns = patterns('',
                            "User-agent: *\nDisallow: /", mimetype="text/plain")),
                        # pages
 
+                       (r'^sendgrid/$', lambda r: HttpResponse(
+                           "sendgrid", mimetype="text/plain")),
                        (r'^register/$', registerPage),
                        (r'^login/$', loginPage),
                        (r'^logout/$', view_wrapper(logoutPage)),

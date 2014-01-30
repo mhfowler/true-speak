@@ -64,7 +64,7 @@ EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
 
 # EMAIL = {
 #     'EMAIL_HOST': 'smtp.sendgrid.net',
-#     'EMAIL_HOST_USER': 'parseltongueextension',
+#     'EMAIL_HOST_USER': 'getparseltongue',
 #     'EMAIL_HOST_PASSWORD': SECRETS_DICT['EMAIL_PASSWORD'],
 #     'EMAIL_PORT': 587,
 #     'EMAIL_USE_TLS': True,
