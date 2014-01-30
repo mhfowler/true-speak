@@ -33,7 +33,7 @@ var teamData = {
     },
     "max": {
         "profile": {
-            "img": "/static/img/team/selfie.png",
+            "img": "/static/img/team/max-profile.png",
             "blurb": "Team motivator and chef.",
             "name": "Max Fowler",
             "twitter": "maxfowler2",
@@ -42,7 +42,7 @@ var teamData = {
             "id": "max",
         },
         "hover": {
-            "img": "/static/img/team/max-hover.jpg",
+            "img": "/static/img/team/max-selfie.jpg",
             "blurb": "Fuck it, push it.",
             "name": "ladsworth",
         },
