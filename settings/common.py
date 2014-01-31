@@ -10,7 +10,7 @@ TEMPLATE_DEBUG = DEBUG
 
 SECRETS_PATH = os.path.join(PROJECT_PATH, "secret.json")
 
-if LOCAL: #export LOCAL=1
+if LOCAL:  # export LOCAL=1
     DEBUG = True
     SECRETS_DICT = json.loads(open(SECRETS_PATH, "r").read())
     DOMAIN = "local.parseltongueextension.com"
@@ -52,23 +52,14 @@ DATABASES = {
 }
 
 
-### EMAIL SETTINGS
-SERVER_EMAIL = 'getparseltongue@gmail.com'
-EMAIL_HOST = 'smtp.gmail.com'
+# SENDGRID
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'getparseltongue'
+EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'getparseltongue@gmail.com'
-EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
 
-########## SENDGRID ###############
-
-# EMAIL = {
-#     'EMAIL_HOST': 'smtp.sendgrid.net',
-#     'EMAIL_HOST_USER': 'getparseltongue',
-#     'EMAIL_HOST_PASSWORD': SECRETS_DICT['EMAIL_PASSWORD'],
-#     'EMAIL_PORT': 587,
-#     'EMAIL_USE_TLS': True,
-# }
 
 # AUTH_PROFILE_MODULE = 'truespeak.UserProfile'
 

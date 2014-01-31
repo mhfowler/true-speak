@@ -110,6 +110,7 @@ def settingsPage(request):
     # otherwise we are just displaying settings
     else:
         page_title = "settings"
+        nav_settings = "active"
         associated_email_addresses = getAssociatedEmailAddresses(user)
         return render_to_response('settings.html', locals())
 
