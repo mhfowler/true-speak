@@ -10,10 +10,12 @@ from annoying.decorators import render_to
 
 from truespeak.common import sendPriKeyDownloadWarning, \
     getNewConfirmationLink, logError, \
-    createEmailProfile, normalize_email, \
+    create_email_profile, normalize_email, \
     sendEmailAssociationConfirmation, \
-    normalize_email, _template_values
+    _template_values, INVALID_EMAIL
 from truespeak.models import *
+
+from validate_email import validate_email
 
 import json
 
@@ -95,14 +97,14 @@ def settingsPage(request):
         }
         if "new_email" in request.POST:
             new_email = normalize_email(request.POST['new_email'])
-            success, message = createEmailProfile(new_email, user)
+            success, message = create_email_profile(new_email, user)
             if success:
                 to_return['message'] = message
             else:
                 to_return['error'] = message
         elif "delete_email" in request.POST:
             delete_email = normalize_email(request.POST['delete_email'])
-            success = removeEmailAddress(delete_email, user)
+            success = rm_email(delete_email, user)
             if not success:
                 to_return['error'] = True
         return json_response(to_return)
@@ -110,6 +112,7 @@ def settingsPage(request):
     # otherwise we are just displaying settings
     else:
         page_title = "settings"
+        nav_settings = "active"
         associated_email_addresses = getAssociatedEmailAddresses(user)
         return render_to_response('settings.html', locals())
 
@@ -219,6 +222,10 @@ def registerPage(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         error = ""
+
+        if not validate_email(email):
+            error = INVALID_EMAIL
+
         if not password1:
             error = "Oops, password can't be empty."
         elif not password1 == password2:

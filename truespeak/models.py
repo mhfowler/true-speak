@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_save
-from django.core.mail import send_mail
+
+from validate_email import validate_email
 
 import logging
 import datetime
-import random
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -39,8 +39,10 @@ class XModel(models.Model):
         abstract = True
 
 # ------------------------------------------------------------------------
-# EmailProfile. associate as many email addresses as you want with parseltongue user
+# EmailProfile. associate as many email addresses
+# as you want with parseltongue user
 # ------------------------------------------------------------------------
+
 
 class EmailProfile(XModel):
     user = models.ForeignKey(User)
@@ -62,18 +64,20 @@ def getAssociatedEmailAddresses(user):
     emails = EmailProfile.objects.filter(user=user)
     return [(email.email, email.confirmed) for email in emails]
 
-def removeEmailAddress(email, user):
+
+def rm_email(email, user):
     '''
     removes an (alternate) email address for a user
     returns False if the email is user's primary email
     '''
     if email == user.email:
-        return False 
-    ## TODO: for now, don't allow deletion of email if it's confirmed, not
-    ## sure how to handle yet if user really does want to delete
-    if email.confirmed:
         return False
-    email = EmailProfile.objects.filter(email=email, user=user)
+    # TODO: for now, don't allow deletion of email if it's confirmed, not
+    # sure how to handle yet if user really does want to delete
+    email = EmailProfile.xobjects.get(email=email, user=user)
+    if email and email.confirmed:
+        return False
+
     email.delete()
     return True
 
@@ -105,7 +109,7 @@ def getUserPriKey(user):
     try:
         pri_key = PriKey.objects.get(user=user)
         return pri_key.pri_key_text
-    except ObjectDoesNotExist as e:
+    except ObjectDoesNotExist:
         return None
 
 #-------------------------------------------------------------------------
@@ -117,8 +121,8 @@ def authUserPostSave(sender, **kwargs):
     user = kwargs['instance']
     created = kwargs['created']
     if created:
-        from truespeak.common import createEmailProfile
-        createEmailProfile(user.email, user)
+        from truespeak.common import create_email_profile
+        create_email_profile(user.email, user)
 
 post_save.connect(authUserPostSave,
                   sender=User, dispatch_uid="auth_user_post_save")

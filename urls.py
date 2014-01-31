@@ -38,7 +38,7 @@ urlpatterns = patterns('',
                       (r'^upload_prikey/$', view_wrapper(uploadPriKey)),
                       (r'^error/$', ajaxError),
 
-                      ('^/$', redirect),
-                      ('^$', redirect),
+                      (r'^/$', home),
+                      (r'^$', home),
 
                        )
