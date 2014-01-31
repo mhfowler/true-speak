@@ -7,3 +7,4 @@ MySQL-Python==1.2.4
 South==0.7.6
 django-annoying==0.7.6
 django-debug-toolbar==1.0.1
+validate-email==1.1

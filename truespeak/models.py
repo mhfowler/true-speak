@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_save
 
+from validate_email import validate_email
+
 import logging
 import datetime
 
@@ -63,7 +65,7 @@ def getAssociatedEmailAddresses(user):
     return [(email.email, email.confirmed) for email in emails]
 
 
-def removeEmailAddress(email, user):
+def rm_email(email, user):
     '''
     removes an (alternate) email address for a user
     returns False if the email is user's primary email
@@ -119,8 +121,8 @@ def authUserPostSave(sender, **kwargs):
     user = kwargs['instance']
     created = kwargs['created']
     if created:
-        from truespeak.common import createEmailProfile
-        createEmailProfile(user.email, user)
+        from truespeak.common import create_email_profile
+        create_email_profile(user.email, user)
 
 post_save.connect(authUserPostSave,
                   sender=User, dispatch_uid="auth_user_post_save")

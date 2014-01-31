@@ -1,12 +1,15 @@
 from django.contrib.auth.models import User
 from truespeak.models import EmailProfile, logger
 from django.core.mail import send_mail
-from django.conf import settings# import settings.ERROR_EMAILS
+from django.conf import settings
+
+from validate_email import validate_email
 
 import uuid
 import os
 import binascii
-import random
+
+INVALID_EMAIL = "Email is not valid!"
 
 
 def sendTestMessage():
@@ -93,8 +96,12 @@ def logError(message):
 
 
 # returns True if no error, false otherwise (tuple)
-def createEmailProfile(new_email, user):
+def create_email_profile(new_email, user):
     already = EmailProfile.objects.filter(email=new_email)
+    
+    if not validate_email(new_email):
+        return False, INVALID_EMAIL
+    
     if already:
         email_profile = already[0]
         alternate_email = already.filter(user=user)
@@ -120,10 +127,11 @@ def createEmailProfile(new_email, user):
 def normalize_email(email):
     return email.lower()
 
+
 def _template_values(request, page_title='', navbar='', **kwargs):
     template_values = {
-        'page_title' : page_title,
-        navbar : 'active',
+        'page_title': page_title,
+        navbar: 'active',
     }
 
     return dict(template_values.items() + kwargs.items())
