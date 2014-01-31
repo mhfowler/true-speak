@@ -8,10 +8,10 @@ from django import shortcuts
 
 from annoying.decorators import render_to
 
-from truespeak.common import sendPriKeyDownloadWarning, \
-    getNewConfirmationLink, logError, \
+from truespeak.common import send_prikey_warning, \
+    get_new_confirm_link, log_error, \
     create_email_profile, normalize_email, \
-    sendEmailAssociationConfirmation, \
+    send_email_confirmation, \
     _template_values, INVALID_EMAIL
 from truespeak.models import *
 
@@ -71,11 +71,11 @@ def team(request):
 
 
 @render_to("initializing.html")
-def initializingPage(request):
+def initializing(request):
     return _template_values(request, page_title="initializing")
 
 
-def disableAccount(request, email_address):
+def disable_account(request, email_address):
     user = request.user
     logged_in_email = user.email
     to_disable_email = email_address
@@ -87,7 +87,7 @@ def disableAccount(request, email_address):
 
 
 @ensure_csrf_cookie
-def settingsPage(request):
+def settings_(request):
     user = request.user
     # if its a post then user is updating some settings
     if request.method == "POST":
@@ -117,7 +117,7 @@ def settingsPage(request):
         return render_to_response('settings.html', locals())
 
 
-def confirmEmail(request, link_number):
+def confirm_email(request, link_number):
     email_profile = EmailProfile.objects.filter(confirmation_link=link_number)
 
     if not email_profile:
@@ -133,10 +133,10 @@ def confirmEmail(request, link_number):
         two_weeks_in_seconds = 60 * 60 * 24 * 14
 
         if link_age > two_weeks_in_seconds:
-            email_profile.confirmation_link = getNewConfirmationLink()
+            email_profile.confirmation_link = get_new_confirm_link()
             email_profile.created_when = datetime.datetime.now()
             email_profile.save()
-            sendEmailAssociationConfirmation(email_profile)
+            send_email_confirmation(email_profile)
             return HttpResponse("This confirmation link has expired. We sent you another confirmation email.")
 
         # if link not too old, we chillin
@@ -144,34 +144,34 @@ def confirmEmail(request, link_number):
         email_profile.save()
         return shortcuts.redirect("/initializing/")
 
-    logError(
+    log_error(
         "second time clicking on confirmation link? %s" % email_profile.email)
     return shortcuts.redirect("/login/")
 
 
-def resendConfirmationLink(request):
+def reconfirm(request):
     email_address = request.POST['email']
 
     try:
         email_profile = EmailProfile.objects.get(email=email_address)
     except ObjectDoesNotExist:
-        logError(
+        log_error(
             "Attempt to reconfirm email address which was never registered: " + email_address)
         res = {"success": 0}
         return json_response(res)
 
-    email_profile.confirmation_link = getNewConfirmationLink()
+    email_profile.confirmation_link = get_new_confirm_link()
     email_profile.created_when = datetime.datetime.now()
     email_profile.save()
 
-    sendEmailAssociationConfirmation(email_profile)
+    send_email_confirmation(email_profile)
     res = {"success": 1}
 
     return json_response(res)
 
 
 @ensure_csrf_cookie
-def loginPage(request):
+def login_(request):
     if request.method == "GET":
         page_title = "login"
         return render_to_response('login.html', locals(), context_instance=RequestContext(request))
@@ -184,7 +184,7 @@ def loginPage(request):
         except ObjectDoesNotExist:
             error = "Oops, this email was not found. <br> Try <a href='/register/'>registering?</a>"
         except MultipleObjectsReturned:
-            logError(
+            log_error(
                 "multiple email profiles for single email -- this is bad! " + str(email))
         else:
             if not email_profile.confirmed:
@@ -206,13 +206,13 @@ def loginPage(request):
         return json_response(to_return)
 
 
-def logoutPage(request):
+def logout_(request):
     logout(request)
     return shortcuts.redirect("/login/")
 
 
 @ensure_csrf_cookie
-def registerPage(request):
+def register(request):
     if request.method == "GET":
         page_title = "register"
         nav_register = "active"
@@ -256,16 +256,16 @@ def registerPage(request):
 
 
 @csrf_exempt
-def getPubKeys(request):
+def get_pubkeys(request):
 
     requested_keys = json.loads(request.GET.get('requested_keys', []))
     requested_keys = map(normalize_email, requested_keys)
-    res = {email: getPubKeysAssociatedWithEmail(email) for email in requested_keys}
+    res = {email: get_pubkey_for_email(email) for email in requested_keys}
 
     return json_response(res)
 
 
-def getPubKeysAssociatedWithEmail(email):
+def get_pubkey_for_email(email):
     try:
         email_profile = EmailProfile.objects.get(email=email)
         user = email_profile.user
@@ -275,7 +275,7 @@ def getPubKeysAssociatedWithEmail(email):
     return []
 
 
-def uploadPubKey(request):
+def upload_pubkey(request):
     """
     Upload a pub key to your user account.
     """
@@ -284,7 +284,7 @@ def uploadPubKey(request):
     post_user = request.POST["username"]
 
     if user.username != post_user:
-        logError("authenticated user is not who they think they are? %s %s" %
+        log_error("authenticated user is not who they think they are? %s %s" %
                  (user.username, post_user))
     prior_keys = PubKey.objects.filter(user=user)
 
@@ -303,7 +303,7 @@ def uploadPubKey(request):
     return HttpResponse("Error: Key has already been uploaded.")
 
 
-def uploadPriKey(request):
+def upload_prikey(request):
     """
     Upload an encrypted private key to your user account.
     """
@@ -311,7 +311,7 @@ def uploadPriKey(request):
     post_user = request.POST["username"]
 
     if user.username != post_user:
-        logError("authenticated user is not who they think they are? %s %s" %
+        log_error("authenticated user is not who they think they are? %s %s" %
                  (user.username, post_user))
 
     pri_key_text = request.POST['pri_key']
@@ -328,11 +328,11 @@ def uploadPriKey(request):
     return HttpResponse("Success")
 
 
-def getPriKey(request):
+def get_prikey(request):
     user = request.user
     pri_key = PriKey.xobjects.get_or_none(user=user)
     if pri_key:
-        sendPriKeyDownloadWarning(user)
+        send_prikey_warning(user)
         res = {
             "success": 1,
             "pri_key": pri_key.pri_key_text
@@ -345,7 +345,7 @@ def getPriKey(request):
 
 
 @csrf_exempt
-def ajaxError(request):
+def error(request):
     user = request.user
     error = request.POST.get("error")
     email = ""
@@ -354,6 +354,6 @@ def ajaxError(request):
         email = user.email
 
     error_message = "javascript error | user: %s | %s" % (email, error)
-    logError(error_message)
+    log_error(error_message)
 
     return HttpResponse("error logged")
