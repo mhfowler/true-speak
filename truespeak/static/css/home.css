@@ -4,25 +4,20 @@
 
 .home-wrapper {
     background:none;
-    padding-top: 30px; 
+    padding-top: 60px; 
     padding-bottom: 20px;
-}
-
-.home-header {
-    padding-top:35px;
 }
 
 .snake-icon {
     width: 118px;
     float: left;
-    margin-top: 25px;
     position: relative;
     left: -10px;
 }
 
 .image-wrapper {
-    float:right;
-    width:80px;
+    float: left;
+
 }
 
 .left-side {
