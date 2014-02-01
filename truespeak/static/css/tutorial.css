@@ -11,3 +11,10 @@
     font-size:48px;
 }
 
+.tutorial-header-text {
+    margin-bottom:25px;
+}
+.tutorial-intro-text {
+    width:85%;
+    margin:auto;
+}
