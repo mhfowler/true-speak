@@ -2,14 +2,14 @@
 
 {% include_style "css/tutorial_snippet" %}
 
-<div id="carousel-example-generic" class="carousel slide">
+<div id="tutorial-carousel" class="carousel slide">
     <!-- Indicators -->
   <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-    <!-- <li data-target="#carousel-example-generic" data-slide-to="4"></li> -->
+    <li data-target="#tutorial-carousel" data-slide-to="0" class="active"></li>
+    <li data-target="#tutorial-carousel" data-slide-to="1"></li>
+    <li data-target="#tutorial-carousel" data-slide-to="2"></li>
+    <li data-target="#tutorial-carousel" data-slide-to="3"></li>
+    <!-- <li data-target="#tutorial-carousel" data-slide-to="4"></li> -->
   </ol>
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
@@ -30,7 +30,7 @@
             </div>
         </div> -->
         <div class="item preview">
-            <img class="carousel-image" src="/static/img/tutorial/gmail-unlocked-new.png">
+            <img class="carousel-image" src="/static/img/tutorial/gmail-unlocked.png">
             <div class="carousel-caption">
                 <p>
                     Click the snake to encrypt your email. Only you and your email's recipients will be able to read it.
@@ -38,7 +38,7 @@
             </div>
         </div>        
         <div class="item preview">
-            <img class="carousel-image" src="/static/img/tutorial/gmail-locked-new.png">
+            <img class="carousel-image" src="/static/img/tutorial/gmail-locked.png">
             <div class="carousel-caption">
                 <p>
                     Click the lock again, to send your email unencrypted.
@@ -56,10 +56,14 @@
     </div>
 
   <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+  <div class="carousel-control-wrapper">
+  <a class="left carousel-control" href="#tutorial-carousel" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left"></span>
   </a>
-  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+  </div>
+  <div class="carousel-control-wrapper">
+  <a class="right carousel-control" href="#tutorial-carousel" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right"></span>
   </a>
+  </div>
 </div>
