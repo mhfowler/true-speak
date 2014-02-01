@@ -11,24 +11,3 @@
     font-size:48px;
 }
 
-.carousel-image {
-    margin: auto;
-    cursor: pointer;
-}
-
-.carousel-caption {
-    padding: 10px;
-    margin-top: -20px;
-    bottom: 60px;
-    color: white;
-    background-color: #428bca;
-    /*background-color: black;*/
-    opacity: 0.8;
-    border-radius: 5px;
-}
-
-.carousel-caption p {
-    color: white;
-    margin: 0;
-    font-size: 18px;
-}

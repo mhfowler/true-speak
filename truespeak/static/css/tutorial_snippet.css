@@ -1,29 +1,19 @@
 /* carousel overrides */
-.carousel-caption {
-    color: black;
-    text-shadow:none;
-}
 
-.glyphicon-chevron-right {
-    right:10% !important;
-}
-
-.glyphicon-chevron-left {
-    left:10% !important;
+.carousel-control span {
+    top: 15px !important;
+    left: 15px !important;
 }
 
 .carousel-control.right, .carousel-control.left {
     background-image: none;
-}
-
-.carousel-indicators .active {
-    background-color: #000;
-}
-
-.carousel-indicators li {
-    background-color: #000 \9;
-    background-color: rgba(0,0,0,0);
-    border: 1px solid #000;
+    background-color: #428bca;
+    /* half of carousel-inner height is 207.5px,
+    half of carousel-control height is 25px */
+    top: 182px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
 }
 
 .screenshot-image {
@@ -32,4 +22,57 @@
     margin-top: 30px;
     border:1px solid lightgray;
     margin-bottom: 10px;
+}
+
+#tutorial-carousel {
+    margin-top: 40px;
+}
+
+.carousel-inner {
+    /*
+    screenshots have height 325px,
+    carousel-captions have height 90px
+    */
+    height: 415px;
+}
+.carousel-indicators {
+    bottom: -5px;
+}
+
+.carousel-indicators .active {
+    background-color: white;
+}
+
+.carousel-indicators li {
+    background-color: #000 \9;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid white;
+}
+
+.carousel-indicator {
+    border: solid white 1px;
+}
+
+.carousel-image {
+    margin: auto;
+    cursor: pointer;
+}
+
+.carousel-caption {
+    padding: 10px;
+    height: 90px;
+    bottom: -88px;
+    color: white;
+    background-color: #428bca;
+    width:523px;
+    margin:auto;
+    right: 0;
+    left: 0;
+}
+
+.carousel-caption p {
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    text-shadow: none   ;
 }
