@@ -40,3 +40,12 @@
     font-weight: 500;
     padding-left: 28px;
 }
+
+.nav .nav {
+    display: none;
+    padding-bottom: 10px;
+}
+
+.nav > .active > ul {
+    display: block;
+}
