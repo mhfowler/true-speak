@@ -1,4 +1,5 @@
 {% load filters %}
+{% load compress %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,11 +9,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="shortcut icon" href="/static/img/favicon.ico">
+        {% compress css %}
         {% include_style "css/bootstrap.min" %}
         {% include_style "css/base" %}
 
         {% block css %}
         {% endblock %}
+        {% endcompress %}
 
         <meta charset="utf-8">
         <title> ParselTongue | {{ page_title }} </title>
@@ -98,6 +101,8 @@
                 <div class="clearfix"></div>
             </div>
         </div> 
+
+        {% compress js %}
         
         {% include_script "js/jquery-1.10.2.min" %}
         {% include_script "js/bootstrap.min" %}
@@ -106,6 +111,7 @@
 
         {% block scripts %}
         {% endblock %}
+        {% endcompress %}
 
     </body>
 </html>

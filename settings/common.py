@@ -53,7 +53,6 @@ DATABASES = {
 
 
 # SENDGRID
-
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'getparseltongue'
 EMAIL_HOST_PASSWORD = SECRETS_DICT['EMAIL_PASSWORD']
@@ -65,6 +64,12 @@ EMAIL_USE_TLS = True
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
+)
+
+# settings for django-compressor
+COMPRESS_ENABLED = DEBUG
+COMPRESS_CSS_FILTERS = (
+    'compressor.filters.template.TemplateFilter',
 )
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -129,6 +134,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+
+    'compressor.finders.CompressorFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -177,8 +184,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'debug_toolbar',
 
-    'truespeak',
+    # third party
+    'compressor',
     'south',
+
+    'truespeak',
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
