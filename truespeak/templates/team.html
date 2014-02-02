@@ -14,10 +14,6 @@
             </div>
         </div>
     </div>
-
-{% endblock %}
-{% block scripts %}
-    {% include_script "js/ICanHaz" %}
     {% verbatim %} 
     <script id="user_template" type="text/html">
         <div data-id="{{ id }}" class="profile-wrap pull-left">
@@ -40,5 +36,9 @@
         </div>
     </script>
     {% endverbatim %}
+
+{% endblock %}
+{% block scripts %}
+    {% include_script "js/ICanHaz" %}
     {% include_script "js/team" %}
 {% endblock %}
