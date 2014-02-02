@@ -1,59 +1,4 @@
-/*.register-explain {*/
-/*width: 90%;*/
-/*float:left;*/
-/*max-width:450px;*/
-/*}*/
-
-/*.register-button {*/
-/*width:100%;*/
-/*}*/
-
-/*.register-loading {*/
-/*width: 100px;*/
-/*margin: auto;*/
-/*margin-top: 35px;*/
-/*}*/
-
-/*.loading-text {*/
-/*position: relative;*/
-/*top: -24px;*/
-/*}*/
-
-/*.register-explain p {*/
-/*font-size: 18px;*/
-/*margin-top: 35px;*/
-/*}*/
-
-/*.register-form {*/
-/*float:left;*/
-/*width:405px;*/
-/*margin-right: 45px;*/
-/*height:375px;*/
-/*}*/
-
-/*.register-snake {*/
-/*position: absolute;*/
-/*z-index: -1;*/
-/*width: 549px;*/
-/*left: 54%;*/
-/*top: 71px;*/
-/*z-index: -1;*/
-/*width: 100%;*/
-/*position:relative;*/
-/*top:-90px;*/
-/*}*/
-
-/*.register-container {*/
-/*float:none;*/
-/*margin:auto;*/
-/*width:80%;*/
-/*}*/
-
-
-/** register new **/
-
 .register-explain {
-    /*width: 90%;*/
     float:left;
     max-width:95%;
 }
@@ -101,11 +46,6 @@
 }
 
 .register-snake {
-    /*position: absolute;*/
-    /*z-index: -1;*/
-    /*width: 549px;*/
-    /*left: 54%;*/
-    /*top: 71px;*/
     z-index: -1;
     width: 450px;
     position:relative;

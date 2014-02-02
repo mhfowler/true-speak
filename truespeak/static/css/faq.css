@@ -26,3 +26,17 @@
     background: #eee;
     border-radius: 7px;
 }
+.nav .nav > li > a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 30px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.nav .nav > .active > a,  
+.nav .nav > .active:hover > a, 
+.nav .nav > .active:focus > a {
+    font-weight: 500;
+    padding-left: 28px;
+}
