@@ -7,10 +7,10 @@
 
 .carousel-control.right, .carousel-control.left {
     background-image: none;
-    background-color: #428bca;
-    /* half of carousel-inner height is 207.5px,
+    background-color: black;
+    /* half of carousel-inner height is 202.5px,
     half of carousel-control height is 25px */
-    top: 182px;
+    top: 177px;
     width: 50px;
     height: 50px;
     border-radius: 25px;
@@ -34,10 +34,10 @@
     screenshots have height 325px,
     carousel-captions have height 90px
     */
-    height: 415px;
+    height: 405px;
 }
 .carousel-indicators {
-    bottom: -5px;
+    bottom: 40px;
 }
 
 .carousel-indicators .active {
@@ -61,10 +61,11 @@
 
 .carousel-caption {
     padding: 10px;
-    height: 90px;
-    bottom: -88px;
+    padding-top: 35px;
+    height: 80px;
+    bottom: -78px;
     color: white;
-    background-color: #428bca;
+    background-color: black;
     width:523px;
     margin:auto;
     right: 0;
