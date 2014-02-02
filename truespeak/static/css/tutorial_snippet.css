@@ -7,7 +7,7 @@
 
 .carousel-control.right, .carousel-control.left {
     background-image: none;
-    background-color: black;
+    background-color: rgb(64, 64, 64);
     /* half of carousel-inner height is 202.5px,
     half of carousel-control height is 25px */
     top: 177px;
@@ -65,7 +65,7 @@
     height: 80px;
     bottom: -78px;
     color: white;
-    background-color: black;
+    background-color: rgb(64, 64, 64);
     width:523px;
     margin:auto;
     right: 0;
