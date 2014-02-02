@@ -28,6 +28,7 @@
     float:left;
     width:405px;
     margin-right: 45px;
+    height:375px;
 }
 
 .register-snake {
@@ -37,8 +38,9 @@
     /*left: 54%;*/
     /*top: 71px;*/
     z-index: -1;
-    width: 500px;
-    float: left;
+    width: 100%;
+    position:relative;
+    top:-90px;
 }
 
 .register-container {
