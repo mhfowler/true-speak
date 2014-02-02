@@ -2,7 +2,7 @@
 {% load filters %}
 
 {% block css %}
-{% include_style "/static/css/settings" %}
+    {% include_style "/static/css/settings" %}
 {% endblock %}
 
 {% block body %}
@@ -29,7 +29,7 @@
                         </form>
                         
                         <div class="floated-wrapper"> 
-                            <ul class="list-group" style="position: relative;">
+                            <ul class="list-group">
                             {% for email, confirmed in associated_email_addresses %}
                                 <li class="list-group-item email-address">
                                     {{ email }}
@@ -55,5 +55,5 @@
 {% endblock %}
 
 {% block scripts %}
-{% include_script "js/settings" %}
+    {% include_script "js/settings" %}
 {% endblock %}

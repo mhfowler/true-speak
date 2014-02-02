@@ -62,7 +62,7 @@
                         <li class="{{ nav_faq }}"><a href="/faq/">FAQ</a></li>
                         <li  class="{{ nav_team }}"><a href="/team/">Team</a></li>
                         {% if not user.is_authenticated %}
-                            <li class="{{ nav_register }} pt-ext-installed" style="display:none;"><a href="/register/">Register</a></li>
+                            <li class="{{ nav_register }} pt-ext-installed"><a href="/register/">Register</a></li>
                         {% else %}
                             <li class="{{ nav_settings }}"><a href="/settings/">Settings</a></li>
                         {% endif %}
@@ -95,7 +95,7 @@
                     <i class="glyphicon glyphicon-envelope"></i>
                     getparseltongue@gmail.com
                 </a>
-                <div style="clear:both;"></div>
+                <div class="clearfix"></div>
             </div>
         </div> 
         

@@ -1,50 +1,16 @@
-from django.contrib.auth.models import User
 from truespeak.models import EmailProfile, logger
 from django.core.mail import send_mail
 from django.conf import settings
 
 from validate_email import validate_email
 
-import uuid
 import os
 import binascii
 
 INVALID_EMAIL = "Email is not valid!"
 
 
-def sendTestMessage():
-    message = "<div> You should see this. </div><div style='display:none;'>You should not see this</div>"
-    send_mail('Test Email', message, 'getparseltongue@gmail.com',
-              ['max_fowler@brown.edu'], fail_silently=True)
-
-
-def generateRandomUsername():
-    username = None
-    while not username:
-        username = uuid.uuid4().hex[:10]
-        already = User.objects.filter(username=username)
-        if already:
-            username = None
-    return username
-
-
-def addAssociatedEmailProfile(user, email):
-    """
-     force add an email address to be associated with a user
-    """
-    already = EmailProfile.objects.filter(email=email, confirmed=True)
-    if already:
-        email_profile = already[0]
-        if email_profile.user != user:
-            logError(
-                "Error: %s has already been assigned to another ParselTongue User. " % email)
-            return
-    else:
-        email_profile = EmailProfile(user=user, email=email)
-        email_profile.save()
-
-
-def sendEmailAssociationConfirmation(email_profile):
+def send_email_confirmation(email_profile):
     confirmation_link = "http://www.getparseltongue.com" + \
         email_profile.getConfirmationLink()
     message = "Dear " + email_profile.email + ",\n\n" \
@@ -59,7 +25,7 @@ def sendEmailAssociationConfirmation(email_profile):
         [email_profile.email], fail_silently=False)
 
 
-def sendPriKeyDownloadWarning(user):
+def send_prikey_warning(user):
     email = user.email
     disable_link = "http://www.getparseltongue.com/disable/" + email + "/"
     message = "Dear " + email + ",\n\n" \
@@ -75,7 +41,7 @@ def sendPriKeyDownloadWarning(user):
         [email], fail_silently=False)
 
 
-def getNewConfirmationLink():
+def get_new_confirm_link():
     confirmation_link = None
     while not confirmation_link:
         confirmation_link = ""
@@ -89,7 +55,7 @@ def getNewConfirmationLink():
     return confirmation_link
 
 
-def logError(message):
+def log_error(message):
     send_mail('ParselTongue Javascript Error', message,
               'getparseltongue@gmail.com', settings.ERROR_EMAILS, fail_silently=True)
     logger.error(message)
@@ -98,10 +64,10 @@ def logError(message):
 # returns True if no error, false otherwise (tuple)
 def create_email_profile(new_email, user):
     already = EmailProfile.objects.filter(email=new_email)
-    
+
     if not validate_email(new_email):
         return False, INVALID_EMAIL
-    
+
     if already:
         email_profile = already[0]
         alternate_email = already.filter(user=user)
@@ -111,16 +77,16 @@ def create_email_profile(new_email, user):
             return False, "This email address is already associated with a ParselTongue user."
         else:
             email_profile.user = user
-            email_profile.confirmation_link = getNewConfirmationLink()
+            email_profile.confirmation_link = get_new_confirm_link()
             email_profile.save()
-            sendEmailAssociationConfirmation(email_profile)
+            send_email_confirmation(email_profile)
             return True, "A confirmation email has been sent to your email address."
     else:
         email_profile = EmailProfile(
             email=new_email, user=user, confirmed=False)
-        email_profile.confirmation_link = getNewConfirmationLink()
+        email_profile.confirmation_link = get_new_confirm_link()
         email_profile.save()
-        sendEmailAssociationConfirmation(email_profile)
+        send_email_confirmation(email_profile)
         return True, "A confirmation email has been sent to your email address."
 
 
@@ -128,7 +94,7 @@ def normalize_email(email):
     return email.lower()
 
 
-def _template_values(request, page_title='', navbar='', **kwargs):
+def template_values(request, page_title='', navbar='', **kwargs):
     template_values = {
         'page_title': page_title,
         navbar: 'active',
