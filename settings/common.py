@@ -28,7 +28,7 @@ ADMINS = (
 HAPPY_EMAILS = [
     "maximusfowler@gmail.com",
     "joshblum@mit.edu",
-    "swang93@mit.com"
+    "swang93@mit.edu"
 ]
 
 ERROR_EMAILS = HAPPY_EMAILS
