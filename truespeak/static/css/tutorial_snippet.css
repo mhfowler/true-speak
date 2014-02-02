@@ -1,62 +1,8 @@
 /* carousel overrides */
 
-.carousel-control span {
-    top: 15px !important;
-    left: 15px !important;
-}
-
-.carousel-control.right, .carousel-control.left {
-    background-image: none;
-    background-color: rgb(64, 64, 64);
-    /* half of carousel-inner height is 202.5px,
-    half of carousel-control height is 25px */
-    top: 177px;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-}
-
-.screenshot-image {
-    width:600px;
-    max-width:100%;
-    margin-top: 30px;
-    border:1px solid lightgray;
-    margin-bottom: 10px;
-}
-
 #tutorial-carousel {
     margin-top: 40px;
     margin: 40px 0;
-}
-
-.carousel-inner {
-    /*
-    screenshots have height 325px,
-    carousel-captions have height 90px
-    */
-    height: 405px;
-}
-.carousel-indicators {
-    bottom: 40px;
-}
-
-.carousel-indicators .active {
-    background-color: white;
-}
-
-.carousel-indicators li {
-    background-color: #000 \9;
-    background-color: rgba(0,0,0,0);
-    border: 1px solid white;
-}
-
-.carousel-indicator {
-    border: solid white 1px;
-}
-
-.carousel-image {
-    margin: auto;
-    cursor: pointer;
 }
 
 .carousel-caption {
@@ -77,4 +23,58 @@
     margin: 0;
     font-size: 16px;
     text-shadow: none   ;
+}
+.carousel-control span {
+    top: 15px !important;
+    left: 15px !important;
+}
+
+.carousel-control.right, .carousel-control.left {
+    background-image: none;
+    background-color: rgb(64, 64, 64);
+    /* half of carousel-inner height is 202.5px,
+    half of carousel-control height is 25px */
+    top: 177px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+.carousel-image {
+    margin: auto;
+    cursor: pointer;
+}
+
+.carousel-indicator {
+    border: solid white 1px;
+}
+
+.carousel-indicators {
+    bottom: 40px;
+}
+
+.carousel-indicators .active {
+    background-color: white;
+}
+
+.carousel-indicators li {
+    background-color: #000 \9;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid white;
+}
+
+.carousel-inner {
+    /*
+    screenshots have height 325px,
+    carousel-captions have height 90px
+    */
+    height: 405px;
+}
+
+.screenshot-image {
+    width:600px;
+    max-width:100%;
+    margin-top: 30px;
+    border:1px solid lightgray;
+    margin-bottom: 10px;
 }

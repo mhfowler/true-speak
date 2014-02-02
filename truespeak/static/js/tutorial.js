@@ -1,4 +1,4 @@
-$(function() {
+$(document).ready(function() {
     var $carousel = $('#tutorial-carousel');
 
     $('.carousel-image').click(function() {

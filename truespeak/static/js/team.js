@@ -17,7 +17,7 @@ var teamData = {
     },
     "josh": {
         "profile": {
-            "img": "/static/img/team/josh-profile.png",
+            "img": "/static/img/team/josh-profile.jpg",
             "blurb": "Bug creation and architecting.",
             "name": "Joshua Blum",
             "twitter": "blumua",
@@ -28,12 +28,12 @@ var teamData = {
         "hover": {
             "img": "/static/img/team/josh-hover.gif",
             "blurb": "Grumpy code monkey.",
-            "name": "pooper",
+            "name": "ua",
         },
     },
     "max": {
         "profile": {
-            "img": "/static/img/team/max-profile-mountain.png",
+            "img": "/static/img/team/max-profile.png",
             "blurb": "Team motivator and chef.",
             "name": "Max Fowler",
             "twitter": "maxfowler2",
@@ -42,7 +42,7 @@ var teamData = {
             "id": "max",
         },
         "hover": {
-            "img": "/static/img/team/max-hover-glasses.png",
+            "img": "/static/img/team/max-hover.png",
             "blurb": "Fuck it, push it.",
             "name": "ladsworth",
         },

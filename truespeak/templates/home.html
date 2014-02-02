@@ -8,7 +8,7 @@
 {% block body %}
 
     <div class="container-narrow home-container-narrow">
-        <div class="at-least jumbotron home-wrapper">
+        <div class="jumbotron home-wrapper">
                 <div class="row">
                     <div class="col-md-2">
                     <div class="image-wrapper">
@@ -29,12 +29,12 @@
             {% include "share_snippet.html" %}
 
             <div class="home-tutorial-header">
-               Click through the tutorial below or read our <a href="/faq/">FAQ</a> to learn more.
+               See the <a href="#tutorial-carousel">tutorial</a> or read our <a href="/faq/">FAQ</a> to learn more.
             </div>
-
-            {% include "tutorial_snippet.html" %}
-
+            
         </div>
+
+        {% include "tutorial_snippet.html" %}
     </div>
 
 {% endblock %}
