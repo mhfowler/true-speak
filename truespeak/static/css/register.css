@@ -1,23 +1,48 @@
 .register-explain {
-    width: 90%;
+    /*width: 90%;*/
+    float:left;
+    max-width:450px;
+}
+
+.register-button {
+    width:100%;
 }
 
 .register-loading {
-    position: absolute;
-    left: 19.4%;
-    top: 297px;
+    width: 100px;
+    margin: auto;
+    margin-top: 35px;
+}
+
+.loading-text {
+    position: relative;
+    top: -24px;
 }
 
 .register-explain p {
     font-size: 18px;
-    margin-bottom: 30px;
     margin-top: 35px;
 }
 
+.register-form {
+    float:left;
+    width:405px;
+    margin-right: 45px;
+}
+
 .register-snake {
-    position: absolute;
+    /*position: absolute;*/
+    /*z-index: -1;*/
+    /*width: 549px;*/
+    /*left: 54%;*/
+    /*top: 71px;*/
     z-index: -1;
-    width: 549px;
-    left: 54%;
-    top: 71px;
+    width: 500px;
+    float: left;
+}
+
+.register-container {
+    float:none;
+    margin:auto;
+    width:80%;
 }

@@ -1,0 +1,71 @@
+.navbar {
+    margin-bottom:0px;
+}
+
+.home-wrapper {
+    background:none;
+}
+
+.masthead {
+    text-align: center;
+}
+
+.snake-icon {
+    width: 118px;
+    float: left;
+    margin-top: 25px;
+    margin-left: 41%;
+    position: relative;
+    left: -87px;
+}
+
+.image-wrapper {
+    float:right;
+    width:80px;
+}
+
+.left-side {
+    float:left;
+    width:85%;
+}
+
+.snake-img {
+    margin-top:30px;
+    width:100%;
+}
+
+.def-text {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    width: 90%;
+    float: left;
+    font-size: 24px;
+}
+
+.chrome-btn {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.ps-explanation p {
+    font-size: 22px;
+    line-height: 31px;
+    width: 95%;
+    margin-bottom: 39px;
+    text-align: left;
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 0px 0;
+}
+
+.marketing p + h4 {
+    margin-top: 28px;
+}
+
+.crazy-snake {
+    margin-top:30px;
+    width:100%;
+}

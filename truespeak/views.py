@@ -8,11 +8,8 @@ from django import shortcuts
 
 from annoying.decorators import render_to
 
-from truespeak.common import send_prikey_warning, \
-    get_new_confirm_link, log_error, \
-    create_email_profile, normalize_email, \
-    send_email_confirmation, \
-    _template_values, INVALID_EMAIL
+from truespeak.common import *
+
 from truespeak.models import *
 
 from validate_email import validate_email

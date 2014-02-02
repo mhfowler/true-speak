@@ -59,6 +59,7 @@ a.sign-in-button {
     margin-left: 10%;
     padding-bottom:15px;
     padding-top:15px;
+    margin-top:40px;
 }
 
 .footer-bar {
@@ -88,9 +89,6 @@ span.password-error-message {
 .loading-gif {
     width: 100px;
     height: 100px;
-    max-margin-left: 156px;
-    margin-left:288px;
-    margin-top: 22px;
     display:none;
     background-image: url("/static/img/flakes.gif")
 }

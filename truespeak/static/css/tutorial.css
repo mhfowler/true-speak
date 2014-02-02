@@ -11,21 +11,10 @@
     font-size:48px;
 }
 
-.carousel-image {
-    margin: auto;
+.tutorial-header-text {
+    margin-bottom:25px;
 }
-
-.carousel-caption {
-    padding: 10px;
-    margin-top: -20px;
-    bottom: 60px;
-    background-color: black;
-    opacity: 0.7;
-    border-radius: 5px;
-}
-
-.carousel-caption p {
-    color: white;
-    margin: 0;
-    font-size: 18px;
+.tutorial-intro-text {
+    width:85%;
+    margin:auto;
 }
