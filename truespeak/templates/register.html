@@ -10,13 +10,13 @@
 
     <div class="container">
 
-        <div class="auth-container">
+        <div class="auth-container register-container">
 
             <div>
                 <h1 class="auth-header">
                     Welcome to ParselTongue
                 </h1>
-                <form role="form" class="register_form">
+                <form role="form" class="register_form register-form">
                     <div class="form-group">
                         <input type="email" class="form-control auth-input register_email" id="exampleInputEmail1" placeholder="Enter email">
                     </div>
@@ -26,25 +26,30 @@
                     <div class="form-group">
                         <input type="password" class="form-control auth-input register_password2" id="exampleInputPassword2" placeholder="Confirm Password">
                     </div>
-                    <button type="submit" class="btn btn-lg btn-primary auth-button register_button">
+                    <button type="submit" class="btn btn-lg btn-primary auth-button register_button register-button">
                         Register
                     </button>
-                    <div class="loading-gif register-loading"></div>
+                    <div class="loading-gif register-loading">
+                        <p class="loading-text"> ... initializing ... </p>
+                    </div>
                     <span class="password-error-message register_error"> 
                         Oops, both passwords must be the same. 
                     </span>
                 </form>
-                <img class="register-snake" src="/static/img/register-snake.png"/>
+
+                <div class="register-explain">
+                    <h3>
+                        Choose a password you will remember! <br>Your password is used to encyrpt your private key and is <strong> non-recoverable. </strong>
+                    </h3>
+                    <p>
+                        To learn about how ParselTongue works and why your password is non-recoverable, read our <a href="/faq/">FAQ</a>.
+                    </p>
+                    <img class="register-snake" src="/static/img/register-snake.png"/>
+                </div>
+
             </div>
 
-            <div class="register-explain">
-                <h3>
-                    Choose a password you will remember! <br>This is used to encyrpt your private key and is <strong> non-recoverable. </strong>
-                </h3>
-                <p>
-                    To learn about how ParselTongue works and why the password is not recoverable, read our <a href="/faq/">FAQ</a>.
-                </p>
-            </div>
+
 
         </div>
 

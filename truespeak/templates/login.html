@@ -11,24 +11,26 @@
     <div class="container at-least">
         <div class="auth-container">
             <div>
-                <h1 class="auth-header">
-                    Sign In
-                </h1>
-                <form role="form">
-                    <div class="form-group">
-                        <input type="email" class="form-control auth-input login_email" id="exampleInputEmail1" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control auth-input login_password" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-lg btn-primary auth-button login_button">
-                        Login
-                    </button>
+                <div class="login-left-side">
+                    <h1 class="auth-header">
+                        Sign In
+                    </h1>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="email" class="form-control auth-input login_email" id="exampleInputEmail1" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control auth-input login_password" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary auth-button login_button">
+                            Login
+                        </button>
                     <span class="password-error-message login_error login-error-message"> 
                         Oops, email/password not found. Try again? 
                     </span>
-                    <div class="loading-gif"></div>
-                </form>
+                        <div class="loading-gif"></div>
+                    </form>
+                </div>
                 <img class="login-snake" src="/static/img/login-snake.png"/>
             </div>
         </div>
