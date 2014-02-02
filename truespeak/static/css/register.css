@@ -129,7 +129,7 @@
     }
 }
 
-@media only screen and (max-width: 660px){
+@media only screen and (max-width: 750px){
     .snake-wrapper {
         display:none;
     }
