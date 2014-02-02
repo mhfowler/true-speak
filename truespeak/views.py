@@ -46,30 +46,30 @@ def home(request):
 
 @render_to("welcome.html")
 def welcome(request, email_address=None):
-    return _template_values(request, page_title="welcome",
+    return template_values(request, page_title="welcome",
                             email_address=email_address)
 
 
 @render_to("faq.html")
 def faq(request):
-    return _template_values(request, page_title="faq",
+    return template_values(request, page_title="faq",
                             navbar="nav_faq")
 
 
 @render_to("tutorial.html")
 def tutorial(request):
-    return _template_values(request, page_title="tutorial")
+    return template_values(request, page_title="tutorial")
 
 
 @render_to("team.html")
 def team(request):
-    return _template_values(request, page_title="team",
+    return template_values(request, page_title="team",
                             navbar="nav_team")
 
 
 @render_to("initializing.html")
 def initializing(request):
-    return _template_values(request, page_title="initializing")
+    return template_values(request, page_title="initializing")
 
 
 def disable_account(request, email_address):

@@ -94,7 +94,7 @@ def normalize_email(email):
     return email.lower()
 
 
-def _template_values(request, page_title='', navbar='', **kwargs):
+def template_values(request, page_title='', navbar='', **kwargs):
     template_values = {
         'page_title': page_title,
         navbar: 'active',
