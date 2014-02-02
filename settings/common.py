@@ -17,7 +17,7 @@ if LOCAL:  # export LOCAL=1
 else:
     SECRETS_ENV = os.environ.get("SECRETS")
     SECRETS_DICT = json.loads(SECRETS_ENV)
-    DOMAIN = "www.getparseltongue.com"
+    DOMAIN = "getparseltongue.com"
 
 ADMINS = (
     ("Max Fowler", "maximusfowler@gmail.com"),
