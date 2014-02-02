@@ -39,3 +39,7 @@
     border-top: 1px solid gray;
     padding-top: 25px;
 }
+
+.home-container-narrow #tutorial-carousel {
+   margin-top:10px;
+}
