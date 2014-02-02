@@ -67,7 +67,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # settings for django-compressor
-COMPRESS_ENABLED = DEBUG
+COMPRESS_ENABLED = not DEBUG
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.template.TemplateFilter',
 )
