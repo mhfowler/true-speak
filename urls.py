@@ -29,6 +29,7 @@ urlpatterns = patterns('',
                         view_wrapper(disable_account)),
                        (r'^confirm/(?P<link_number>\S*)/$', confirm_email),
                        (r'^reconfirm/$', reconfirm),
+                       (r'^test/$', testPage),
 
                        # ajax methods
                       (r'^get_pubkeys/$', get_pubkeys),

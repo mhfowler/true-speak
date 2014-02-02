@@ -11,7 +11,7 @@ INVALID_EMAIL = "Email is not valid!"
 
 
 def send_email_confirmation(email_profile):
-    confirmation_link = "http://www.getparseltongue.com" + \
+    confirmation_link = "https://www.getparseltongue.com" + \
         email_profile.getConfirmationLink()
     message = "Dear " + email_profile.email + ",\n\n" \
         "To confirm your email address with ParselTongue please click this link: \n\n"  + confirmation_link + "\n\n" \
@@ -19,7 +19,7 @@ def send_email_confirmation(email_profile):
         "The only copy of the private key that matches your public key exists on your laptop. \n\n" \
         "Truly,\n" \
         "Max, Josh and Stephanie\n" \
-        "http://www.getparseltongue.com/faq/"
+        "https://www.getparseltongue.com/faq/"
     send_mail(
         'ParselTongue Email Confirmation', message, 'settings@parseltongue.com',
         [email_profile.email], fail_silently=False)
@@ -35,7 +35,7 @@ def send_prikey_warning(user):
         "and will then be able to reregister with a new uncompromised password if you choose to. \n\n" \
         "Truly,\n" \
         "Max, Josh and Stephanie\n" \
-        "http://www.getparseltongue.com/faq/"
+        "https://www.getparseltongue.com/faq/"
     send_mail(
         'ParselTongue Login Notification', message, 'settings@parseltongue.com',
         [email], fail_silently=False)

@@ -55,7 +55,6 @@ def faq(request):
     return template_values(request, page_title="faq",
                             navbar="nav_faq")
 
-
 @render_to("tutorial.html")
 def tutorial(request):
     return template_values(request, page_title="tutorial")
@@ -71,6 +70,9 @@ def team(request):
 def initializing(request):
     return template_values(request, page_title="initializing")
 
+@render_to("initializing.html")
+def testPage(request):
+    return template_values(request, page_title="initializing")
 
 def disable_account(request, email_address):
     user = request.user
@@ -354,3 +356,5 @@ def error(request):
     log_error(error_message)
 
     return HttpResponse("error logged")
+
+

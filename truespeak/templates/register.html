@@ -16,38 +16,45 @@
                 <h1 class="auth-header">
                     Welcome to ParselTongue
                 </h1>
-                <form role="form" class="register_form register-form">
-                    <div class="form-group">
-                        <input type="email" class="form-control auth-input register_email" id="exampleInputEmail1" placeholder="Enter email">
+                <div class="upper-section">
+                    <form role="form" class="register_form register-form">
+                        <div class="form-group">
+                            <input type="email" class="form-control auth-input register_email" id="exampleInputEmail1" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control auth-input register_password1" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control auth-input register_password2" id="exampleInputPassword2" placeholder="Confirm Password">
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary auth-button register_button register-button">
+                            Register
+                        </button>
+                        <div class="register-message-wrapper">
+                            <span class="password-error-message register_error">
+                                Oops, both passwords must be the same.
+                            </span>
+                            <div class="loading-gif register-loading">
+                                <img class="ellipsis-gif" src="/static/img/3_dots.gif"/>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="snake-wrapper">
+                        <img class="register-snake" src="/static/img/register-snake.png"/>
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control auth-input register_password1" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control auth-input register_password2" id="exampleInputPassword2" placeholder="Confirm Password">
-                    </div>
-                    <button type="submit" class="btn btn-lg btn-primary auth-button register_button register-button">
-                        Register
-                    </button>
-                    <div class="loading-gif register-loading">
-                        <p class="loading-text"> ... initializing ... </p>
-                    </div>
-                    <span class="password-error-message register_error"> 
-                        Oops, both passwords must be the same. 
-                    </span>
-                </form>
+                </div>
+                <div class="lower-section">
 
-                <div class="register-explain">
-                    <h3>
-                        Choose a password you will remember! <br>Your password is used to encyrpt your private key and is <strong> non-recoverable. </strong>
-                    </h3>
-                    <p>
-                        To learn about how ParselTongue works and why your password is non-recoverable, read our <a href="/faq/">FAQ</a>.
-                    </p>
+                    <div class="register-explain">
+                        <h3>
+                            Choose a password you will remember! <br>Your password is used to encyrpt your private key and is <strong> non-recoverable. </strong>
+                        </h3>
+                        <p>
+                            To learn about how ParselTongue works and why your password is non-recoverable, read our <a href="/faq/">FAQ</a>.
+                        </p>
+                    </div>
 
                 </div>
-
-                <img class="register-snake" src="/static/img/register-snake.png"/>
 
             </div>
 

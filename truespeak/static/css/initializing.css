@@ -2,9 +2,19 @@
     width:100%;
 }
 
+/*.initializing-img {*/
+/*margin-left:auto;*/
+/*margin-right:auto;*/
+/*padding-top:10%;*/
+/*width:200px;*/
+/*}*/
+
+
 .initializing-img {
     margin-left:auto;
     margin-right:auto;
     padding-top:10%;
-    width:200px;
+    width:100%;
+    height:800px;
+    background-image: url("/static/img/flakes.gif")
 }
