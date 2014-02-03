@@ -10,3 +10,10 @@ DATABASES = {
         "PORT": ""
     }
 }
+
+
+HAPPY_EMAILS = [
+    "maximusfowler@gmail.com",
+]
+
+ERROR_EMAILS = HAPPY_EMAILS
