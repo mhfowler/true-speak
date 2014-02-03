@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <input type="password" class="form-control auth-input register_password2" id="exampleInputPassword2" placeholder="Confirm Password">
                         </div>
-                        <button type="submit" class="btn btn-lg btn-primary auth-button register_button register-button">
+                        <button type="submit" class="btn btn-lg btn-primary auth-button register_button register-button" onClick=”_gaq.push(['_trackEvent', 'sign up', 'register']);”>
                             Register
                         </button>
                         <div class="register-message-wrapper">
@@ -47,7 +47,7 @@
 
                     <div class="register-explain">
                         <h3>
-                            Choose a password you will remember! <br>Your password is used to encyrpt your private key and is <strong> non-recoverable. </strong>
+                            Choose a password you will remember! <br>Your password is used to encrypt your private key and is <strong> non-recoverable. </strong>
                         </h3>
                         <p>
                             To learn about how ParselTongue works and why your password is non-recoverable, read our <a href="/faq/">FAQ</a>.

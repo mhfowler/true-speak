@@ -87,10 +87,10 @@ span.password-error-message {
 }
 
 .loading-gif {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 67px;
     display:none;
-    background-image: url("/static/img/flakes.gif")
+    background-image: url("/static/img/3_dots.gif")
 }
 
 .at-least {

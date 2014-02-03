@@ -49,3 +49,7 @@
 .nav > .active > ul {
     display: block;
 }
+
+.faq-wrapper h4 {
+    margin-top:35px;
+}
