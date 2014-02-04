@@ -125,7 +125,6 @@ def confirm_email(request, link_number):
     user.backend = 'django.contrib.auth.backends.ModelBackend'
 
     if not email_profile.confirmed:
-        login(request, user)
         link_age = email_profile.getAge()
         two_weeks_in_seconds = 60 * 60 * 24 * 14
 
@@ -139,7 +138,14 @@ def confirm_email(request, link_number):
         # if link not too old, we chillin
         email_profile.confirmed = True
         email_profile.save()
-        return shortcuts.redirect("/initializing/")
+
+        # if user already had a private key redirect to /settings/
+        already_pri_key = PriKey.xobjects.get_or_none(user=user)
+        if already_pri_key:
+            return shortcuts.redirect("/settings/")
+        else:
+            login(request, user)
+            return shortcuts.redirect("/initializing/")
 
     log_error(
         "second time clicking on confirmation link? %s" % email_profile.email)
