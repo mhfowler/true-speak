@@ -7,17 +7,6 @@
 
 {% block body %}
 
-{#    <div class="initially-hidden pt-no-ext">#}
-{#        <div class="no-ext-wrapper">#}
-{#            <h2 class="home-bold-text no-ext-text">#}
-{#                To use ParselTongue you must first install the extension.#}
-{#            </h2>#}
-{#            <a class="btn btn-primary chrome-btn no-ext-button"#}
-{#               onClick=”_gaq.push(['_trackEvent', 'sign up', 'get parseltongue']);”#}
-{#            href="https://chrome.google.com/webstore/detail/parseltongue/egpagjaeoilneaefepllapmajaoefcgd?hl=en&gl=US" target="_blank">Get Parseltongue for Chrome </a>#}
-{#        </div>#}
-{#    </div>#}
-
     <div class="pt-ext-installed">
         <div class="container">
 
@@ -36,7 +25,7 @@
                                 <input type="password" class="form-control auth-input register_password1" id="exampleInputPassword1" placeholder="Password">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control auth-input register_password2" id="exampleInputPassword2" placeholder="Confirm Password">
+                                <input type="password" class="form-control auth-input register_password2 password-input" id="exampleInputPassword2" placeholder="Confirm Password">
                             </div>
                             <button type="submit" class="no_ext_installed btn btn-lg btn-primary auth-button register_button register-button" onClick=”_gaq.push(['_trackEvent', 'sign up', 'register']);”>
                             Register
@@ -61,14 +50,13 @@
                                 Choose a password you will remember! <br>Your password is used to encrypt your private key and is <strong> non-recoverable. </strong>
                             </h3>
                             <p>
-                                To learn about how ParselTongue works and why your password is non-recoverable, read our <a href="/faq/">FAQ</a>.
+                                To learn about how ParselTongue works and why your password is <strong>non-recoverable</strong>, read our <a href="/faq/">FAQ</a>.
                             </p>
                         </div>
 
                     </div>
 
                 </div>
-
 
 
             </div>

@@ -73,7 +73,6 @@ $(document).ready(function() {
         login_email_input.focus();
     }
 
-<<<<<<< HEAD
     setTimeout(function() {
             var anon_function = function() {
                 var no_ext = $(".no_ext_installed");
@@ -91,7 +90,10 @@ $(document).ready(function() {
     );
 
 
-
-=======
->>>>>>> 96809c82f163992eb134115c99879acff8ad5bcd
+    $(".register_password1").popover({
+        "trigger": "focus",
+        "placement": "right",
+        "content": "Choose a password you will remember! Your password is used to encrypt your private key and is <strong> non-recoverable. </strong>",
+        "html": true,
+    })
 });
