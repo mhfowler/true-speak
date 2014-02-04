@@ -2,7 +2,7 @@ var teamData = {
     "swang": {
         "profile": {
             "img": "/static/img/team/stephanie-profile.png",
-            "blurb": "Can I have a bite?",
+            "blurb": "'Can I have a bite?'",
             "name": "Stephanie Wang",
             "twitter": "swang_93",
             "github": "stephanie-wang",
