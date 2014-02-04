@@ -73,6 +73,7 @@ $(document).ready(function() {
         login_email_input.focus();
     }
 
+<<<<<<< HEAD
     setTimeout(function() {
             var anon_function = function() {
                 var no_ext = $(".no_ext_installed");
@@ -91,4 +92,6 @@ $(document).ready(function() {
 
 
 
+=======
+>>>>>>> 96809c82f163992eb134115c99879acff8ad5bcd
 });

@@ -98,7 +98,8 @@ span.password-error-message {
     width: 75px;
     height: 67px;
     display:none;
-    background-image: url("/static/img/3_dots.gif")
+    background-image: url("/static/img/3_dots.gif");
+    background-repeat: no-repeat;
 }
 
 .at-least {

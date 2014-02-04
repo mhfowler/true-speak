@@ -34,13 +34,8 @@
                 </a>
             </li>
             <li>
-                <a href="#future">
-                    What is the future of ParselTongue?
-                </a>
-            </li>
-            <li>
                 <a href="#tech">
-                    How does ParselTongue really work?
+                    Technical Details
                 </a>
                 <ul class="nav">
                     <li>
@@ -93,7 +88,7 @@
                 ParselTongue then works on top of your Gmail to detect when you are emailing another ParselTongue user and encrypts your emails to other ParselTongue users using their public keys.
                 This encryption takes place in your browser, so plain text never gets sent through Google's servers, or onto the network at all. Even the drafts of your emails which Gmail autosaves will always be encrypted.
             <p>
-                The cipher text that passes through the network is encrypted with a 1024 bit public key, such that an adversary would be unable to decipher it unless they possess the correct private key.
+                The cipher text that passes through the network is encrypted with a 1024 bit public key, meaning an adversary would be unable to decipher it unless they possess the correct private key.
             </p>
             <p>
                 When your intended recipient opens your email, ParselTongue uses the private key in their browser's local storage to seamlessly decrypt the email. You see plain text, and they see plain text, and no else can in between.
@@ -111,7 +106,7 @@
                 Why should I trust ParselTongue more than Google?
             </h3>
             <p>
-                The beauty of client-side encryption is you don't have to. We don't store your password. We don't have your private key.
+                The beauty of client-side encryption is you don't have to trust us. We don't store your password. We never have access to your private key.
                 The <a href="https://github.com/maximusfowler/true-speak" target="_blank">public key server</a> and <a href="https://github.com/joshblum/fakeblock" target="_blank">extension</a> are both public on GitHub.
             </p>
 
@@ -120,22 +115,17 @@
             </h3>
             <p>
                 Because your ParselTongue encrypted emails are stored as cipher text on Google's servers, Gmail search won't be able to understand the contents of your emails (because it can't read them), but you will still be able to search
-                by email subject and recipient (which are not encrypted). Also, any browser you read your email from must have the ParselTongue extension installed in order to read the emails. Besides that, ParselTongue is completely seamless and won't effect your Gmail experience in any way &mdash; other than that the NSA won't be able to read your emails anymore.
-            </p>
-
-            <h3 id="future"> 
-                What is the future of ParselTongue? 
-            </h3>
-            <p>
-                We would like to add a feature to allow power users to manually enter a private key into the extension. Currently we store a password encrypted version of your private key on our servers to allow users to install the extension on multiple machines. This provides a level of security up to the strength of the user's password, but for users who demand an even stronger security guarantee we would like to allow them to install and store their private
-                key by whatever method they see fit.
+                by email subject and recipient (which are not encrypted).
             </p>
             <p>
-                We would also like to build a ParselTongue mobile app so that ParselTongue users can read and send encrypted emails from their devices.
+                Any browser you read your email from must have the ParselTongue extension installed in order to read the emails. Unfortunately, this also means your emails won't be available on mobile clients or browsers other than Chrome.
+            </p>
+            <p>
+                Your password is not recoverable since it is used to encrypt your private key. If you forget it, the content of your emails will be lost.
             </p>
 
             <h3 id="tech"> 
-                How does ParselTongue really work? 
+                Technical Details
             </h3>
             <h4 id="key-generation">
                 Key Generation

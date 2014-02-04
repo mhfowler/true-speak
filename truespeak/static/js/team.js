@@ -2,7 +2,7 @@ var teamData = {
     "swang": {
         "profile": {
             "img": "/static/img/team/stephanie-profile.png",
-            "blurb": "DJ and frontend extraordinaire.",
+            "blurb": "'Can I have a bite?'",
             "name": "Stephanie Wang",
             "twitter": "swang_93",
             "github": "stephanie-wang",
@@ -11,14 +11,14 @@ var teamData = {
         },
         "hover": {
             "img": "/static/img/team/stephanie-hover.png",
-            "blurb": "Azn 4 lyfe. Math. Poop. Paint.",
+            "blurb": "Math. Sleep. Paint.",
             "name": "swangster",
         },
     },
     "josh": {
         "profile": {
             "img": "/static/img/team/josh-profile.jpg",
-            "blurb": "Bug creation and architecting.",
+            "blurb": "Grumpy code monkey.",
             "name": "Joshua Blum",
             "twitter": "blumua",
             "github": "joshblum",
@@ -27,7 +27,7 @@ var teamData = {
         },
         "hover": {
             "img": "/static/img/team/josh-hover.gif",
-            "blurb": "Grumpy code monkey.",
+            "blurb": "Inline style Nazi.",
             "name": "ua",
         },
     },
