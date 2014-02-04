@@ -1,3 +1,11 @@
+.initially-hidden {
+    display:none;
+}
+#initially-hidden {
+    display:none;
+}
+
+
 .jumbotron {
     margin: 0px 0;
     text-align: center;
@@ -103,9 +111,7 @@ span.password-error-message {
     font-weight:bold;
 }
 
-.pt-ext-installed {
-    display:none;
-}
+
 
 /* github icon */
 

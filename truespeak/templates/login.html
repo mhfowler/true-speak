@@ -1,12 +1,11 @@
-{% extends "base.html" %}
+{% extends "extension_only.html" %}
 {% load filters %}
 
 {% block css %}
     {% include_style "css/login" %}
 {% endblock %}
 
-
-{% block body %}
+{% block the_body %}
 
     <div class="container at-least">
         <div class="auth-container">
@@ -22,7 +21,7 @@
                         <div class="form-group">
                             <input type="password" class="form-control auth-input login_password" id="exampleInputPassword1" placeholder="Password">
                         </div>
-                        <button type="submit" class="btn btn-lg btn-primary auth-button login_button">
+                        <button type="submit" class="no_ext_installed btn btn-lg btn-primary auth-button login_button">
                             Login
                         </button>
                     <span class="password-error-message login_error login-error-message"> 

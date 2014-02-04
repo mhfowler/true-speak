@@ -33,8 +33,8 @@ $(document).ajaxSend(function(event, xhr, settings) {
         // Allow absolute or scheme relative URLs to same origin
         return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
             (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-        // or any other URL that isn't scheme relative or absolute i.e relative.
-        !(/^(\/\/|http:|https:).*/.test(url));
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
     }
 
     function safeMethod(method) {
@@ -72,6 +72,22 @@ $(document).ready(function() {
     if (window.location.pathname == "/login/") {
         login_email_input.focus();
     }
+
+    setTimeout(function() {
+            var anon_function = function() {
+                var no_ext = $(".no_ext_installed");
+                no_ext.click(function(e) {
+                    e.preventDefault();
+                    var extension_link = "https://chrome.google.com/webstore/detail/parseltongue/egpagjaeoilneaefepllapmajaoefcgd?hl=en&gl=US";
+                    $(".register_error").html("To register for ParselTongue you must first <a href='" + extension_link + "'>install the extension.</a>");
+                    $(".register_error").show();
+                    $(".login_error").html("To login to ParselTongue you must first <a href='" + extension_link + "'>install the extension.</a>");
+                    $(".login_error").show();
+                });
+            };
+            anon_function();
+        }, 100
+    );
 
 
 

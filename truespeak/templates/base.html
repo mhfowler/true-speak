@@ -62,12 +62,12 @@
                         <li class="{{ nav_faq }}"><a href="/faq/">FAQ</a></li>
                         <li  class="{{ nav_team }}"><a href="/team/">Team</a></li>
                         {% if not user.is_authenticated %}
-                            <li class="{{ nav_register }} pt-ext-installed"><a href="/register/">Register</a></li>
+                            <li id="initially-hidden" class="{{ nav_register }} initially-hidden pt-ext-installed"><a href="/register/">Register</a></li>
                         {% else %}
                             <li class="{{ nav_settings }}"><a href="/settings/">Settings</a></li>
                         {% endif %}
                     </ul>
-                    <ul class="nav navbar-nav navbar-right pt-ext-installed">
+                    <ul class="nav navbar-nav navbar-right initially-hidden pt-ext-installed">
                         {% if user.is_authenticated %}
                             <li class="already-registered"> you are logged in as: <span class="user-name">{{ user.username }}</span> </li>
                             <a href="/logout/" class="btn btn-small btn-success sign-in-button parseltongue_logout">logout</a>
