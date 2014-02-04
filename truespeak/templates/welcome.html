@@ -7,12 +7,21 @@
 
 {% block body %}
 
-       <div class="jumbotron welcome-container">
-             <img class="sound-of-music" src="/static/img/sound-of-music.png"/>
+    <div class="at-least full-width">
+        <div>
             <div class="welcome-text">
-                    Sending a confirmation email to:
+                Sending a confirmation email to:
                     {{ email_address }}
-            </div>
-        </div>
+                <br>
+                Redirecting to <a href="https://mail.google.com"> Gmail </a> in <span class="loading-time"> 5 </span> seconds.
 
+            </div>
+            <div class="centered loading-gif-lg"/>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {% include_script "js/welcome" %}
 {% endblock %}

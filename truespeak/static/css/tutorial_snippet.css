@@ -70,11 +70,3 @@
     */
     height: 405px;
 }
-
-.screenshot-image {
-    width:600px;
-    max-width:100%;
-    margin-top: 30px;
-    border:1px solid lightgray;
-    margin-bottom: 10px;
-}

@@ -1,10 +1,10 @@
 .initially-hidden {
     display:none;
 }
+
 #initially-hidden {
     display:none;
 }
-
 
 .jumbotron {
     margin: 0px 0;
@@ -102,6 +102,17 @@ span.password-error-message {
     background-repeat: no-repeat;
 }
 
+.loading-gif-lg {
+    height:40px;
+    width:120px;
+    background-image: url("/static/img/init_loading_dots.gif");
+    background-repeat: no-repeat;
+}
+
+.full-width{
+    width:100%;
+}
+
 .at-least {
     min-height:540px;
 }
@@ -112,7 +123,13 @@ span.password-error-message {
     font-weight:bold;
 }
 
-
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
 
 /* github icon */
 
