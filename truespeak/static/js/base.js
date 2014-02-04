@@ -72,5 +72,10 @@ $(document).ready(function() {
     if (window.location.pathname == "/login/") {
         login_email_input.focus();
     }
-
+    $(".register_password1").popover({
+        "trigger": "focus",
+        "placement": "right",
+        "content": "Choose a password you will remember! Your password is used to encrypt your private key and is <strong> non-recoverable. </strong>",
+        "html": true,
+    })
 });
