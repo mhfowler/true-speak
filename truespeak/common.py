@@ -32,7 +32,7 @@ def send_prikey_warning(user):
         "Someone (hopefully you) just logged in to ParselTongue as you on a new computer. If this was not you "  \
         "please click the link below and we will disable your account: \n\n"  + disable_link + "\n\n" \
         "If you click the disable link you will receive a notification email once your account has been disabled " \
-        "and will then be able to reregister with a new uncompromised password if you choose to. \n\n" \
+        "and will then be able to reregister if you choose to. \n\n" \
         "Truly,\n" \
         "Max, Josh and Stephanie\n" \
         "https://getparseltongue.com/faq/"
