@@ -36,5 +36,5 @@ $(document).ready(function(){
       loadSharing();
       setTimeout(function(){
             $(".subshare").fadeIn();
-      }, 2500);
+      }, 4000);
 });
