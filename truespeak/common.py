@@ -1,4 +1,4 @@
-from truespeak.models import EmailProfile, logger
+from truespeak.models import EmailProfile, logger, ServerMessage
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -55,10 +55,7 @@ def get_new_confirm_link():
     return confirmation_link
 
 
-def log_error(message):
-    send_mail('ParselTongue Javascript Error', message,
-              'getparseltongue@gmail.com', settings.ERROR_EMAILS, fail_silently=True)
-    logger.error(message)
+
 
 
 # returns True if no error, false otherwise (tuple)
@@ -101,3 +98,4 @@ def template_values(request, page_title='', navbar='', **kwargs):
     }
 
     return dict(template_values.items() + kwargs.items())
+

@@ -296,14 +296,17 @@ def upload_pubkey(request):
         # TODO: should send you an email saying a pub_key was uploaded to your
         # account, if not initial registration
 
-    already = PubKey.objects.filter(user=user, pub_key_text=pub_key_text)
+    already = PubKey.objects.filter(user=user)
 
-    if not already:
+    if already:
+        # as things exist currently you should not be be able to alter your private key if you have one
+        log_error("user is trying to upload a second pub key: " + user.username)
+        return HttpResponse("failure")
+
+    else:
         pub_key = PubKey(user=request.user, pub_key_text=pub_key_text)
         pub_key.save()
         return HttpResponse("Success")
-
-    return HttpResponse("Error: Key has already been uploaded.")
 
 
 def upload_prikey(request):
@@ -321,14 +324,17 @@ def upload_prikey(request):
     already = PriKey.xobjects.get_or_none(user=user)
 
     if already:
-        already.pri_key_text = pri_key_text
-        already.save()
+        # as things exist currently you should not be be able to alter your private key if you have one
+        log_error("user is trying to modify their private key?: " + user.username)
+        return HttpResponse("failure")
+        # already.pri_key_text = pri_key_text
+        # already.save()
 
     else:
         pri_key = PriKey(user=user, pri_key_text=pri_key_text)
         pri_key.save()
 
-    return HttpResponse("Success")
+        return HttpResponse("Success")
 
 
 def get_prikey(request):
@@ -361,4 +367,26 @@ def error(request):
 
     return HttpResponse("error logged")
 
+
+@csrf_exempt
+# past messages
+# default
+def extension_sync(request):
+    messages = []
+    if request.method == "POST":
+        if request.user.is_authenticated():
+            user = request.user
+            user_profile = getOrCreateUserProfile(user)
+            # rate limit to avoid double execution
+            seconds_since_last_message = user_profile.getSecondsSinceLastMessage()
+            if seconds_since_last_message > 5:
+                # if beyond rate limit then proceed
+                user_profile.last_message_execution = datetime.datetime.now(utc)
+                user_profile.save()
+                past_messages = ServerMessage.objects.filter(user=user)
+                if not past_messages.filter(message="clearCache"):
+                    messages.append("clearCache")
+                    saveServerMessage(user, "clearCache")
+
+    return json_response({"messages":messages})
 

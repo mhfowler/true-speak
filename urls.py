@@ -37,6 +37,7 @@ urlpatterns = patterns('',
                       (r'^upload_pubkey/$', view_wrapper(upload_pubkey)),
                       (r'^upload_prikey/$', view_wrapper(upload_prikey)),
                       (r'^error/$', error),
+                      (r'^extension_sync/$', extension_sync),
 
                       (r'^/$', home),
                       (r'^$', home),
