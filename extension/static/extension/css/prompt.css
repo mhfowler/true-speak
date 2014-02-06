@@ -15,7 +15,8 @@ body {
 }
 
 .gritter-title {
-    text-align: center
+    text-align: center;
+    font-weight:normal !important;
 }
 
 .login-container {
@@ -25,4 +26,10 @@ body {
 
 .btn {
     margin-left:5px;
+}
+
+.gritter-light{
+    border: 1px solid #005;
+    border-radius: 7px;
+    -webkit-box-shadow: 1px 3px 6px #000;
 }
