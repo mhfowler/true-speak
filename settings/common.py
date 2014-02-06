@@ -163,6 +163,11 @@ TEMPLATE_CONTEXT_PROESSORS = (
     'django.core.context_processors.csrf',
 )
 
+# cross domain sharing
+XS_SHARING_ALLOWED_HEADERS = [
+    "x-csrftoken",
+]
+
 ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -189,6 +194,7 @@ INSTALLED_APPS = (
     'south',
 
     'truespeak',
+    'extension'
 
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',

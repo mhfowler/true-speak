@@ -1,0 +1,12 @@
+{% extends "extension/prompt_base.html" %}
+
+{% block content%}
+
+ <p class="gritter-title">
+    Log back into ParselTongue to encrypt your emails
+</p> 
+<p class="login-container chrome">
+    <input id="allow-btn" type="button" value="Login" data-action="loginPrompt" class=" btn btn-sm btn-primary">
+    <input id="deny-btn" type="button" value="Ignore" data-action="ignoreLoginPrompt" class="btn btn-sm btn-warning">
+<p>
+{% endblock %}

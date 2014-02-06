@@ -1,4 +1,4 @@
-from django.conf.urls import patterns
+from django.conf.urls import patterns, include
 from truespeak.views import *
 from settings.common import PROJECT_PATH
 import os
@@ -37,6 +37,8 @@ urlpatterns = patterns('',
                       (r'^upload_pubkey/$', view_wrapper(upload_pubkey)),
                       (r'^upload_prikey/$', view_wrapper(upload_prikey)),
                       (r'^error/$', error),
+                      (r'^extension_sync/$', extension_sync),
+                      (r'^ext/', include("extension.urls")),
 
                       (r'^/$', home),
                       (r'^$', home),

@@ -53,3 +53,9 @@
 .faq-wrapper h4 {
     margin-top:35px;
 }
+
+@media (max-width: 1199px) and (min-width: 992px){
+    .container-narrow {
+        width:600px;
+    }
+}
