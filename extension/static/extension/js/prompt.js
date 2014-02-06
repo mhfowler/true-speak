@@ -1,6 +1,6 @@
 function setFade() {
 
-    var fadeTime = 2000; //2 seconds
+    var fadeTime = 4000; //2 seconds
     var $popup = $(".popup");
 
     var fadePopup = setTimeout(function() {
