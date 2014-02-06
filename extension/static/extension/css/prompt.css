@@ -1,0 +1,28 @@
+body {
+    background:url("/static/extension/img/bg-trans.gif");
+}
+
+#popup {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top: 0px;
+    left: 70px;
+    text-align: center;
+    margin: 3px;
+    border-radius: 25px;
+    background-color: #e8e7e5;
+}
+
+.gritter-title {
+    text-align: center
+}
+
+.login-container {
+    margin-top:5px !important;
+    margin-left:65px !important;
+}
+
+.btn {
+    margin-left:5px;
+}
