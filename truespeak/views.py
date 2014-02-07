@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
@@ -6,13 +7,12 @@ from django.http import HttpResponse
 from django.conf import settings
 from django import shortcuts
 
-from annoying.decorators import render_to
+from annoying.decorators import render_to, ajax_request
+from validate_email import validate_email
 
 from truespeak.common import *
-
 from truespeak.models import *
 
-from validate_email import validate_email
 
 import json
 
@@ -26,16 +26,6 @@ def json_response(res):
                         content_type="application/json")
 
 
-def view_wrapper(view):
-    @csrf_exempt
-    def new_view(request, *args, **kwargs):
-        if not request.user.is_authenticated():
-            return shortcuts.redirect("/login/")
-        else:
-            return view(request, *args, **kwargs)
-    return new_view
-
-
 def home(request):
     page_title = "home"
     return render_to_response('home.html', locals(),
@@ -45,13 +35,14 @@ def home(request):
 @render_to("welcome.html")
 def welcome(request, email_address=None):
     return template_values(request, page_title="welcome",
-                            email_address=email_address)
+                           email_address=email_address)
 
 
 @render_to("faq.html")
 def faq(request):
     return template_values(request, page_title="faq",
-                            navbar="nav_faq")
+                           navbar="nav_faq")
+
 
 @render_to("tutorial.html")
 def tutorial(request):
@@ -61,17 +52,16 @@ def tutorial(request):
 @render_to("team.html")
 def team(request):
     return template_values(request, page_title="team",
-                            navbar="nav_team")
+                           navbar="nav_team")
 
 
+@login_required
 @render_to("initializing.html")
 def initializing(request):
     return template_values(request, page_title="initializing")
 
-@render_to("initializing.html")
-def testPage(request):
-    return template_values(request, page_title="initializing")
 
+@login_required
 def disable_account(request, email_address):
     user = request.user
     logged_in_email = user.email
@@ -84,6 +74,7 @@ def disable_account(request, email_address):
 
 
 @ensure_csrf_cookie
+@login_required
 def settings_(request):
     user = request.user
     # if its a post then user is updating some settings
@@ -209,6 +200,7 @@ def login_(request):
         return json_response(to_return)
 
 
+@login_required
 def logout_(request):
     logout(request)
     return shortcuts.redirect("/login/")
@@ -271,13 +263,17 @@ def get_pubkeys(request):
 def get_pubkey_for_email(email):
     try:
         email_profile = EmailProfile.objects.get(email=email)
+        if not email_profile.confirmed:
+            return None
         user = email_profile.user
-        return getUserPubKeys(user)
+        return getUserPubKey(user)
     except Exception:
         pass
-    return []
+    return None
 
 
+@login_required
+@csrf_exempt
 def upload_pubkey(request):
     """
     Upload a pub key to your user account.
@@ -299,8 +295,10 @@ def upload_pubkey(request):
     already = PubKey.objects.filter(user=user)
 
     if already:
-        # as things exist currently you should not be be able to alter your private key if you have one
-        log_error("user is trying to upload a second pub key: " + user.username)
+        # as things exist currently you should not be be able to alter your
+        # private key if you have one
+        log_error(
+            "user is trying to upload a second pub key: " + user.username)
         return HttpResponse("failure")
 
     else:
@@ -309,6 +307,8 @@ def upload_pubkey(request):
         return HttpResponse("Success")
 
 
+@login_required
+@csrf_exempt
 def upload_prikey(request):
     """
     Upload an encrypted private key to your user account.
@@ -324,8 +324,10 @@ def upload_prikey(request):
     already = PriKey.xobjects.get_or_none(user=user)
 
     if already:
-        # as things exist currently you should not be be able to alter your private key if you have one
-        log_error("user is trying to modify their private key?: " + user.username)
+        # as things exist currently you should not be be able to alter your
+        # private key if you have one
+        log_error(
+            "user is trying to modify their private key?: " + user.username)
         return HttpResponse("failure")
         # already.pri_key_text = pri_key_text
         # already.save()
@@ -337,6 +339,8 @@ def upload_prikey(request):
         return HttpResponse("Success")
 
 
+@login_required
+@csrf_exempt
 def get_prikey(request):
     user = request.user
     pri_key = PriKey.xobjects.get_or_none(user=user)
@@ -368,25 +372,43 @@ def error(request):
     return HttpResponse("error logged")
 
 
+@login_required
 @csrf_exempt
-# past messages
-# default
+@ajax_request
 def extension_sync(request):
     messages = []
-    if request.method == "POST":
-        if request.user.is_authenticated():
-            user = request.user
-            user_profile = getOrCreateUserProfile(user)
-            # rate limit to avoid double execution
-            seconds_since_last_message = user_profile.getSecondsSinceLastMessage()
-            if seconds_since_last_message > 5:
-                # if beyond rate limit then proceed
-                user_profile.last_message_execution = datetime.datetime.now(utc)
-                user_profile.save()
-                past_messages = ServerMessage.objects.filter(user=user)
-                if not past_messages.filter(message="clearCache"):
-                    messages.append("clearCache")
-                    saveServerMessage(user, "clearCache")
+    version = request.POST.get("version")
 
-    return json_response({"messages":messages})
+    if version is None:
+        return {
+            "messages": messages
+        }
 
+    ver_sup, ver_sub = split_version(version)
+
+    user_profile = getOrCreateUserProfile(request.user)
+
+    messages = ServerMessage.objects.filter(
+        ver_sup__lte=ver_sup, ver_sub__lte=ver_sub,
+        id__gt=user_profile.last_message).all()
+
+    return {
+        "messages": map(lambda message: message.get_json(), messages)
+    }
+
+
+@login_required
+@csrf_exempt
+@ajax_request
+def extension_ack(request):
+    last_message = int(request.POST.get("last_message", -1))
+    user_profile = getOrCreateUserProfile(request.user)
+    success = False
+    if last_message > user_profile.last_message:
+        user_profile.last_message = last_message
+        user_profile.save()
+        success = True
+
+    return {
+        'success': success
+    }

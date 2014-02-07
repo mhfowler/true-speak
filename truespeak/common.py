@@ -1,6 +1,5 @@
-from truespeak.models import EmailProfile, logger, ServerMessage
+from truespeak.models import EmailProfile
 from django.core.mail import send_mail
-from django.conf import settings
 
 from validate_email import validate_email
 
@@ -55,9 +54,6 @@ def get_new_confirm_link():
     return confirmation_link
 
 
-
-
-
 # returns True if no error, false otherwise (tuple)
 def create_email_profile(new_email, user):
     already = EmailProfile.objects.filter(email=new_email)
@@ -99,3 +95,7 @@ def template_values(request, page_title='', navbar='', **kwargs):
 
     return dict(template_values.items() + kwargs.items())
 
+
+def split_version(version):
+    version = version.split('.')
+    return float(".".join(version[0:2])), float(version[-1])

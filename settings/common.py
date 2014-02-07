@@ -8,6 +8,8 @@ LOCAL = os.environ.get("LOCAL")
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
+LOGIN_URL = "/login"
+
 SECRETS_PATH = os.path.join(PROJECT_PATH, "secret.json")
 
 if LOCAL:  # export LOCAL=1
