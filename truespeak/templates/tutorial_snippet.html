@@ -1,4 +1,5 @@
-{% load filters %} 
+{% load filters %}
+{% load staticfiles %}
 
 {% include_style "css/tutorial_snippet" %}
 
@@ -14,7 +15,7 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
         <div class="active item preview">
-            <img class="carousel-image" src="/static/img/tutorial/gmail-disabled.png">
+            <img class="carousel-image" src="{% static "img/tutorial/gmail-disabled.png" %}">
             <div class="carousel-caption">
                 <p>
                   To start encrypting, <a href="/login">login</a> and add other ParselTongue users.
@@ -22,7 +23,7 @@
             </div>
         </div>        
         <div class="item preview">
-            <img class="carousel-image" src="/static/img/tutorial/gmail-locked.png">
+            <img class="carousel-image" src="{% static "img/tutorial/gmail-locked.png" %}">
             <div class="carousel-caption">
                 <p>
                     Click the snake to turn encryption on and off. 
@@ -30,7 +31,7 @@
             </div>
         </div>
          <div class="item preview">
-            <img class="carousel-image" src="/static/img/tutorial/mobile.png">
+            <img class="carousel-image" src="{% static "img/tutorial/mobile.png" %}">
             <div class="carousel-caption">
                 <p>
                   On devices without Parseltongue, this is how you'll see your emails.
@@ -38,7 +39,7 @@
             </div>
         </div>
         <div class="item preview">
-            <img class="carousel-image" src="/static/img/tutorial/settings.png">
+            <img class="carousel-image" src="{% static "img/tutorial/settings.png" %}">
             <div class="carousel-caption">
                 <p>
                   Visit <a href="/settings">settings</a> to add other email addresses associated with your Gmail.
@@ -46,7 +47,7 @@
             </div>
         </div>
         <div class="item preview">
-            <img class="carousel-image" src="/static/img/tutorial/ext-popup-tooltip.png">
+            <img class="carousel-image" src="{% static "img/tutorial/ext-popup-tooltip.png" %}">
             <div class="carousel-caption">
                 <p>
                     Use the popup to make encryption a default.

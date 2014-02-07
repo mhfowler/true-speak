@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load filters %}
+{% load staticfiles %}
 
 {% block css %}
     {% include_style "css/home" %}
@@ -12,7 +13,7 @@
                 <div class="row">
                     <div class="col-md-2">
                     <div class="image-wrapper">
-                <img src="/static/img/snake-icon-128.png" class="snake-icon">
+                <img src="{% static "img/snake-icon-128.png" %}" class="snake-icon">
                     </div>
                     </div>
                     <div class="col-md-10">

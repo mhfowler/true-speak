@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load filters %}
+{% load staticfiles %}
 
 {% block css %}
     {% include_style "css/register" %}
@@ -35,12 +36,12 @@
                                 Oops, both passwords must be the same.
                             </span>
                                 <div class="loading-gif register-loading">
-                                    <img class="ellipsis-gif" src="/static/img/3_dots.gif"/>
+                                    <img class="ellipsis-gif" src="{% static "img/3_dots.gif" %}"/>
                                 </div>
                             </div>
                         </form>
                         <div class="snake-wrapper">
-                            <img class="register-snake" src="/static/img/register-snake.png"/>
+                            <img class="register-snake" src="{% static "img/register-snake.png" %}"/>
                         </div>
                     </div>
                     <div class="lower-section">

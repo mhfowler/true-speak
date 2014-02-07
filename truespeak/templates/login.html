@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load filters %}
+{% load staticfiles %}
 
 {% block css %}
     {% include_style "css/login" %}
@@ -30,7 +31,7 @@
                         <div class="loading-gif login-gif"></div>
                     </form>
                 </div>
-                <img class="login-snake" src="/static/img/login-snake.png"/>
+                <img class="login-snake" src="{% static "img/login-snake.png" %}"/>
             </div>
         </div>
     </div>
