@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.conf import settings
 from django import shortcuts
 
-from annoying.decorators import render_to
+from annoying.decorators import render_to, ajax_request
 
 from truespeak.common import *
 
@@ -280,7 +280,7 @@ def get_pubkey_for_email(email):
         return getUserPubKey(user)
     except Exception:
         pass
-    return None 
+    return None
 
 
 def upload_pubkey(request):
@@ -378,14 +378,15 @@ def error(request):
 
 
 @view_wrapper
+@ajax_request
 def extension_sync(request):
     messages = []
     version = request.POST.get("version")
 
     if version is None:
-        return json_response({
-                             "messages": messages
-                             })
+        return {
+            "messages": messages
+        }
 
     ver_sup, ver_sub = split_version(version)
 
@@ -395,13 +396,25 @@ def extension_sync(request):
         ver_sup__lte=ver_sup, ver_sub__lte=ver_sub,
         id__gt=user_profile.last_message).all()
 
-    if messages:
-        user_profile.last_message = messages[len(messages) - 1].id
-        user_profile.save()
+    return {
+        "messages": map(lambda message: message.json(), messages)
+    }
 
-    return json_response({
-        "messages": map(lambda message: message.message, messages)
-    })
+
+@view_wrapper
+@ajax_request
+def extension_ack(request):
+    last_message = request.POST.get("last_message", 0)
+    user_profile = getOrCreateUserProfile(request.user)
+    success = False
+    if last_message > user_profile.last_message:
+        user_profile.last_message = last_message
+        user_profile.save()
+        success = True
+
+    return {
+        'success' : success
+    }
 
 
 def split_version(version):

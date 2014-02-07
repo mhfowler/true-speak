@@ -38,6 +38,7 @@ urlpatterns = patterns('',
                       (r'^upload_prikey/$', view_wrapper(upload_prikey)),
                       (r'^error/$', error),
                       (r'^extension_sync/$', extension_sync),
+                      (r'^extension_ack/$', extension_ack),
                       (r'^ext/', include("extension.urls")),
 
                       (r'^/$', home),
