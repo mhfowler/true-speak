@@ -390,7 +390,7 @@ def extension_sync(request):
         id__gt=user_profile.last_message).all()
 
     return {
-        "messages": map(lambda message: message.json(), messages)
+        "messages": map(lambda message: message.get_json(), messages)
     }
 
 
