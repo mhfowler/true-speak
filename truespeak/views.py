@@ -404,4 +404,4 @@ def extension_sync(request):
 
 def split_version(version):
     version = version.split('.')
-    return ".".join(version[0:2]), version[-1]
+    return float(".".join(version[0:2])), float(version[-1])

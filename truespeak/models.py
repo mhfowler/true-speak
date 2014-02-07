@@ -126,8 +126,8 @@ def getUserPriKey(user):
 
 class ServerMessage(XModel):
     message = models.CharField(max_length=100)
-    ver_sup = models.CharField(max_length=100, default="0.0")
-    ver_sub = models.CharField(max_length=100, default="0")
+    ver_sup = models.FloatField(max_length=100, default="0.0")
+    ver_sub = models.FloatField(max_length=100, default="0")
 
     def __unicode__(self):
         return "ServerMessage %s for %s.%s" % (self.message, self.ver_sup, self.ver_sub)
