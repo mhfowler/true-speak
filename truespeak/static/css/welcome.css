@@ -2,5 +2,9 @@
 	margin-left:70px;
     margin-top: 20px;
     font-size: 50px;
-    position:absolute;
+}
+
+.loading-gif-lg {
+	margin-top: 50px;
+	margin-left: 43%;
 }
