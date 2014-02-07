@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
@@ -7,12 +8,11 @@ from django.conf import settings
 from django import shortcuts
 
 from annoying.decorators import render_to, ajax_request
+from validate_email import validate_email
 
 from truespeak.common import *
-
 from truespeak.models import *
 
-from validate_email import validate_email
 
 import json
 
@@ -24,16 +24,6 @@ def redirect(request, page='/home'):
 def json_response(res):
     return HttpResponse(json.dumps(res),
                         content_type="application/json")
-
-
-def view_wrapper(view):
-    @csrf_exempt
-    def new_view(request, *args, **kwargs):
-        if not request.user.is_authenticated():
-            return shortcuts.redirect("/login/")
-        else:
-            return view(request, *args, **kwargs)
-    return new_view
 
 
 def home(request):
@@ -65,16 +55,13 @@ def team(request):
                            navbar="nav_team")
 
 
+@login_required
 @render_to("initializing.html")
 def initializing(request):
     return template_values(request, page_title="initializing")
 
 
-@render_to("initializing.html")
-def testPage(request):
-    return template_values(request, page_title="initializing")
-
-
+@login_required
 def disable_account(request, email_address):
     user = request.user
     logged_in_email = user.email
@@ -87,6 +74,7 @@ def disable_account(request, email_address):
 
 
 @ensure_csrf_cookie
+@login_required
 def settings_(request):
     user = request.user
     # if its a post then user is updating some settings
@@ -212,6 +200,7 @@ def login_(request):
         return json_response(to_return)
 
 
+@login_required
 def logout_(request):
     logout(request)
     return shortcuts.redirect("/login/")
@@ -283,6 +272,7 @@ def get_pubkey_for_email(email):
     return None
 
 
+@login_required
 def upload_pubkey(request):
     """
     Upload a pub key to your user account.
@@ -316,6 +306,7 @@ def upload_pubkey(request):
         return HttpResponse("Success")
 
 
+@login_required
 def upload_prikey(request):
     """
     Upload an encrypted private key to your user account.
@@ -346,6 +337,7 @@ def upload_prikey(request):
         return HttpResponse("Success")
 
 
+@login_required
 def get_prikey(request):
     user = request.user
     pri_key = PriKey.xobjects.get_or_none(user=user)
@@ -377,7 +369,8 @@ def error(request):
     return HttpResponse("error logged")
 
 
-@view_wrapper
+@login_required
+@csrf_exempt
 @ajax_request
 def extension_sync(request):
     messages = []
@@ -401,7 +394,8 @@ def extension_sync(request):
     }
 
 
-@view_wrapper
+@login_required
+@csrf_exempt
 @ajax_request
 def extension_ack(request):
     last_message = request.POST.get("last_message", 0)
@@ -413,10 +407,5 @@ def extension_ack(request):
         success = True
 
     return {
-        'success' : success
+        'success': success
     }
-
-
-def split_version(version):
-    version = version.split('.')
-    return float(".".join(version[0:2])), float(version[-1])
