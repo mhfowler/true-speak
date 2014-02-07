@@ -398,7 +398,7 @@ def extension_sync(request):
 @csrf_exempt
 @ajax_request
 def extension_ack(request):
-    last_message = request.POST.get("last_message", -1)
+    last_message = int(request.POST.get("last_message", -1))
     user_profile = getOrCreateUserProfile(request.user)
     success = False
     if last_message > user_profile.last_message:
