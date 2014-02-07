@@ -17,3 +17,8 @@ HAPPY_EMAILS = [
 ]
 
 ERROR_EMAILS = HAPPY_EMAILS
+
+STATIC_URL = '/static/'
+
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
