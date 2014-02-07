@@ -98,9 +98,11 @@ class PubKey(XModel):
     pub_key_text = models.CharField(max_length=200)
 
 
-def getUserPubKeys(user):
-    keys = PubKey.objects.filter(user=user)
-    return [key.pub_key_text for key in keys]
+def getUserPubKey(user):
+    key = PubKey.xobjects.get_or_none(user=user)
+    if key:
+        return key.pub_key_text
+    return key
 
 #-------------------------------------------------------------------------
 # Prikey... should be stored encrypted (via a password only the user knows)

@@ -274,11 +274,13 @@ def get_pubkeys(request):
 def get_pubkey_for_email(email):
     try:
         email_profile = EmailProfile.objects.get(email=email)
+        if not email_profile.confirmed:
+            return None
         user = email_profile.user
-        return getUserPubKeys(user)
+        return getUserPubKey(user)
     except Exception:
         pass
-    return []
+    return None 
 
 
 def upload_pubkey(request):
