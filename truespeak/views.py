@@ -390,7 +390,7 @@ def extension_sync(request):
     user_profile = getOrCreateUserProfile(request.user)
 
     messages = ServerMessage.objects.filter(
-        ver_sup__gte=ver_sup, ver_sub__gte=ver_sub,
+        ver_sup__lte=ver_sup, ver_sub__lte=ver_sub,
         id__gt=user_profile.last_message).all()
 
     if messages:
