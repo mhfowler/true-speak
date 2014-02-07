@@ -273,6 +273,7 @@ def get_pubkey_for_email(email):
 
 
 @login_required
+@csrf_exempt
 def upload_pubkey(request):
     """
     Upload a pub key to your user account.
@@ -307,6 +308,7 @@ def upload_pubkey(request):
 
 
 @login_required
+@csrf_exempt
 def upload_prikey(request):
     """
     Upload an encrypted private key to your user account.
@@ -338,6 +340,7 @@ def upload_prikey(request):
 
 
 @login_required
+@csrf_exempt
 def get_prikey(request):
     user = request.user
     pri_key = PriKey.xobjects.get_or_none(user=user)
