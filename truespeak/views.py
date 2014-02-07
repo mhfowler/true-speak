@@ -45,13 +45,14 @@ def home(request):
 @render_to("welcome.html")
 def welcome(request, email_address=None):
     return template_values(request, page_title="welcome",
-                            email_address=email_address)
+                           email_address=email_address)
 
 
 @render_to("faq.html")
 def faq(request):
     return template_values(request, page_title="faq",
-                            navbar="nav_faq")
+                           navbar="nav_faq")
+
 
 @render_to("tutorial.html")
 def tutorial(request):
@@ -61,16 +62,18 @@ def tutorial(request):
 @render_to("team.html")
 def team(request):
     return template_values(request, page_title="team",
-                            navbar="nav_team")
+                           navbar="nav_team")
 
 
 @render_to("initializing.html")
 def initializing(request):
     return template_values(request, page_title="initializing")
 
+
 @render_to("initializing.html")
 def testPage(request):
     return template_values(request, page_title="initializing")
+
 
 def disable_account(request, email_address):
     user = request.user
@@ -299,8 +302,10 @@ def upload_pubkey(request):
     already = PubKey.objects.filter(user=user)
 
     if already:
-        # as things exist currently you should not be be able to alter your private key if you have one
-        log_error("user is trying to upload a second pub key: " + user.username)
+        # as things exist currently you should not be be able to alter your
+        # private key if you have one
+        log_error(
+            "user is trying to upload a second pub key: " + user.username)
         return HttpResponse("failure")
 
     else:
@@ -324,8 +329,10 @@ def upload_prikey(request):
     already = PriKey.xobjects.get_or_none(user=user)
 
     if already:
-        # as things exist currently you should not be be able to alter your private key if you have one
-        log_error("user is trying to modify their private key?: " + user.username)
+        # as things exist currently you should not be be able to alter your
+        # private key if you have one
+        log_error(
+            "user is trying to modify their private key?: " + user.username)
         return HttpResponse("failure")
         # already.pri_key_text = pri_key_text
         # already.save()
@@ -368,25 +375,33 @@ def error(request):
     return HttpResponse("error logged")
 
 
-@csrf_exempt
-# past messages
-# default
+@view_wrapper
 def extension_sync(request):
     messages = []
-    if request.method == "POST":
-        if request.user.is_authenticated():
-            user = request.user
-            user_profile = getOrCreateUserProfile(user)
-            # rate limit to avoid double execution
-            seconds_since_last_message = user_profile.getSecondsSinceLastMessage()
-            if seconds_since_last_message > 5:
-                # if beyond rate limit then proceed
-                user_profile.last_message_execution = datetime.datetime.now(utc)
-                user_profile.save()
-                past_messages = ServerMessage.objects.filter(user=user)
-                if not past_messages.filter(message="clearCache"):
-                    messages.append("clearCache")
-                    saveServerMessage(user, "clearCache")
+    version = request.POST.get("version")
 
-    return json_response({"messages":messages})
+    if version is None:
+        return json_response({
+                             "messages": messages
+                             })
 
+    ver_sup, ver_sub = split_version(version)
+
+    user_profile = getOrCreateUserProfile(request.user)
+
+    messages = ServerMessage.objects.filter(
+        ver_sup__gte=ver_sup, ver_sub__gte=ver_sub,
+        id__gt=user_profile.last_message).all()
+
+    if messages:
+        user_profile.last_message = messages[len(messages) - 1].id
+        user_profile.save()
+
+    return json_response({
+        "messages": map(lambda message: message.message, messages)
+    })
+
+
+def split_version(version):
+    version = version.split('.')
+    return ".".join(version[0:2]), version[-1]

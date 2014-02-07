@@ -1,19 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_save
 from django.core.mail import send_mail
 from django.conf import settings
-from django.utils.timezone import utc
-
-
-from validate_email import validate_email
 
 import logging
 import datetime
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
 
 def log_error(message):
     send_mail('ParselTongue Javascript Error', message,
@@ -23,6 +20,8 @@ def log_error(message):
 #-------------------------------------------------------------------------
 # Useful manager for all models.
 #-------------------------------------------------------------------------
+
+
 class XManager(models.Manager):
 
     """Adds get_or_none method to objects
@@ -123,28 +122,21 @@ def getUserPriKey(user):
 #-------------------------------------------------------------------------
 # For keeping track of which scripts have been executed in which extensions
 #-------------------------------------------------------------------------
-class ServerMessage(XModel):
-    user = models.ForeignKey(User)
-    message = models.CharField(max_length=100)
 
-def saveServerMessage(user, message):
-    already = ServerMessage.objects.filter(user=user, message=message)
-    if already:
-        log_error("trying to save message which has already been executed? " + user.username + " | " + message)
-    else:
-        message = ServerMessage(user=user, message=message)
-        message.save()
+
+class ServerMessage(XModel):
+    message = models.CharField(max_length=100)
+    ver_sup = models.CharField(max_length=100, default="0.0")
+    ver_sub = models.CharField(max_length=100, default="0")
+
+    def __unicode__(self):
+        return "ServerMessage %s for %s.%s" % (self.message, self.ver_sup, self.ver_sub)
+
 
 class UserProfile(XModel):
     user = models.OneToOneField(User)
-    last_message_execution = models.DateTimeField(null=True)
-    def getSecondsSinceLastMessage(self):
-        if not self.last_message_execution:
-            self.last_message_execution = datetime.datetime.now(utc)
-            self.save()
-        now = datetime.datetime.now(utc)
-        elapsed = now - self.last_message_execution
-        return elapsed.total_seconds()
+    last_message = models.IntegerField(default=0)
+
 
 def getOrCreateUserProfile(user):
     user_profile = UserProfile.xobjects.get_or_none(user=user)
