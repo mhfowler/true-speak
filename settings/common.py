@@ -192,6 +192,7 @@ INSTALLED_APPS = (
     # third party
     'compressor',
     'south',
+    'storages',
 
     'truespeak',
     'extension'
@@ -251,3 +252,14 @@ LOGGING = {
         },
     }
 }
+
+# s3
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_ACCESS_KEY_ID = SECRETS_DICT["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_ACCESS_KEY = SECRETS_DICT["AWS_SECRET_ACCESS_KEY"]
+AWS_STORAGE_BUCKET_NAME = "parseltonguestatic"
+from S3 import CallingFormat
+AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
+
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'

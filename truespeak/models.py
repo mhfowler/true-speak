@@ -95,7 +95,7 @@ def rm_email(email, user):
 
 
 class PubKey(XModel):
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
     pub_key_text = models.CharField(max_length=200)
 
 

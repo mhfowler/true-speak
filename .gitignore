@@ -11,3 +11,4 @@ bundle.pem
 www.parseltongueextension.com/*
 www.getparseltongue.com/*
 *.svg
+aws_credentials.txt
