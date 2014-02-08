@@ -84,14 +84,15 @@ def settings_(request):
             "message": ""
         }
         if "new_email" in request.POST:
-            new_email = normalize_email(request.POST['new_email'])
+            new_email = normalize_email(request.POST.get('new_email', ''))
             success, message = create_email_profile(new_email, user)
             if success:
                 to_return['message'] = message
             else:
                 to_return['error'] = message
         elif "delete_email" in request.POST:
-            delete_email = normalize_email(request.POST['delete_email'])
+            delete_email = normalize_email(
+                request.POST.get('delete_email', ''))
             success = rm_email(delete_email, user)
             if not success:
                 to_return['error'] = True
@@ -144,7 +145,7 @@ def confirm_email(request, link_number):
 
 
 def reconfirm(request):
-    email_address = request.POST['email']
+    email_address = request.POST.get('email', '')
 
     try:
         email_profile = EmailProfile.objects.get(email=email_address)
@@ -170,8 +171,8 @@ def login_(request):
         page_title = "login"
         return render_to_response('login.html', locals(), context_instance=RequestContext(request))
     else:
-        email = normalize_email(request.POST['email'])
-        password = request.POST['password']
+        email = normalize_email(request.POST.get('email', ''))
+        password = request.POST.get('password', '')
         error = ""
         try:
             email_profile = EmailProfile.objects.get(email=email)
@@ -213,9 +214,9 @@ def register(request):
         nav_register = "active"
         return render_to_response('register.html', locals(), context_instance=RequestContext(request))
     else:
-        email = normalize_email(request.POST['email'])
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
+        email = normalize_email(request.POST.get('email', ''))
+        password1 = request.POST.get('password1', '')
+        password2 = request.POST.get('password2', '')
         error = ""
 
         if not validate_email(email):
@@ -279,8 +280,8 @@ def upload_pubkey(request):
     Upload a pub key to your user account.
     """
     user = request.user
-    pub_key_text = request.POST['pub_key']
-    post_user = request.POST["username"]
+    pub_key_text = request.POST.get('pub_key', '')
+    post_user = request.POST.get('username', '')
 
     if user.username != post_user:
         log_error("authenticated user is not who they think they are? %s %s" %
@@ -314,13 +315,13 @@ def upload_prikey(request):
     Upload an encrypted private key to your user account.
     """
     user = request.user
-    post_user = request.POST["username"]
+    post_user = request.POST.get('username', '')
 
     if user.username != post_user:
         log_error("authenticated user is not who they think they are? %s %s" %
                  (user.username, post_user))
 
-    pri_key_text = request.POST['pri_key']
+    pri_key_text = request.POST.get('pri_key', '')
     already = PriKey.xobjects.get_or_none(user=user)
 
     if already:
