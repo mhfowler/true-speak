@@ -23,9 +23,12 @@ def https_required(view_func):
     def _wrapped_view_func(request, *args, **kwargs):
         if not request.is_secure() and not settings.LOCAL:
             request_url = request.build_absolute_uri(request.get_full_path())
+            print "request url: " + request_url
             secure_url = request_url.replace('http://', 'https://')
             return shortcuts.redirect(secure_url)
-        return view_func(request, *args, **kwargs)
+        else:
+            print "ok ok"
+            return view_func(request, *args, **kwargs)
     return _wrapped_view_func
 
 
