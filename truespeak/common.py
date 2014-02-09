@@ -15,7 +15,7 @@ def send_email_confirmation(email_profile):
     message = "Dear " + email_profile.email + ",\n\n" \
         "To confirm your email address with ParselTongue please click this link: \n\n"  + confirmation_link + "\n\n" \
         "Confirming your email will allow other ParselTongue users to encrpyt their emails to you using your public key. " \
-        "The only copy of the private key that matches your public key exists on your laptop. \n\n" \
+        "The only copy of the private key that matches your public key exists on your computer. \n\n" \
         "Truly,\n" \
         "Max, Josh and Stephanie\n" \
         "https://getparseltongue.com/faq/"
