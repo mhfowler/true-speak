@@ -270,3 +270,4 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 # https settings
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = {'X-FORWARDED-PROTO': 'https'}
