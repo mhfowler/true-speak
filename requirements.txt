@@ -11,3 +11,4 @@ validate-email==1.1
 django-compressor==1.2
 django-storages==1.1.6
 boto==2.8.0
+django-sslify>=0.2

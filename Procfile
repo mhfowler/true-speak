@@ -1,1 +1,1 @@
-web: python live_manage.py collectstatic --noinput; gunicorn wsgi:application --bind=0.0.0.0:$PORT
+web: python live_manage.py collectstatic --noinput; gunicorn wsgi:application --bind=0.0.0.0:$PORT -c settings/gunicorn.conf
