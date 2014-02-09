@@ -43,7 +43,6 @@ def json_response(res):
     return HttpResponse(json.dumps(res),
                         content_type="application/json")
 
-@https_required
 def home(request):
     page_title = "home"
     return render_to_response('home.html', locals(),
