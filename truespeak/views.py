@@ -321,7 +321,10 @@ def upload_prikey(request):
         log_error("authenticated user is not who they think they are? %s %s" %
                  (user.username, post_user))
 
-    pri_key_text = request.POST.get('pri_key', '')
+    pri_key_text = request.POST.get('pri_key')
+    if pri_key_text is None:
+        return HttpResponse("failure")
+
     already = PriKey.xobjects.get_or_none(user=user)
 
     if already:
