@@ -21,7 +21,9 @@ import json
 def https_required(view_func):
     """Decorator makes sure URL is accessed over https."""
     def _wrapped_view_func(request, *args, **kwargs):
-        if not request.is_secure() and not settings.LOCAL:
+        is_secure = request.is_secure()
+        print "is_secure: " + is_secure
+        if not is_secure and not settings.LOCAL:
             request_url = request.build_absolute_uri(request.get_full_path())
             print "request url: " + request_url
             secure_url = request_url.replace('http://', 'https://')
@@ -41,7 +43,7 @@ def json_response(res):
     return HttpResponse(json.dumps(res),
                         content_type="application/json")
 
-
+@https_required
 def home(request):
     page_title = "home"
     return render_to_response('home.html', locals(),
