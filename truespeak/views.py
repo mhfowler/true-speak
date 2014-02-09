@@ -42,48 +42,48 @@ def json_response(res):
                         content_type="application/json")
 
 
-@https_required
+
 def home(request):
     page_title = "home"
     return render_to_response('home.html', locals(),
                               context_instance=RequestContext(request))
 
 
-@https_required
+
 @render_to("welcome.html")
 def welcome(request, email_address=None):
     return template_values(request, page_title="welcome",
                            email_address=email_address)
 
 
-@https_required
+
 @render_to("faq.html")
 def faq(request):
     return template_values(request, page_title="faq",
                            navbar="nav_faq")
 
 
-@https_required
+
 @render_to("tutorial.html")
 def tutorial(request):
     return template_values(request, page_title="tutorial")
 
 
-@https_required
+
 @render_to("team.html")
 def team(request):
     return template_values(request, page_title="team",
                            navbar="nav_team")
 
 
-@https_required
+
 @login_required
 @render_to("initializing.html")
 def initializing(request):
     return template_values(request, page_title="initializing")
 
 
-@https_required
+
 @login_required
 def disable_account(request, email_address):
     user = request.user
@@ -96,7 +96,7 @@ def disable_account(request, email_address):
     return HttpResponse("You will receive an email notification once your account has been disabled.")
 
 
-@https_required
+
 @ensure_csrf_cookie
 @login_required
 def settings_(request):
@@ -130,7 +130,7 @@ def settings_(request):
         return render_to_response('settings.html', locals())
 
 
-@https_required
+
 def confirm_email(request, link_number):
     email_profile = EmailProfile.objects.filter(confirmation_link=link_number)
 
@@ -169,7 +169,7 @@ def confirm_email(request, link_number):
     return shortcuts.redirect("/login/")
 
 
-@https_required
+
 def reconfirm(request):
     email_address = request.POST.get('email', '')
 
@@ -191,7 +191,7 @@ def reconfirm(request):
     return json_response(res)
 
 
-@https_required
+
 @ensure_csrf_cookie
 def login_(request):
     if request.method == "GET":
@@ -228,14 +228,14 @@ def login_(request):
         return json_response(to_return)
 
 
-@https_required
+
 @login_required
 def logout_(request):
     logout(request)
     return shortcuts.redirect("/login/")
 
 
-@https_required
+
 @ensure_csrf_cookie
 def register(request):
     if request.method == "GET":
@@ -280,7 +280,7 @@ def register(request):
         return json_response(to_return)
 
 
-@https_required
+
 @csrf_exempt
 def get_pubkeys(request):
 
@@ -291,7 +291,7 @@ def get_pubkeys(request):
     return json_response(res)
 
 
-@https_required
+
 def get_pubkey_for_email(email):
     try:
         email_profile = EmailProfile.objects.get(email=email)
@@ -304,7 +304,7 @@ def get_pubkey_for_email(email):
     return None
 
 
-@https_required
+
 @login_required
 @csrf_exempt
 def upload_pubkey(request):
@@ -340,7 +340,7 @@ def upload_pubkey(request):
         return HttpResponse("Success")
 
 
-@https_required
+
 @login_required
 @csrf_exempt
 def upload_prikey(request):
@@ -376,7 +376,7 @@ def upload_prikey(request):
         return HttpResponse("Success")
 
 
-@https_required
+
 @login_required
 @csrf_exempt
 def get_prikey(request):
@@ -395,7 +395,7 @@ def get_prikey(request):
     return json_response(res)
 
 
-@https_required
+
 @csrf_exempt
 def error(request):
     user = request.user
@@ -411,7 +411,7 @@ def error(request):
     return HttpResponse("error logged")
 
 
-@https_required
+
 @login_required
 @csrf_exempt
 @ajax_request
@@ -437,7 +437,7 @@ def extension_sync(request):
     }
 
 
-@https_required
+
 @login_required
 @csrf_exempt
 @ajax_request
