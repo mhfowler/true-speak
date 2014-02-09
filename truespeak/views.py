@@ -3,7 +3,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django import shortcuts
 
@@ -25,7 +25,8 @@ def https_required(view_func):
             request_url = request.build_absolute_uri(request.get_full_path())
             print "request url: " + request_url
             secure_url = request_url.replace('http://', 'https://')
-            return shortcuts.redirect(secure_url)
+            print "secure url: " + secure_url
+            return HttpResponseRedirect(secure_url)
         else:
             print "ok ok"
             return view_func(request, *args, **kwargs)
