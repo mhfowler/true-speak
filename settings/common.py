@@ -265,3 +265,7 @@ from S3 import CallingFormat
 AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+# https settings
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
