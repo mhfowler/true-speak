@@ -157,7 +157,10 @@
                 Key Storage
             </h4>
             <p>
-                For each user, our server stores the RSA public and private keys. The public key is stored plaintext so that users can send encrypted messages to one another. Users can download other users' public keys through a GET request. The private key is stored AES-encrypted with the user's ParselTongue password so that the user still has access to the private key on other machines. The encrypted private key can only be downloaded when authenticated by the ParselTongue server. Once downloaded, the client requires the user's password to decrypt the private key.  
+                For each user, our server stores the RSA public and private keys. The public key is stored plaintext so that users can send encrypted messages to one another. Users can download other users' public keys through a GET request. The private key is stored AES-encrypted with the user's ParselTongue password so that the user still has access to the private key on other machines. The encrypted private key can only be downloaded when authenticated by the ParselTongue server. Once downloaded, the client requires the user's password to decrypt the private key.
+            </p>
+            <p>
+                The user's plaintext password is only ever used on the Chrome extension and never on the ParselTongue server. When authenticating to the sever the password is hashed and salted before being sent. This prevents the ParselTongue server from ever having access to the plaintext password and therefore the private key. 
             </p>
             <p>
                 The RSA public and private keys are stored plaintext in Chrome extension background page's local storage. The background page is sandboxed from any JavaScript that is not run by the extension itself. The background page is closed to any cross-extension API calls, protecting your private key from being leaked. When the user logs in to ParselTongue, the public and private keys are downloaded from the server over an SSL connection, and the private key is decrypted with the user's password. Upon logout, the authentication cookie and local storage are cleared. While the user is logged in, an attacker with access to the user's machine would be able to read local storage and therefore the private key.
