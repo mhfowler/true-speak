@@ -159,7 +159,7 @@ MIDDLEWARE_CLASSES_LIST = [
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-MIDDLEWARE_CLASSES = (x for x in MIDDLEWARE_CLASSES_LIST)
+MIDDLEWARE_CLASSES = tuple(MIDDLEWARE_CLASSES_LIST)
 
 TEMPLATE_CONTEXT_PROESSORS = (
     'django.core.context_processors.request',
