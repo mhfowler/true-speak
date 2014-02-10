@@ -30,7 +30,7 @@
     padding-top: 2px;
     padding-bottom: 2px;
     padding-left: 30px;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 400;
 }
 
@@ -44,6 +44,7 @@
 .nav .nav {
     display: none;
     padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .nav > .active > ul {
