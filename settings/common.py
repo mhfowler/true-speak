@@ -150,8 +150,7 @@ TEMPLATE_LOADERS = (
     #     'django.template.loaders.eggs.Loader',
 )
 
-MIDDLEWARE_CLASSES = (
-    'sslify.middleware.SSLifyMiddleware',
+MIDDLEWARE_CLASSES_LIST = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -159,7 +158,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
+MIDDLEWARE_CLASSES = (x for x in MIDDLEWARE_CLASSES_LIST)
 
 TEMPLATE_CONTEXT_PROESSORS = (
     'django.core.context_processors.request',
@@ -267,7 +267,4 @@ AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
 
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-# https settings
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+

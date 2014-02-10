@@ -16,25 +16,6 @@ from truespeak.models import *
 
 import json
 
-
-# https decorator
-def https_required(view_func):
-    """Decorator makes sure URL is accessed over https."""
-    def _wrapped_view_func(request, *args, **kwargs):
-        is_secure = request.is_secure()
-        print "is_secure: " + str(is_secure)
-        if not is_secure and not settings.LOCAL:
-            request_url = request.build_absolute_uri(request.get_full_path())
-            print "request url: " + request_url
-            secure_url = request_url.replace('http://', 'https://')
-            print "secure url: " + secure_url
-            return HttpResponsePermanentRedirect(secure_url)
-        else:
-            print "ok ok"
-            return view_func(request, *args, **kwargs)
-    return _wrapped_view_func
-
-
 def redirect(request, page='/home'):
     return shortcuts.redirect(page)
 
